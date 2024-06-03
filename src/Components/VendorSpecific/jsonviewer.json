@@ -1,0 +1,65 @@
+{
+  "arrayOfProducts": [
+    
+    {
+      "imgUrl": "https://m.media-amazon.com/images/I/81xE6A-ffWL._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 20
+    },{
+      "imgUrl": "https://m.media-amazon.com/images/I/61wlueMegOL._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 110
+    },
+    {
+      "imgUrl": "https://m.media-amazon.com/images/I/414T1DRegIL._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 91
+    },
+    {
+      "imgUrl": "https://m.media-amazon.com/images/I/61YkxO65XXL._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 94.5
+    },
+    {
+      "imgUrl": "https://m.media-amazon.com/images/I/41pckKfr6aL._SX300_SY300_QL70_FMwebp_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 110
+    },
+    {
+      "imgUrl": "https://m.media-amazon.com/images/I/81JweGHUM3L._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 91
+    },
+    {
+      "imgUrl": "https://m.media-amazon.com/images/I/91ni5k57k2L._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 94.5
+    },
+    {
+      "imgUrl": "https://m.media-amazon.com/images/I/61sSGf2wcAL._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 438.9
+    },
+    {
+      "imgUrl": "https://m.media-amazon.com/images/I/81xE6A-ffWL._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 20
+    },{
+      "imgUrl": "https://m.media-amazon.com/images/I/61wlueMegOL._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 110
+    },
+    {
+      "imgUrl": "https://m.media-amazon.com/images/I/414T1DRegIL._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 91
+    },
+    {
+      "imgUrl": "https://m.media-amazon.com/images/I/61YkxO65XXL._AC_UL320_.jpg",
+      "name": "Money Golden Natural Plant In White Self Watering Plastic Pot",
+      "price": 94.5
+    }
+    
+    
+  ]
+}
