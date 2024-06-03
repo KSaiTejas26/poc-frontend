@@ -1,0 +1,52 @@
+const data = [
+    {
+      img: img2,
+      name: "Product1",
+      desc: "Generating random paragraphs...",
+      brand: "Realpage",
+      price: "18000",
+    },
+    {
+      img: img2,
+      name: "Product1",
+      desc: "Generating random paragraphs...",
+      brand: "Realpage",
+      price: "18000",
+    },
+    {
+      img: img2,
+      name: "Product1",
+      desc: "Generating random paragraphs...",
+      brand: "Realpage",
+      price: "18000",
+    },
+    {
+      img: img2,
+      name: "Product1",
+      desc: "Generating random paragraphs...",
+      brand: "Realpage",
+      price: "18000",
+    },
+    {
+      img: img2,
+      name: "Product1",
+      desc: "Generating random paragraphs...",
+      brand: "Realpage",
+      price: "18000",
+    },
+    {
+      img: img2,
+      name: "Product1",
+      desc: "Generating random paragraphs...",
+      brand: "Realpage",
+      price: "18000",
+    },
+    {
+      img: img2,
+      name: "Product1",
+      desc: "Generating random paragraphs...",
+      brand: "Realpage",
+      price: "18000",
+    },
+    // Add more product objects as needed
+  ];
