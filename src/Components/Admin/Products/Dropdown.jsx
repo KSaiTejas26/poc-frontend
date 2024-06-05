@@ -1,19 +1,37 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import  axios from 'axios'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function DropDown() {
+  const [vendor,setVendor] = useState([]);
+  const [curr,setCurr] = useState('Vendors');
+  useEffect(()=>{
+    const getAllVendors = async ()=>{
+      const data = await axios.get('http://localhost:3000/api/admin/vendors');
+      console.log(data.data.data);
+      setVendor(data.data.data);
+    }
+    getAllVendors();
+  },[])
+
+  const handleClick = (f,l)=>{
+    setCurr(f+" "+l);
+  }
   return (
     <Menu as="div" className="relative inline-block text-left mt-1">
       <div>
-      <MenuButton className="inline-flex w-48 justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-        Vendors
-        <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
-      </MenuButton>
+        <MenuButton className="inline-flex w-48 justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+          {curr}
+          <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+        </MenuButton>
       </div>
 
       <Transition
@@ -24,65 +42,37 @@ export default function DropDown() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
-            <MenuItem>
-              {({ focus }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Vendor 1
-                </a>
-              )}
-            </MenuItem>
-            <MenuItem>
-              {({ focus }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Vendor 2
-                </a>
-              )}
-            </MenuItem>
-            <MenuItem>
-              {({ focus }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Vendor 3
-                </a>
-              )}
-            </MenuItem>
-            <form method="POST" action="#">
-              <MenuItem>
+        <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+          <div className="py-1" style={{
+          maxHeight: '200px', // adjust the height to show 5 items
+          overflowY: 'auto', // make it scrollable
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+          '-ms-overflow-style': 'none', /* for IE and Edge */
+          'scrollbar-width': 'none', /* for Firefox */
+      
+        }}>
+            {vendor.map((vendor) => (
+              <MenuItem key={vendor.id}>
                 {({ focus }) => (
-                  <button
-                    type="submit"
+                  <div
+                    onClick={()=>handleClick(vendor.vendor_first_name,vendor.vendor_last_name)}
                     className={classNames(
                       focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block w-full px-4 py-2 text-left text-sm'
+                      'block px-4 py-2 text-sm'
                     )}
                   >
-                    Vendor 4
-                  </button>
+                    {vendor.vendor_first_name} {vendor.vendor_last_name}
+                  </div>
                 )}
               </MenuItem>
-            </form>
+            ))}
           </div>
         </MenuItems>
       </Transition>
     </Menu>
   )
 }
+

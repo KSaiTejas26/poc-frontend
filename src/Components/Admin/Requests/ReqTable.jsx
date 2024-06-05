@@ -745,7 +745,7 @@ const ReqTable = () => {
   const itemsPerPage = 10;
 
   async function fetchData() {
-    axios.get('http://localhost:3000/api/admin/vendor/requests')
+    axios.get('http://localhost:3000/api/admin/requests')
      .then(response => {
 
         setData(response.data.data); // Set the fetched data into state
@@ -759,7 +759,8 @@ const ReqTable = () => {
 
   const handleAccept = async (id) => {
     try {
-      await axios.put(`http://localhost:3000/api/admin/vendor/requests/${id}/accept`);
+      console.log('idddddd ',id);
+      await axios.put(`http://localhost:3000/api/admin/request/accept/${id}`);
       setData(data.filter((vendor) => vendor._id !== vendorData._id));
       handleClose();
     } catch (error) {
@@ -769,7 +770,7 @@ const ReqTable = () => {
   
   const handleReject = async (id) => {
     try {
-      await axios.put(`http://localhost:3000/api/admin/vendor/requests/${id}/reject`);
+      await axios.put(`http://localhost:3000/api/admin/request/reject/${id}`);
       setData(data.filter((vendor) => vendor._id !== vendorData._id));
       handleClose();
     } catch (error) {
@@ -961,7 +962,7 @@ const ReqTable = () => {
 
       {/* Modal */}
         {open && (
-        <div id="hs-ai-invoice-modal" className="fixed inset-0 z-[80] overflow-x-hidden overflow-y-auto">
+        <div id="hs-ai-invoice-modal" className="fixed inset-0 z-[80] overflow-x-hidden overflow-y-auto flex justify-center">
           <div className={overlayClasses}>
             <div className="relative flex flex-col bg-white shadow-lg rounded-xl dark:bg-neutral-800">
               {/*... */}
@@ -1102,14 +1103,14 @@ const ReqTable = () => {
            <Link
               className="py-2 px-3 inline-flex justify-center bg-green-600  hover:bg-green-700 text-white items-center gap-2 rounded-lg border font-medium text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-neutral-800 dark:hover:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
               to="#"
-              onClick={()=>handleAccept(vendorData.vendor_id)}
+              onClick={()=>handleAccept(vendorData._id)}
             >
               <DoneIcon/>Accept
             </Link>
             <Link
               className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 disabled:pointer-events-none"
               to="#"
-              onClick={()=>handleReject(vendorData.vendor_id)}
+              onClick={()=>handleReject(vendorData._id)}
             >
               <CancelIcon/> Reject
             </Link>
