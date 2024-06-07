@@ -26,7 +26,7 @@ export default function MediaCard({ price, title, description, rating, brand }) 
       <CardMedia
         sx={{
           height: '300px',
-          width: '300px',
+          width: '80%',
           margin: 'auto',
           paddingLeft: '5%',
 

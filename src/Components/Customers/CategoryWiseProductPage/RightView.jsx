@@ -40,7 +40,7 @@ export default function RightView() {
       <div className='row d-flex' >
 
         {currentItems.map((element, index) => (
-          <div className='col-md-2'>
+          <div className='col-md-3'>
             <Products
               price={element.price}
               title={element.name}
