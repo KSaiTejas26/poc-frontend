@@ -1,7 +1,8 @@
 import { PaperClipIcon } from '@heroicons/react/20/solid'
 import ProfileImage from "./ProfileImage";
 import AdminHeader from './AdminHeader';
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 export default function AdminProfile() {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
@@ -28,10 +29,28 @@ export default function AdminProfile() {
     });
   };
 
+  useEffect(()=>{
+    const fetchDetails = async (id)=>{
+      try
+      {
+        const response = await axios.get(`http://localhost:3000/api/admin/adminprofile/${id}`)
+        setProfile(response.data);
+        console.log(response.data); 
+      }
+      catch(e)
+      {
+        console.log('error in admin profile page while fetching the data ',e);
+      }
+    }
+    fetchDetails();
+  },[])
+
+  
   const handleSave = () => {
     setIsEditing(false);
     // Here you can add the code to save the profile data, e.g., make an API call to update the profile
   };
+  
   return (
     <>
       <AdminHeader/>

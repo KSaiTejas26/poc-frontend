@@ -103,7 +103,7 @@ export default function VendorHeader() {
 
 {/* <div style={{borderLeft:'5px dotted black',height:'100px'}}> */}
 
-          <Link to="/" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link to="/vendorsproduct" className="text-sm font-semibold leading-6 text-gray-900">
             Products
           </Link>
           <Link to="/addproduct" className="text-sm font-semibold leading-6 text-gray-900">
