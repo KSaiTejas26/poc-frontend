@@ -17,15 +17,27 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Img from '../Components/Customers/Images/logo.svg';
+
+
+
+//imports for search
+import SearchResultsList from "./SearchResultsList"
+import { useState } from "react"
+import productsdata from "../Components/Customers/CategoryWiseProductPage/spendproducts.json"
+import "./style.css";
+import  SearchBar  from './SearchBar';
+
+
+
 const LogoImage = styled('img')(({ theme }) => ({
-    height: 'auto',
-    width: '100%',
-    maxWidth: '100%',
-    [theme.breakpoints.down('sm')]: {
-      width: '80%',
-      maxWidth: '80%',
-    },
-  }));
+  height: 'auto',
+  width: '100%',
+  maxWidth: '100%',
+  [theme.breakpoints.down('sm')]: {
+    width: '80%',
+    maxWidth: '80%',
+  },
+}));
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -41,7 +53,7 @@ const Search = styled('div')(({ theme }) => ({
     width: 'auto',
   },
 }));
- 
+
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -50,9 +62,9 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color:'black',
+  color: 'black',
 }));
- 
+
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'black',
   '& .MuiInputBase-input': {
@@ -66,35 +78,57 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
- 
+
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
- 
+
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
- 
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
- 
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
- 
+
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
- 
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
- 
+
+  //functionality for search
+  const [input, setInput] = useState("");
+    
+  const handleChange = (value) => {
+    setInput(value);
+    fetchData(value);
+  };
+  const fetchData = (value) => {
+    const results = productsdata.filter((data) => {
+      return (
+        value &&
+        data &&
+        data.pname &&
+        data.pname.toLowerCase().includes(value)
+      );
+    });
+    setResults(results)
+  };
+
+
+
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
-        sx={{color:'black'}}
+      sx={{ color: 'black' }}
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'top',
@@ -113,7 +147,7 @@ export default function PrimarySearchAppBar() {
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
- 
+
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -121,16 +155,16 @@ export default function PrimarySearchAppBar() {
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
-        
+
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
         vertical: 'top',
         horizontal: 'right',
-        
+
       }}
-      
+
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
@@ -168,13 +202,13 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
     </Menu>
   );
-  
+
   return (
-    <Box sx={{ flexGrow: 1, background:"white", margin:'75px'}}>
-      <AppBar  position="fixed" sx={{ backgroundColor: 'white'}} >
+    <Box sx={{ flexGrow: 1, background: "white", margin: '75px' }}>
+      <AppBar position="fixed" sx={{ backgroundColor: 'white' }} >
         <Toolbar>
-          
-        <Typography
+
+          <Typography
             variant="h6"
             noWrap
             component="div"
@@ -182,16 +216,35 @@ export default function PrimarySearchAppBar() {
           >
             <LogoImage src={Img} alt="Logo" />
           </Typography>
-          
-          <Search >
+
+
+
+          {/* Search component logic */}
+          {/* <Search >
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search',color:'black' }}
-            />
-          </Search>
+            <div className="search-bar-container">
+
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search', color: 'black' }}
+                onChange={(e) => {
+                  handleChange(e.target.value)
+                  console.log(e.target.value)
+                }}
+              />
+              {results && results.length > 0 && <SearchResultsList results={results} />}
+            </div>
+          </Search> */}
+          {/* Other component */}
+          {/* <Search>
+          <SearchIconWrapper>
+              <SearchIcon /> */}
+            {/* </SearchIconWrapper> */}
+          <SearchBar/>
+          {/* </Search> */}
+
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="black">

@@ -1,0 +1,353 @@
+[{
+  "_id": {
+    "$oid": "6663f215dae9d350e7ecb8bc"
+  },
+  "pname": "Bricks",
+  "brand": "Bricks company",
+  "vid": "66603c4790fadebe03edc7c7",
+  "vname": "Bob Brown",
+  "category": "Brick",
+  "subcategory": "red bricks",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826034/cfjbck81rk7z72z7upr5.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/tb2k70hugqniscdnl2ll.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/yefujbqn9okuqtqs4y5y.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/clkjaivbtzrvtdqeulwo.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/hnrdvibzgvklxeuwm7j9.jpg"
+  ],
+  "productDetails": {
+    "description": "these are bricks used for house construction",
+    "designerName": "bricky",
+    "countryOfOrigin": "india",
+    "material": "solid",
+    "dimensions": "12x12x2"
+  },
+  "price": 9,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6663f235dae9d350e7ecb8c6"
+  },
+  "pname": "Bricks",
+  "brand": "Bricks company",
+  "vid": "66603c4790fadebe03edc7c7",
+  "vname": "Bob Brown",
+  "category": "Brick",
+  "subcategory": "red bricks",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826034/cfjbck81rk7z72z7upr5.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/tb2k70hugqniscdnl2ll.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/yefujbqn9okuqtqs4y5y.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/clkjaivbtzrvtdqeulwo.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/hnrdvibzgvklxeuwm7j9.jpg"
+  ],
+  "productDetails": {
+    "description": "these are bricks used for house construction",
+    "designerName": "bricky",
+    "countryOfOrigin": "india",
+    "material": "solid",
+    "dimensions": "12x12x2"
+  },
+  "price": 9,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6663f235dae9d350e7ecb8cb"
+  },
+  "pname": "Bricks",
+  "brand": "Bricks company",
+  "vid": "66603c4790fadebe03edc7c7",
+  "vname": "Bob Brown",
+  "category": "Brick",
+  "subcategory": "red bricks",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826034/cfjbck81rk7z72z7upr5.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/tb2k70hugqniscdnl2ll.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/yefujbqn9okuqtqs4y5y.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/clkjaivbtzrvtdqeulwo.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/hnrdvibzgvklxeuwm7j9.jpg"
+  ],
+  "productDetails": {
+    "description": "these are bricks used for house construction",
+    "designerName": "bricky",
+    "countryOfOrigin": "india",
+    "material": "solid",
+    "dimensions": "12x12x2"
+  },
+  "price": 9,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6663f235dae9d350e7ecb8d0"
+  },
+  "pname": "Bricks",
+  "brand": "Bricks company",
+  "vid": "66603c4790fadebe03edc7c7",
+  "vname": "Bob Brown",
+  "category": "Brick",
+  "subcategory": "red bricks",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826034/cfjbck81rk7z72z7upr5.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/tb2k70hugqniscdnl2ll.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/yefujbqn9okuqtqs4y5y.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/clkjaivbtzrvtdqeulwo.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/hnrdvibzgvklxeuwm7j9.jpg"
+  ],
+  "productDetails": {
+    "description": "these are bricks used for house construction",
+    "designerName": "bricky",
+    "countryOfOrigin": "india",
+    "material": "solid",
+    "dimensions": "12x12x2"
+  },
+  "price": 9,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6663f236dae9d350e7ecb8d5"
+  },
+  "pname": "Bricksaaaaaaaaaaasas",
+  "brand": "Bricks company",
+  "vid": "66603c4790fadebe03edc7c7",
+  "vname": "Bob Brown",
+  "category": "Brick",
+  "subcategory": "red bricks",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826034/cfjbck81rk7z72z7upr5.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/tb2k70hugqniscdnl2ll.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/yefujbqn9okuqtqs4y5y.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/clkjaivbtzrvtdqeulwo.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/hnrdvibzgvklxeuwm7j9.jpg"
+  ],
+  "productDetails": {
+    "material": "jjn"
+  },
+  "price": 9111012,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6663f236dae9d350e7ecb8da"
+  },
+  "pname": "Bricks",
+  "brand": "Bricks company",
+  "vid": "66603c4790fadebe03edc7c7",
+  "vname": "Bob Brown",
+  "category": "Brick",
+  "subcategory": "red bricks",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826034/cfjbck81rk7z72z7upr5.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/tb2k70hugqniscdnl2ll.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/yefujbqn9okuqtqs4y5y.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/clkjaivbtzrvtdqeulwo.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826027/hnrdvibzgvklxeuwm7j9.jpg"
+  ],
+  "productDetails": {
+    "description": "these are bricks used for house construction",
+    "designerName": "bricky",
+    "countryOfOrigin": "india",
+    "material": "solid",
+    "dimensions": "12x12x2"
+  },
+  "price": 9,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6663f335dae9d350e7ecb8df"
+  },
+  "pname": "Fridgez",
+  "brand": "fridge company",
+  "vid": "66603bb490fadebe03edc7c0",
+  "vname": "John Doe",
+  "category": "Fridge",
+  "subcategory": "single door",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826297/ajxrmewrcgbricncfwzh.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/n3uw3vukdycaql67vs0k.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/gybnzbkzvjzsfncip8vw.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/cayknepuuvi08uekzwe7.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/tou5weyu9ujawuuy9ran.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/lbxunmrkwj4msetnd8x3.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/rfsgnqgkgkcybyxjkitv.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/hypqmqbiofknai8mexmz.jpg"
+  ],
+  "productDetails": {
+    "material": "material",
+    "dimensions": "dimensions",
+    "designerName": "designerh",
+    "countryOfOrigin": "coo",
+    "description": "this is fridge"
+  },
+  "price": 124,
+  "rating": 4,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6663f33ddae9d350e7ecb8e4"
+  },
+  "pname": "fridge",
+  "brand": "fridge company",
+  "vid": "66603bb490fadebe03edc7c0",
+  "vname": "John Doe",
+  "category": "Fridge",
+  "subcategory": "single door",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826297/ajxrmewrcgbricncfwzh.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/gybnzbkzvjzsfncip8vw.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/cayknepuuvi08uekzwe7.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/tou5weyu9ujawuuy9ran.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/lbxunmrkwj4msetnd8x3.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/rfsgnqgkgkcybyxjkitv.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/hypqmqbiofknai8mexmz.jpg"
+  ],
+  "productDetails": {},
+  "price": 2,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6663f342dae9d350e7ecb8e9"
+  },
+  "pname": "fridge",
+  "brand": "fridge company",
+  "vid": "66603bb490fadebe03edc7c0",
+  "vname": "John Doe",
+  "category": "Fridge",
+  "subcategory": "single door",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826297/ajxrmewrcgbricncfwzh.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/cayknepuuvi08uekzwe7.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/tou5weyu9ujawuuy9ran.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/lbxunmrkwj4msetnd8x3.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/rfsgnqgkgkcybyxjkitv.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/hypqmqbiofknai8mexmz.jpg"
+  ],
+  "productDetails": {
+    "description": "these are fridges ",
+    "designerName": "fridgeowner",
+    "countryOfOrigin": "india",
+    "material": "plastic used",
+    "dimensions": "120x120x12"
+  },
+  "price": 20000,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6663f348dae9d350e7ecb8ee"
+  },
+  "pname": "fridge",
+  "brand": "fridge company",
+  "vid": "66603bb490fadebe03edc7c0",
+  "vname": "John Doe",
+  "category": "Fridge",
+  "subcategory": "single door",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826297/ajxrmewrcgbricncfwzh.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/tou5weyu9ujawuuy9ran.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/lbxunmrkwj4msetnd8x3.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/rfsgnqgkgkcybyxjkitv.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717826289/hypqmqbiofknai8mexmz.jpg"
+  ],
+  "productDetails": {
+    "description": "these are fridges ",
+    "designerName": "fridgeowner",
+    "countryOfOrigin": "india",
+    "material": "plastic used",
+    "dimensions": "120x120x12"
+  },
+  "price": 20000,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6664239f39dfb1fd07f35786"
+  },
+  "pname": "z",
+  "brand": "q",
+  "vid": "6661c9bacb82db3fe569b415",
+  "vname": "John Doe",
+  "category": "Fridge",
+  "subcategory": "single door",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717838722/ctjgmxya9qqfurwvioto.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717838716/qd9cregnu6ycmzhjrnpc.jpg"
+  ],
+  "productDetails": {
+    "description": "q",
+    "designerName": "q",
+    "countryOfOrigin": "q",
+    "material": "q",
+    "dimensions": "q"
+  },
+  "price": 9,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6664342c39dfb1fd07f357f3"
+  },
+  "pname": "ss",
+  "brand": "ss",
+  "vid": "666285fa65684c3bd2e6d104",
+  "vname": "Jon Doe",
+  "category": "Brick",
+  "subcategory": "red bricks",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717842875/fr9qgdd4vuihh8k5qn6o.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717842864/tlcqjrln0jrwwfzbufpd.jpg",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717842867/ihsxc1rcbrzrg4bypddu.png",
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717842870/zofvs6vf2bs4j5uzjblg.jpg"
+  ],
+  "productDetails": {
+    "description": "ssssss",
+    "designerName": "ssssssssss",
+    "countryOfOrigin": "ssssssssss",
+    "material": "ssssssss",
+    "dimensions": "sssssss"
+  },
+  "price": 77,
+  "rating": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666438261de4aa2b7c74938e"
+  },
+  "pname": "s",
+  "brand": "s",
+  "vid": "6661c997cb82db3fe569b410",
+  "vname": "Jon Doe",
+  "category": "Fridge",
+  "subcategory": "single door",
+  "main_image": "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717843940/p9nbad11kciqb6lex9we.jpg",
+  "images": [
+    "https://res.cloudinary.com/dxjgbjvx3/image/upload/v1717843928/qt3qczcfwugtimw7frsp.jpg"
+  ],
+  "productDetails": {
+    "description": "sa",
+    "designerName": "sa",
+    "countryOfOrigin": "sa",
+    "material": "a",
+    "dimensions": "a"
+  },
+  "price": 8,
+  "rating": 0,
+  "__v": 0
+}]
