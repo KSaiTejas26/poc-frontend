@@ -118,8 +118,10 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 export default function Example() {
+  const navigate = useNavigate();
   const [userdetails, setUserdetails] = useState({
     usertype: '',
     email: '',
@@ -161,6 +163,12 @@ export default function Example() {
       .then((response) => {
         // Handle successful response
         console.log(response.data);
+        console.log(response.data.auth_token);
+        localStorage.setItem("token",  response.data.auth_token );
+        localStorage.setItem('role',response.data.role);
+        if(response.data.role==='admin') navigate('/request')
+        else if(response.data.role==='customer') navigate('/customer')
+        else if(response.data.role==='vendor') navigate('/vendorsproduct')
       })
       .catch((error) => {
         alert("User Details Invalid");
@@ -190,7 +198,7 @@ export default function Example() {
                   onChange={handleChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 >
-                  <option value="">User</option>
+                  <option value="">Select</option>
                   <option value="vendor">Vendor</option>
                   <option value="customer">Customer</option>
                   <option value="admin">Admin</option>

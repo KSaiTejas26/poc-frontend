@@ -38,7 +38,7 @@ const GetAllVendorProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/vendor/getvendorproducts/665ed2dbf4e120a00e034486'); // Replace with your API endpoint
+        const response = await axios.get('http://localhost:3000/api/vendor/getvendorproducts/665ed2dbf4e120a00e034486'); // remove the id while testing chekc the backend url
         setProducts(response.data.products);
         console.log('heyy',response.data.products);  
         setLoading(false);

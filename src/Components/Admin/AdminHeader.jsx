@@ -10,7 +10,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
-import { Link } from 'react-router-dom'
+import { Link ,useNavigate} from 'react-router-dom'
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
   { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
@@ -28,8 +28,13 @@ function classNames(...classes) {
 }
 
 export default function VendorHeader() {
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+  const handleLogout = ()=>{
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    navigate('/');
+  }
   return (
     <header className="bg-white border-2 color-black" >
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -130,9 +135,19 @@ export default function VendorHeader() {
           </Link> */}
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </Link>
+        {localStorage.getItem('token')===''?(<Link to="/"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Log in <span aria-hidden="true">&rarr;</span>
+                </Link>):(
+                <Link to="/"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={handleLogout()}
+                >
+                  Log out <span aria-hidden="true">&rarr;</span>
+                </Link>
+                )}
+                
         </div>
       </nav>
       <Dialog className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -234,11 +249,19 @@ export default function VendorHeader() {
                 </Link>
               </div>
               <div className="py-6">
-                <Link to="#"
+                {localStorage.getItem('token')===''?(<Link to="/"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Log in
+                  Log in <span aria-hidden="true">&rarr;</span>
+                </Link>):(
+                <Link to="/"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={handleLogout()}
+                >
+                  Log out <span aria-hidden="true">&rarr;</span>
                 </Link>
+                )}
+                
               </div>
             </div>
           </div>
