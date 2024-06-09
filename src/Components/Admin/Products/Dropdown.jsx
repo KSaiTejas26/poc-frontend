@@ -10,7 +10,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function DropDown() {
+export default function DropDown({ onVendorSelect }) {
   const [vendor,setVendor] = useState([]);
   const [curr,setCurr] = useState('Vendors');
   useEffect(()=>{
@@ -58,7 +58,11 @@ export default function DropDown() {
               <MenuItem key={vendor.id}>
                 {({ focus }) => (
                   <div
-                    onClick={()=>handleClick(vendor.vendor_first_name,vendor.vendor_last_name)}
+                    // onClick={()=>handleClick(vendor.vendor_first_name,vendor.vendor_last_name)}
+                    onClick={() => {
+                      onVendorSelect(vendor._id,vendor.vendor_first_name, vendor.vendor_last_name);
+                      handleClick(vendor.vendor_first_name,vendor.vendor_last_name);
+                    }}
                     className={classNames(
                       focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                       'block px-4 py-2 text-sm'

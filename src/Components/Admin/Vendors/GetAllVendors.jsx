@@ -23,7 +23,7 @@ const GetAllVendors = () => {
     const filtered = data.filter(vendor =>
       vendor.business_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    console.log(filtered); // Log the filtered data
+    console.log("filtered",filtered); // Log the filtered data
     setFilteredData(filtered);
   }, [searchTerm, data]);
   

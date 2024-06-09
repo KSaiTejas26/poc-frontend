@@ -1,484 +1,11 @@
-// import { useState } from 'react';
-// import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
-// import AdminHeader from '../AdminHeader';
-// import DropDown from './Dropdown';
-// import CancelIcon from '@mui/icons-material/Cancel';
-// export default function AddProduct() {
-//   const [image, setImage] = useState(null);
-//   const [imageName, setImageName] = useState('');
-//   const [imageSize, setImageSize] = useState('');
 
-//   const handleRemoveImageM = () => {
-//     setImage(null);
-//     setImageName('');
-//     setImageSize('');
-//   };
-
-
-//   const [product, setProduct] = useState({
-//     pname: '',
-//     brand: '',
-//     vid: '',
-//     vname: '',
-//     category: '',
-//     subcategory: '',
-//     images: [],
-//     productDetails: {
-//       description: '',
-//       designerName: '',
-//       countryOfOrigin: '',
-//       material: '',
-//       dimensions: '',
-//     },
-//     price: 0,
-//     color: [],
-//   });
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setProduct((prevProduct) => ({
-//       ...prevProduct,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     axios.post(`http://localhost:3000/api/admin//addproduct/${product.vid}`, product)
-//       .then((response) => {
-//         console.log(response);
-//         // handle successful submission
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//         // handle error
-//       });
-//   };
-
-//   const [images, setImages] = useState([]);
-
-//   const handleImageChange = (event) => {
-//     const files = event.target.files;
-//     const filesArray = Array.from(files);
-//     const newImages = filesArray.map((file) => URL.createObjectURL(file));
-//     setImages((prevImages) => [...prevImages,...newImages]);
-//   };
-  
-//   const handleRemoveImage = (event, index) => {
-//     event.preventDefault();
-//     setImages((prevImages) => prevImages.filter((_, i) => i!== index));
-//   };
-
-//   return (
-//     <>
-//       <AdminHeader/>
-//       <form className="flex item-center justify-center mt-10 ">
-//         <div className="space-y-12 ">
-//           <div className="border-b border-gray-900/10 pb-12">
-//             <h2 className="text-base font-semibold leading-7 text-gray-900">Add Product</h2>
-//             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-//               <div className="sm:col-span-4">
-//                 <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-//                   Product Name
-//                 </label>
-//                 <div className="mt-2">
-//                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-//                     {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-//                     <input
-//                       type="text"
-//                       name="username"
-//                       id="username"
-//                       autoComplete="username"
-//                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-//                       placeholder="Product Name"
-//                       onChange={()=>handleInputChange()}
-//                     />
-//                   </div>
-//                 </div>
-//                 <div className='mt-5 block text-sm font-medium leading-6 text-gray-900'>
-//                   <span>Select Vendor</span> <br />
-//                 </div>
-//                 <DropDown/>
-//               </div>
-//               <div className="col-span-full">
-//                 <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
-//                   About Product
-//                 </label>
-//                 <div className="mt-2">
-//                   <textarea
-//                     id="about"
-//                     name="about"
-//                     rows={3}
-//                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-//                     defaultValue={''}
-//                   />
-//                 </div>
-//                 <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
-//               </div>
-
-//             <div className="flex flex-col">
-//               <label htmlFor="photos" className="block text-sm font-medium leading-6 text-gray-900">
-//                   Photos
-//               </label>
-//               <div className="flex items-center gap-x-3 mb-2">
-//                 <UserCircleIcon className="h-12 w-12 text-gray-300" aria-hidden="true" />
-//                 <input
-//                   type="file"
-//                   id="photos"
-//                   name="photos"
-//                   multiple
-//                   accept=".jpg,.jpeg,.png"
-//                   min={4}
-//                   max={7}
-//                   className="hidden"
-//                   onChange={handleImageChange}
-//                   disabled={images.length >= 7}
-//                 />
-//                 <label
-//                   htmlFor="photos"
-//                   className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer"
-//                   style={{opacity: images.length >= 7? '0.5' : '1'}}
-//                   onMouseOver={(event) => event.target.style.cursor = images.length >= 7? 'not-allowed' : 'pointer'}
-//                 >
-//                   Upload Photos (4-7)
-//                 </label>
-//               </div>
-//               <div className="grid grid-cols-3 gap-2">
-//                 {Array.from(Array(7).keys()).map((index) => (
-//                   <div key={index} className="relative h-12 w-12 rounded-md object-cover" style={{height:'80px',width:'80px'}}>
-//                     {images && images[index]? (
-//                       <img src={images[index]} alt={`Uploaded image ${index + 1}`} className="object-cover" style={{height:'80px',width:'80px'}}/>
-//                     ) : (
-//                       <div className="bg-gray-200 h-12 w-12 rounded-md" style={{height:'80px',width:'80px'}}/>
-//                     )}
-//                     {images && images[index] && (
-//                       <button
-//                       onClick={(event) => handleRemoveImage(event, index)}
-//                       className="absolute top-0 right-0 text-white-500 hover:text-red-700"
-//                     >
-//                       <CancelIcon/>
-//                     </button>
-//                     )}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-
-//             <div className="col-span-full">
-//       <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-//         Cover photo
-//       </label>
-//       {image ? (
-//         <div className="mt-2 flex justify-center rounded-lg border border-solid border-gray-900/25 px-6 py-10">
-//           <div className="text-center">
-//             <img src={image} alt="Uploaded image" className="mx-auto h-12 w-12 object-cover" />
-//             <p className="text-sm leading-6 text-gray-600">{imageName}</p>
-//             <p className="text-xs leading-5 text-gray-600">{imageSize}</p>
-//             <button
-//               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-//               onClick={handleRemoveImageM}
-//             >
-//               Remove
-//             </button>
-//           </div>
-//         </div>
-//       ) : (
-//         <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-//           <div className="text-center">
-//             <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
-//             <div className="mt-4 flex text-sm leading-6 text-gray-600">
-//               <label
-//                 htmlFor="file-upload"
-//                 className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-//               >
-//                 <span>Upload a file</span>
-//                 <input
-//                   id="file-upload"
-//                   name="file-upload"
-//                   type="file"
-//                   className="sr-only"
-//                   onChange={(e) => {
-//                     const file = e.target.files[0];
-//                     const reader = new FileReader();
-//                     reader.onloadend = () => {
-//                       setImage(reader.result);
-//                       setImageName(file.name);
-//                       setImageSize(`${(file.size / 1024).toFixed(2)} KB`);
-//                     };
-//                     reader.readAsDataURL(file);
-//                   }}
-//                 />
-//               </label>
-//               <p className="pl-1">or drag and drop</p>
-//             </div>
-//             <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//             </div>
-//           </div>
-
-//           <div className="border-b border-gray-900/10 pb-12">
-//             <h2 className="text-base font-semibold leading-7 text-gray-900">Product Specification</h2>
-//             <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
-
-//             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-//               <div className="sm:col-span-3">
-//                 <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
-//                   First name
-//                 </label>
-//                 <div className="mt-2">
-//                   <input
-//                     type="text"
-//                     name="first-name"
-//                     id="first-name"
-//                     autoComplete="given-name"
-//                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-//                   />
-//                 </div>
-//               </div>
-
-//               <div className="sm:col-span-3">
-//                 <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-gray-900">
-//                   Last name
-//                 </label>
-//                 <div className="mt-2">
-//                   <input
-//                     type="text"
-//                     name="last-name"
-//                     id="last-name"
-//                     autoComplete="family-name"
-//                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-//                   />
-//                 </div>
-//               </div>
-
-//               <div className="sm:col-span-4">
-//                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-//                   Email address
-//                 </label>
-//                 <div className="mt-2">
-//                   <input
-//                     id="email"
-//                     name="email"
-//                     type="email"
-//                     autoComplete="email"
-//                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-//                   />
-//                 </div>
-//               </div>
-
-//               <div className="sm:col-span-3">
-//                 <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-//                   Country
-//                 </label>
-//                 <div className="mt-2">
-//                   <select
-//                     id="country"
-//                     name="country"
-//                     autoComplete="country-name"
-//                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-//                   >
-//                     <option>United States</option>
-//                     <option>Canada</option>
-//                     <option>Mexico</option>
-//                   </select>
-//                 </div>
-//               </div>
-
-//               <div className="col-span-full">
-//                 <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-//                   Street address
-//                 </label>
-//                 <div className="mt-2">
-//                   <input
-//                     type="text"
-//                     name="street-address"
-//                     id="street-address"
-//                     autoComplete="street-address"
-//                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-//                   />
-//                 </div>
-//               </div>
-
-//               <div className="sm:col-span-2 sm:col-start-1">
-//                 <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
-//                   City
-//                 </label>
-//                 <div className="mt-2">
-//                   <input
-//                     type="text"
-//                     name="city"
-//                     id="city"
-//                     autoComplete="address-level2"
-//                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-//                   />
-//                 </div>
-//               </div>
-
-//               <div className="sm:col-span-2">
-//                 <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
-//                   State / Province
-//                 </label>
-//                 <div className="mt-2">
-//                   <input
-//                     type="text"
-//                     name="region"
-//                     id="region"
-//                     autoComplete="address-level1"
-//                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-//                   />
-//                 </div>
-//               </div>
-
-//               <div className="sm:col-span-2">
-//                 <label htmlFor="postal-code" className="block text-sm font-medium leading-6 text-gray-900">
-//                   ZIP / Postal code
-//                 </label>
-//                 <div className="mt-2">
-//                   <input
-//                     type="text"
-//                     name="postal-code"
-//                     id="postal-code"
-//                     autoComplete="postal-code"
-//                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-//                   />
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-
-//           <div className="border-b border-gray-900/10 pb-12">
-//             <h2 className="text-base font-semibold leading-7 text-gray-900">Notifications</h2>
-//             <p className="mt-1 text-sm leading-6 text-gray-600">
-//               We'll always let you know about important changes, but you pick what else you want to hear about.
-//             </p>
-
-//             <div className="mt-10 space-y-10">
-//               <fieldset>
-//                 <legend className="text-sm font-semibold leading-6 text-gray-900">By Email</legend>
-//                 <div className="mt-6 space-y-6">
-//                   <div className="relative flex gap-x-3">
-//                     <div className="flex h-6 items-center">
-//                       <input
-//                         id="comments"
-//                         name="comments"
-//                         type="checkbox"
-//                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-//                       />
-//                     </div>
-//                     <div className="text-sm leading-6">
-//                       <label htmlFor="comments" className="font-medium text-gray-900">
-//                         Comments
-//                       </label>
-//                       <p className="text-gray-500">Get notified when someones posts a comment on a posting.</p>
-//                     </div>
-//                   </div>
-//                   <div className="relative flex gap-x-3">
-//                     <div className="flex h-6 items-center">
-//                       <input
-//                         id="candidates"
-//                         name="candidates"
-//                         type="checkbox"
-//                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-//                       />
-//                     </div>
-//                     <div className="text-sm leading-6">
-//                       <label htmlFor="candidates" className="font-medium text-gray-900">
-//                         Candidates
-//                       </label>
-//                       <p className="text-gray-500">Get notified when a candidate applies for a job.</p>
-//                     </div>
-//                   </div>
-//                   <div className="relative flex gap-x-3">
-//                     <div className="flex h-6 items-center">
-//                       <input
-//                         id="offers"
-//                         name="offers"
-//                         type="checkbox"
-//                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-//                       />
-//                     </div>
-//                     <div className="text-sm leading-6">
-//                       <label htmlFor="offers" className="font-medium text-gray-900">
-//                         Offers
-//                       </label>
-//                       <p className="text-gray-500">Get notified when a candidate accepts or rejects an offer.</p>
-//                     </div>
-//                   </div>
-//                 </div>
-//               </fieldset>
-//               <fieldset>
-//                 <legend className="text-sm font-semibold leading-6 text-gray-900">Push Notifications</legend>
-//                 <p className="mt-1 text-sm leading-6 text-gray-600">These are delivered via SMS to your mobile phone.</p>
-//                 <div className="mt-6 space-y-6">
-//                   <div className="flex items-center gap-x-3">
-//                     <input
-//                       id="push-everything"
-//                       name="push-notifications"
-//                       type="radio"
-//                       className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-//                     />
-//                     <label htmlFor="push-everything" className="block text-sm font-medium leading-6 text-gray-900">
-//                       Everything
-//                     </label>
-//                   </div>
-//                   <div className="flex items-center gap-x-3">
-//                     <input
-//                       id="push-email"
-//                       name="push-notifications"
-//                       type="radio"
-//                       className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-//                     />
-//                     <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-900">
-//                       Same as email
-//                     </label>
-//                   </div>
-//                   <div className="flex items-center gap-x-3">
-//                     <input
-//                       id="push-nothing"
-//                       name="push-notifications"
-//                       type="radio"
-//                       className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-//                     />
-//                     <label htmlFor="push-nothing" className="block text-sm font-medium leading-6 text-gray-900">
-//                       No push notifications
-//                     </label>
-//                   </div>
-//                 </div>
-//               </fieldset>
-//             </div>
-//           </div>
-//         </div>
-
-//         <div className="mt-6 flex items-center justify-end gap-x-6">
-//           <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
-//             Cancel
-//           </button>
-//           <button
-//             type="submit"
-//             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-//           >
-//             Save
-//           </button>
-//         </div>
-//       </form>
-//     </>
-//   )
-// }
-
-
-
-
-
-import { useState,useEffect } from 'react';
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import { useState, useEffect } from 'react';
+import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import AdminHeader from '../AdminHeader';
 import DropDown from './Dropdown';
 import CancelIcon from '@mui/icons-material/Cancel';
-import axios from 'axios'; // Import axios for HTTP requests
- 
+import CircularProgress from '@mui/material/CircularProgress'; // Import CircularProgress from Material-UI
+import axios from 'axios';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -487,16 +14,19 @@ function classNames(...classes) {
 
 
 export default function AddProduct() {
+  const [loading, setLoading] = useState(false); // Add loading state
+
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState('');
   const [imageSize, setImageSize] = useState('');
+  const [data, setData] = useState([]);
+
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [mainimage,setMainImage]=useState("");
+
  
-  const handleRemoveImageM = () => {
-    setImage(null);
-    setImageName('');
-    setImageSize('');
-  };
- 
+
+  
   const [product, setProduct] = useState({
     pname: '',
     brand: '',
@@ -504,6 +34,7 @@ export default function AddProduct() {
     vname: '',
     category: '',
     subcategory: '',
+    main_image:'',
     images: [],
     productDetails: {
       description: '',
@@ -514,6 +45,20 @@ export default function AddProduct() {
     },
     price: 0,
   });
+
+  const [productImages, setProductImages] = useState([]);
+
+  async function fetchData() {
+    axios.get('http://localhost:3000/api/category/getCategory')
+     .then(response => {
+
+        setData(response.data); // Set the fetched data into state
+        console.log(response.data);
+      })
+     .catch(error => {
+        console.log('Error while fetching data from backend:', error);
+      });
+  }
  
   const [vendor,setVendor] = useState([]);
   const [curr,setCurr] = useState('Vendors');
@@ -531,47 +76,161 @@ export default function AddProduct() {
   }
   // const [images, setImages] = useState([]);
  
+ 
   // Function to handle file upload to Cloudinary
-  function handleFile(event) {
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'newpreset'); // Use your preset key here
-    axios.post(`https://api.cloudinary.com/v1_1/dxjgbjvx3/image/upload`, formData)
-      .then((res) => {
+  async function handleFile(event) {
+    loader();
+    console.log(loading);
+    console.log('in file handle')
+    setLoading(true);
+    const files = event.target.files;
+    const filesArray = Array.from(files);
+  
+    // Iterate over each file and upload it to Cloudinary
+    filesArray.forEach(async (file) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'newpreset'); // Use your preset key here
+  
+      try {
+        const res = await axios.post(`https://api.cloudinary.com/v1_1/dxjgbjvx3/image/upload`, formData);
         const imageUrl = res.data.secure_url;
-        setImages(prevImages => [...prevImages, imageUrl]);
-      })
-      .catch((err) => {
+  
+        setImages((prevImages) => [...prevImages, imageUrl]); // Update images array with URL
+        setProductImages((prevImages) => [...prevImages, imageUrl]); // Update productImages array with URL
+        setProduct((prevProduct) => ({
+          ...prevProduct,
+          images: [...prevProduct.images, imageUrl], // Update product state with new image URL
+        }));
+        setLoading(false);
+      } catch (err) {
         console.log(err);
-      });
+      }
+    });
+  
+    setLoading(false); // Stop the loader when the process is complete
   }
+  
+
+async function loader ()
+{
+  await setLoading(true);
+  console.log('hi alive')
+}
+
+const handleRemoveImageM = () => {
+  setProduct(prevProduct => ({
+    ...prevProduct,
+    main_image: null
+  }));
+  setImage(null);
+  setImageName('');
+  setImageSize('');
+};
+
  
   // Function to remove an image from the images list
-  function handleRemoveImage(index) {
-    setImages(prevImages => prevImages.filter((_, i) => i !== index));
-  }
+  // Function to remove an image from the images list
+function handleRemoveImage(e,index) {
+  // Remove the URL from the images array
+  e.preventDefault();
+  const updatedImages = [...images];
+  updatedImages.splice(index, 1); // Remove the image URL at the specified index
+  setImages(updatedImages); // Update the images state array
+  // Also remove the corresponding URL from the productImages array within the product state
+  setProduct((prevProduct) => ({
+    ...prevProduct,
+    images: prevProduct.images.filter((_, i) => i !== index)
+  }));
+}
+
+  
  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProduct((prevProduct) => ({
-     ...prevProduct,
-      [name]: value,
-    }));
+  
+    // If the input field is within productDetails, update the nested state
+    if (name.startsWith("productDetails")) {
+      const field = name.split(".")[1]; // Get the field name (e.g., description)
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        productDetails: {
+          ...prevProduct.productDetails,
+          [field]: value,
+        },
+      }));
+    } else {
+      // Otherwise, update the top-level state
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        [name]: value,
+      }));
+    }
   };
- 
-  const handleSubmit = (e) => {
+
+  const handleCloudinaryUpload = async (file) => {
+    console.log(image);
+    if (file) {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'newpreset'); // Replace 'your_upload_preset' with your actual upload preset
+
+      try {
+        const response = await axios.post('https://api.cloudinary.com/v1_1/dxjgbjvx3/image/upload', formData);
+        
+        // Replace 'your_cloud_name' with your Cloudinary cloud name
+        
+        setLoading(false);
+        // console.log("this is response.secure_url",response.data.secure_url);
+        
+        return response.data.secure_url;
+      } catch (error) {
+        console.error('Error uploading image to Cloudinary:', error);
+        setLoading(false);
+        return null;
+      }
+    }
+    return null;
+  };
+
+
+
+const handleCoverPhotoChange = async (event) => {
+  const file = event.target.files[0];
+
+  const imageUrl = await handleCloudinaryUpload(file);
+
+  if (imageUrl) {
+    // Update the product state with the main image URL
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      main_image: imageUrl
+    }));
+
+    console.log(imageUrl);
+  } else {
+    // Handle the case when main image upload fails
+    console.error("Cover photo upload failed");
+  }
+};
+  
+
+  const handleSubmit =  async (e) => {
     e.preventDefault();
+
+   
     axios.post(`http://localhost:3000/api/admin/addproduct/${product.vid}`, product)
      .then((response) => {
         console.log(response);
-        // handle successful submission
+        
       })
      .catch((error) => {
         console.log(error);
-        // handle error
+        
       });
-  };
+    console.log(product);
+   };
  
   const [images, setImages] = useState([]);
  
@@ -581,15 +240,42 @@ export default function AddProduct() {
     const newImages = filesArray.map((file) => URL.createObjectURL(file));
     setImages((prevImages) => [...prevImages,...newImages]);
   };
+
+  useEffect(()  => {
+    fetchData();
+  },[]);
  
-  // const handleRemoveImage = (event, index) => {
-  //   event.preventDefault();
-  //   setImages((prevImages) => prevImages.filter((_, i) => i!== index));
-  // };
+
+  const handleVendorSelect = (id, firstName, lastName) => {
+    setCurr(`${firstName} ${lastName}`);
+    setProduct(prevProduct => ({
+      ...prevProduct,
+      vid: id,
+      vname: `${firstName} ${lastName}`
+    }));
+  };
+
  
   return (
     <>
       <AdminHeader />
+      {loading && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: 'rgba(255, 255, 255, 0.5)', // Semi-transparent white background
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <CircularProgress />
+        </div>
+      )}
       <form className="flex item-center justify-center mt-10 mb-5">
         <div className="space-y-12 ">
           <div className="border-b border-gray-900/10 pb-12">
@@ -649,7 +335,7 @@ export default function AddProduct() {
                 <div className='mt-5 block text-sm font-medium leading-6 text-gray-900'>
                    <span>Select Vendor</span> <br />
                  </div>
-                 <DropDown/>
+                 <DropDown onVendorSelect={handleVendorSelect}/>
               </div>
  
              
@@ -671,10 +357,11 @@ export default function AddProduct() {
                         onChange={handleInputChange}
                         value={product.category}
                       >
+                        
                         <option value="">Select Category</option>
-                        <option value="Sofas">Sofas</option>
-                        <option value="Chairs">Chairs</option>
-                        <option value="Bricks">Bricks</option>
+                          {data.map(category => (
+                            <option key={category._id} value={category.name}>{category.name}</option>
+                          ))}
                       </select>
                     </div>
                   </div>
@@ -693,31 +380,26 @@ export default function AddProduct() {
                         onChange={handleInputChange}
                         value={product.subcategory}
                       >
+                        {/* Adding the default option */}
                         <option value="">Select Subcategory</option>
-                        {/* Add options for each category */}
-                        {product.category === 'Sofas' && (
-                          <>
-                            <option value="Leather">Leather</option>
-                            <option value="Fabric">Fabric</option>
-                          </>
-                        )}
-                        {product.category === 'Chairs' && (
-                          <>
-                            <option value="Wooden">Wooden</option>
-                            <option value="Metal">Metal</option>
-                          </>
-                        )}
-                        {product.category === 'Bricks' && (
-                          <option value="Red Bricks">Red Bricks</option>
-                        )}
+
+                        {/* Mapping through the data to populate the subcategory options */}
+                        {data.map(category => (
+                          category.name === product.category && category.sub_categories_list.map(subcategory => (
+                            <option key={subcategory} value={subcategory}>{subcategory}</option>
+                          ))
+                        ))}
                       </select>
                     </div>
                   </div>
+
                 </div>
               </div>
               </div>
  
-              {/* <div className="flex flex-col">
+              
+ 
+              <div className="flex flex-col">
                 <label htmlFor="photos" className="block text-sm font-medium leading-6 text-gray-900">
                   Product Images
                 </label>
@@ -732,83 +414,92 @@ export default function AddProduct() {
                     min={4}
                     max={7}
                     className="hidden"
-                    onChange={handleImageChange}
+                    onChange={(e)=>{loader(),handleFile(e)}}
                     disabled={images.length >= 7}
                   />
                   <label
                     htmlFor="photos"
                     className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer"
-                    style={{ opacity: images.length >= 7? '0.5' : '1' }}
-                    onMouseOver={(event) => event.target.style.cursor = images.length >= 7? 'not-allowed' : 'pointer'}
+                    style={{ opacity: images.length >= 7 ? '0.5' : '1' }}
+                    onMouseOver={(event) => event.target.style.cursor = images.length >= 7 ? 'not-allowed' : 'pointer'}
                   >
                     Upload Photos (4-7)
                   </label>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
-                  {Array.from(Array(7).keys()).map((index) => (
-                    <div key={index} className="relative h-12 w-12 rounded-md object-cover" style={{ height: '80px', width: '80px' }}>
-                      {images && images[index]? (
-                        <img src={images[index]} alt={`Uploaded image ${index + 1}`} className="object-cover" style={{ height: '80px', width: '80px' }} />
-                      ) : (
-                        <div className="bg-gray-200 h-12 w-12 rounded-md" style={{ height: '80px', width: '80px' }} />
-                      )}
-                      {images && images[index] && (
-                        <button
-                          onClick={(event) => handleRemoveImage(event, index)}
-                          className="absolute top-0 right-0 text-white-500 hover:text-red-700"
-                        >
-                          <CancelIcon />
-                        </button>
-                      )}
-                    </div>
-                  ))}
- 
-                 
-                 
+                {images.map((imageUrl, index) => (
+                <div key={index} className="relative h-12 w-12 rounded-md object-cover" style={{ height: '80px', width: '80px' }}>
+                  <img src={imageUrl} alt={`Uploaded image ${index + 1}`} className="object-cover" style={{ height: '80px', width: '80px' }} />
+                  <button
+                    onClick={(e) => handleRemoveImage(e,index)} // Pass the index to the handleRemoveImage function
+                    className="absolute top-0 right-0 text-red-500 hover:text-red-700"
+                  >
+                    <CancelIcon className="h-4 w-4" />
+                  </button>
                 </div>
-              </div> */}
- 
-<div className="flex flex-col">
-  <label htmlFor="photos" className="block text-sm font-medium leading-6 text-gray-900">
-    Product Images
-  </label>
-  <div className="flex items-center gap-x-3 mb-2">
-    <UserCircleIcon className="h-12 w-12 text-gray-300" aria-hidden="true" />
-    <input
-      type="file"
-      id="photos"
-      name="photos"
-      multiple
-      accept=".jpg,.jpeg,.png"
-      min={4}
-      max={7}
-      className="hidden"
-      onChange={handleFile}
-      disabled={images.length >= 7}
-    />
-    <label
-      htmlFor="photos"
-      className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer"
-      style={{ opacity: images.length >= 7 ? '0.5' : '1' }}
-      onMouseOver={(event) => event.target.style.cursor = images.length >= 7 ? 'not-allowed' : 'pointer'}
-    >
-      Upload Photos (4-7)
-    </label>
-  </div>
-  <div className="grid grid-cols-3 gap-2">
-    {images.map((imageUrl, index) => (
-      <div key={index} className="relative h-12 w-12 rounded-md object-cover" style={{ height: '80px', width: '80px' }}>
-        <img src={imageUrl} alt={`Uploaded image ${index + 1}`} className="object-cover" style={{ height: '80px', width: '80px' }} />
-        <button
-          onClick={() => handleRemoveImage(index)}
-          className="absolute top-0 right-0 text-red-500 hover:text-red-700"
-        >
-          <CancelIcon className="h-4 w-4" />
-        </button>
-      </div>
-    ))}
-  </div>
-</div>
+              ))}
+
+              </div>
+              </div>
+
+
+        {/* Add the Cover photo section here */}
+        <div className="col-span-full">
+          <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
+            Cover photo
+          </label>
+          {product.main_image ? (
+            <div className="mt-2 flex justify-center rounded-lg border border-solid border-gray-900/25 px-6 py-10">
+              <div className="text-center">
+                <img src={image} alt="Uploaded image" className="mx-auto h-12 w-12 object-cover" />
+                <p className="text-sm leading-6 text-gray-600">{imageName}</p>
+                <p className="text-xs leading-5 text-gray-600">{imageSize}</p>
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={handleRemoveImageM}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+              <div className="text-center">
+                <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
+                <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                  <label
+                    htmlFor="file-upload"
+                    className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                  >
+                    <span>Upload a file</span>
+                    <input
+                      id="file-upload"
+                      name="file-upload"
+                      type="file"
+                      className="sr-only"
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setImage(reader.result);
+                          setImageName(file.name);
+                          setImageSize(`${(file.size / 1024).toFixed(2)} KB`);
+                          
+                        };
+                        reader.readAsDataURL(file);
+                        handleCoverPhotoChange(e);
+                      }}
+                    />
+                  </label>
+                  <p className="pl-1">or drag and drop</p>
+                </div>
+                <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* Cover photo section ends */}
+              
  
  
  
@@ -819,7 +510,7 @@ export default function AddProduct() {
                 <div className="mt-2">
                   <textarea
                     id="description"
-                    name="description"
+                    name="productDetails.description"
                     rows={3}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={product.productDetails.description}
@@ -835,12 +526,12 @@ export default function AddProduct() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="designerName"
+                    name="productDetails.designerName"
                     id="designerName"
                     autoComplete="designerName"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={product.productDetails.designerName}
                     onChange={handleInputChange}
+                    value={product.productDetails.designerName}
                   />
                 </div>
               </div>
@@ -852,7 +543,7 @@ export default function AddProduct() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="countryOfOrigin"
+                    name="productDetails.countryOfOrigin"
                     id="countryOfOrigin"
                     autoComplete="countryOfOrigin"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -869,7 +560,7 @@ export default function AddProduct() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="material"
+                    name="productDetails.material"
                     id="material"
                     autoComplete="material"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -886,7 +577,7 @@ export default function AddProduct() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="dimensions"
+                    name="productDetails.dimensions"
                     id="dimensions"
                     autoComplete="dimensions"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -924,6 +615,7 @@ export default function AddProduct() {
             <button
               type="submit"
               className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={handleSubmit}
             >
               Save
             </button>
@@ -933,4 +625,5 @@ export default function AddProduct() {
     </>
   );
 }
+ 
  
