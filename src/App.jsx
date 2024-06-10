@@ -18,6 +18,7 @@ import AdminAddProduct from "./Components/Admin/Products/AddProduct"; // add pro
 import GetAllProducts from "./Components/Admin/Products/GetAllProducts"; // get all products
 import AdminProfile from './Components/Admin/AdminProfile'; // admin profile
 import AddVendors from './Components/Admin/Vendors/AddVendors'; // add vendor
+import SoloProductMainAdmin from './Components/Admin/Products/SoloProductMain';
 
 import Land from './Components/Customers/Land';
 import Category from './Components/Customers/CategoryWiseProductPage/category'
@@ -29,14 +30,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login/>} />
-        <Route path="/Register" element={<LandingRegister />} />
-        <Route path="/Register/CustomerRegister" element={<CustomerRegister />} />
-        <Route path="/Register/VendorRegister" element={<VendorRegister/>} />
+        <Route path="/" Component={Login} />
+        <Route path="/Register" Component={LandingRegister } />
+        <Route path="/Register/CustomerRegister" Component={CustomerRegister } />
+        <Route path="/Register/VendorRegister" Component={VendorRegister} />
 
         {/*Vendor Routes*/}
         <Route path="/vendorsproduct" Component={VendorsProduct}></Route>
-        <Route path="/soloproduct" Component={SoloProductMain}></Route>
+        <Route path="/soloproduct/:id" Component={SoloProductMain}></Route>
         <Route path="/addproduct" Component={AddProduct}></Route>
         <Route path="/vendorprofile" Component={VendorProfile}></Route>
         {/*Admin Routes*/}
@@ -46,10 +47,11 @@ function App() {
         <Route path='/getallproducts' Component={GetAllProducts}></Route>
         <Route path='/adminprofile' Component={AdminProfile}></Route>
         <Route path='/addvendor' Component={AddVendors}></Route>
+        <Route path="/soloproduct/:id/admin" Component={SoloProductMainAdmin}></Route>
         {/* customer routes */}
         <Route path='/customer' Component={Land}></Route>
-        <Route path="/vendorspecific" element={<Vendorspecific/>} />
-        <Route path="/category" element={<Category/>} />
+        <Route path="/vendorspecific" Component={Vendorspecific} />
+        <Route path="/category" Component={Category} />
       </Routes>
     </Router>
   );

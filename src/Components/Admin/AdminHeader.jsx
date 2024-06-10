@@ -10,7 +10,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
-import { Link ,useNavigate} from 'react-router-dom'
+import { Link , useNavigate } from 'react-router-dom'
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
   { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
@@ -29,10 +29,16 @@ function classNames(...classes) {
 
 export default function VendorHeader() {
   const navigate = useNavigate();
+  // const history = useHistory();
+  const token1 = localStorage.getItem('token');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const handleLogout = ()=>{
+  const handleLogout = () =>{
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    navigate('/');
+  }
+
+  const handleLogin = () =>{
     navigate('/');
   }
   return (
@@ -123,9 +129,9 @@ export default function VendorHeader() {
            <Link to="/addvendor" className="color-black text-sm font-semibold leading-6 text-gray-900">
              Add Vendor
            </Link>
-           <Link to="/adminprofile" className="color-black text-sm font-semibold leading-6 text-gray-900">
+           {/* <Link to="/adminprofile" className="color-black text-sm font-semibold leading-6 text-gray-900">
              Profile
-           </Link>
+           </Link> */}
 {/* </div> */}
           {/* <Link to="#" className="text-sm font-semibold leading-6 text-gray-900">
             Marketplace
@@ -135,7 +141,7 @@ export default function VendorHeader() {
           </Link> */}
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-        {localStorage.getItem('token')===''?(<Link to="/"
+        {/* {localStorage.getItem('token')===''?(<Link to="/"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Log in <span aria-hidden="true">&rarr;</span>
@@ -146,8 +152,12 @@ export default function VendorHeader() {
                 >
                   Log out <span aria-hidden="true">&rarr;</span>
                 </Link>
-                )}
-                
+                )} */}
+                <Link to="/"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Log in <span aria-hidden="true">&rarr;</span>
+                </Link>
         </div>
       </nav>
       <Dialog className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -230,7 +240,7 @@ export default function VendorHeader() {
                     </Link>
                 {/* </div> */}
                     <Link
-                        to="/adminaddproducts"
+                        to="/getadminaddproducts"
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                         >
                       Add Product
@@ -242,26 +252,47 @@ export default function VendorHeader() {
                     Add Vendor
                     </Link>
 
-                <Link to="#"
+                {/* <Link to="#"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Profile
-                </Link>
+                </Link> */}
               </div>
               <div className="py-6">
-                {localStorage.getItem('token')===''?(<Link to="/"
+                {/* {token1===''?(<div 
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={handleLogin()}
                 >
                   Log in <span aria-hidden="true">&rarr;</span>
-                </Link>):(
-                <Link to="/"
+                </div>):(
+                <div 
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   onClick={handleLogout()}
                 >
                   Log out <span aria-hidden="true">&rarr;</span>
-                </Link>
-                )}
-                
+                </div>
+                )} */}
+                {/* <div>
+                  <Link to="/"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    <div>
+                      Log in <span aria-hidden="true">&rarr;</span>
+                    </div>
+                  </Link>
+                </div>
+                <div>
+                  <Link to="/"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    <div>
+                      Log in <span aria-hidden="true">&rarr;</span>
+                    </div>
+                  </Link>
+                </div> */}
+                                    <div>
+                      Log in <span aria-hidden="true">&rarr;</span>
+                    </div>
               </div>
             </div>
           </div>

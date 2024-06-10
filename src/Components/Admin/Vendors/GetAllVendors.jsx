@@ -91,7 +91,8 @@ const GetAllVendors = () => {
     setOpen(false);
   };
 
-  const overlayClasses = `${open ? 'hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500' : 'mt-0 opacity-0'} shadow-lg ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto`;
+  // const overlayClasses = `${open ? 'hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500' : 'mt-0 opacity-0'} shadow-lg ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto`;
+  const overlayClasses = `${open ? 'hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500' : 'mt-0 opacity-0'} shadow-lg ease-out transition-all sm:max-w-3xl sm:w-full m-3 sm:mx-auto`;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -151,13 +152,17 @@ const GetAllVendors = () => {
                   <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
                     <thead className="bg-gray-50 dark:bg-neutral-900">
                       <tr>
-                      <th scope="col" className="px-3 py-3 ml-3">
+                      <th scope="col" className="px-3 py-3 " >
+                      <div className="flex justify-center items-center" style={{ marginRight: '1px' }}>
+
                           <input
                             type="checkbox"
                             checked={selectedVendors.length === filteredData.length && selectedVendors.length!=0}
                             onChange={handleSelectAll}
-                            className='flex justify-center'
-                          />
+                            className='flex justify-start'
+                          /> 
+                            </div>
+
                         </th>
                         <th scope="col" className="px-6 py-3 text-start">
                           
@@ -305,7 +310,7 @@ const GetAllVendors = () => {
       {/* Modal */}
         {open && (
         <div id="hs-ai-invoice-modal" className="fixed inset-0 z-[80] overflow-x-hidden overflow-y-auto flex justify-center">
-          <div className={overlayClasses}>
+          <div className={`${overlayClasses} max-w-[90%] sm:max-w-3xl w-full`}>
             <div className="relative flex flex-col bg-white shadow-lg rounded-xl dark:bg-neutral-800">
               {/*... */}
               <div className="relative overflow-hidden min-h-32 bg-gray-900 text-center rounded-t-xl">
@@ -392,7 +397,7 @@ const GetAllVendors = () => {
                <li className="inline-flex items-center gap-x-2 py-3 px-4 text-sm bg-gray-50 border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-200">
                  <div className="flex items-center justify-between w-full">
                    <span>IFSC Code</span>
-                   <span>{vendorData.IFSC_code}</span>
+                   <span>{vendorData.ifsc_code}</span>
                  </div>
                </li>
                <li className="inline-flex items-center gap-x-2 py-3 px-4 text-sm bg-gray-50 border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-200">

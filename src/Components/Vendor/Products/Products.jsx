@@ -24,7 +24,12 @@ const GetAllVendorProducts = () => {
 
   const deleteFunction = async () => {
     try {
-      const response = await axios.delete(`http://localhost:3000/api/vendor/vendors/${data.vendorId}/products/${data.productId}`);
+      console.log(data);
+      const response = await axios.delete(`http://localhost:3000/api/vendor/products/${data.productId}`,{
+        headers:{
+          'auth_token':localStorage.getItem('token')
+        }
+      });
       if (response.status === 200) {
         setProducts(products.filter((product) => product._id!== data.productId));
         setOpen(false);
@@ -38,7 +43,11 @@ const GetAllVendorProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/vendor/getvendorproducts/665ed2dbf4e120a00e034486'); // remove the id while testing chekc the backend url
+        const response = await axios.get('http://localhost:3000/api/vendor/getvendorproducts',{
+          headers: {
+            'auth_token': localStorage.getItem('token')
+          }
+        }); // remove the id while testing chekc the backend url
         setProducts(response.data.products);
         console.log('heyy',response.data.products);  
         setLoading(false);
@@ -154,7 +163,7 @@ type="button"
               {filteredProducts.length > 0? (
                 filteredProducts.map((product) => (
                   <div className="flex flex-col">
-                    <Link to="/SoloProduct">
+                    <Link to={`/SoloProduct/${product._id}`}>
                       <div key={product._id} className="relative">
                         <div className="group">
                           <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">

@@ -6,7 +6,7 @@ import SoloProduct from './SoloProduct'
 import Header from '../../Customers/Navbar'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import AdminHeader from '../VendorHeader'
+import AdminHeader from '../AdminHeader'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }

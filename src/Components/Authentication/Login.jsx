@@ -165,7 +165,6 @@ export default function Example() {
         console.log(response.data);
         console.log(response.data.auth_token);
         localStorage.setItem("token",  response.data.auth_token );
-        localStorage.setItem('role',response.data.role);
         if(response.data.role==='admin') navigate('/request')
         else if(response.data.role==='customer') navigate('/customer')
         else if(response.data.role==='vendor') navigate('/vendorsproduct')

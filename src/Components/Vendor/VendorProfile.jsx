@@ -43,7 +43,11 @@ function VendorProfile() {
   };
 
   const handleSave = () => {
-    axios.put('http://localhost:3000/api/vendor/profile/665ed2dbf4e120a00e034486', profile)
+    axios.put('http://localhost:3000/api/vendor/editprofile', profile,{
+      headers:{
+        'auth_token':localStorage.getItem('token')
+      }
+    })
      .then(response => {
         console.log(response);
         console.log(profile);
@@ -57,7 +61,11 @@ function VendorProfile() {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/vendor/vendorprofile/665ed2dbf4e120a00e034486`)
+        const response = await axios.get(`http://localhost:3000/api/vendor/vendorprofile`,{
+          headers:{
+            'auth_token':localStorage.getItem('token')  
+          }
+        })
         setProfile(response.data.data);
         console.log(response.data.data);
         // setVid(localStorage.getItem('vid'));

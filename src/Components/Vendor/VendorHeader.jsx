@@ -189,7 +189,7 @@ export default function VendorHeader() {
                 </a> */}
                 {/* <div> */}
                     <Link
-                    to="/"
+                    to="/vendorsproduct"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     >
                     Product
@@ -203,20 +203,20 @@ export default function VendorHeader() {
                       Add Product
                     </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="/vendorprofile"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Profile
-                </a>
+                </Link>
               </div>
               <div className="py-6">
-                <a
-                  href="#"
+                <Link
+                  to="/"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Log in
-                </a>
+                </Link>
               </div>
             </div>
           </div>

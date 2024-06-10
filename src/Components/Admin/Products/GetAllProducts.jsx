@@ -9,7 +9,7 @@ import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import DeleteIcon from '@mui/icons-material/Delete';
 import ProductsRating from "./ProductsRating";
-
+import Spinner from '../../spinner';
 const GetAllProducts = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -54,6 +54,7 @@ const GetAllProducts = () => {
     return product.pname.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
+  if(products.length==0) return <><Spinner/></>
   return (
     <>
       <Transition show={open}>
@@ -145,7 +146,7 @@ const GetAllProducts = () => {
             {filteredProducts.length > 0? (
               filteredProducts.map((product) => (
                 <div className="flex flex-col">
-                  <Link to="/SoloProduct">
+                  <Link to={`/SoloProduct/${product._id}/admin`}>
                     <div key={product._id} className="relative">
                       <div className="group">
                         <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
