@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Header from '../AdminHeader'
 import axios from 'axios';
+import {toast} from 'react-toastify';
 export default function AddVendor() {
   const [vendor, setVendor] = useState({
     vendor_first_name: '',
@@ -43,10 +44,12 @@ export default function AddVendor() {
     axios.post('http://localhost:3000/api/admin/addvendor', vendor)
       .then((response) => {
         console.log(response);
+        toast.success('Added vendor succesfully');
         // handle successful submission
       })
       .catch((error) => {
         console.log(error);
+        toast.error('Error while adding the vendor');
         // handle error
       });
   };

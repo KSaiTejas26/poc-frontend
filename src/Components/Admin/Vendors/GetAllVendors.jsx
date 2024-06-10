@@ -8,6 +8,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import axios from 'axios';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom';
+import Spinner from '../../spinner';
+import {toast} from 'react-toastify'
 const GetAllVendors = () => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
@@ -41,7 +43,7 @@ const GetAllVendors = () => {
       });
   }
 
-
+  
   const handleSelectAll = (event) => {
     if (event.target.checked) {
       setSelectedVendors(filteredData.map((vendor) => vendor._id));
@@ -73,11 +75,31 @@ const GetAllVendors = () => {
       setSelectedVendors([]);
       setFilteredData((prevFilteredData) =>
       prevFilteredData.filter((vendor) => !selectedVendors.includes(vendor._id)));
+      toast.success('deleted selected vendors succesfully');
+      // setOpen(false);
     } catch (error) {
       console.log('Error while deleting selected vendors:', error);
+      toast.error('error while deleting vendors');
     }
   };
   
+
+  const handledelete = async (id)=>{
+    try
+    {
+      const response = await axios.delete(`http://localhost:3000/api/admin/vendor/delete/${id}`)
+      console.log(response);
+      setFilteredData((prevFilteredData) => prevFilteredData.filter((vendor) => vendor._id!==id));
+      setOpen(false)
+      toast.success('deleted selected vendor succesfully');
+    }
+    catch(e)
+    {
+      console.log('error while deleting the vendor')
+      toast.error('error while deleting vendors');
+
+    }
+  }
   useEffect(()  => {
     fetchData();
   },[]);
@@ -96,7 +118,7 @@ const GetAllVendors = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => {
     if (pageNumber === 0) {
@@ -110,7 +132,7 @@ const GetAllVendors = () => {
 
   const isAnyCheckboxChecked = selectedVendors.length > 0;
 
-  
+  if(data.length==0) return <><Spinner/></>
 
   return (
     <>
@@ -194,7 +216,7 @@ const GetAllVendors = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                      {filteredData.map((vendor, index) => (
+                      {currentItems.map((vendor, index) => (
                         <tr key={index} className="bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800">
                           <td className="size-px whitespace-nowrap items-center">
                             <div className="flex justify-center">
@@ -263,9 +285,9 @@ const GetAllVendors = () => {
                   {/* Pagination */}
                   <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-neutral-400">
+                      {/* <p className="text-sm text-gray-600 dark:text-neutral-400">
                         <span className="font-semibold text-gray-800 dark:text-neutral-200">{data.length}</span> results
-                      </p>
+                      </p> */}
                     </div>
                     <div>
                       <div className="inline-flex gap-x-2">
@@ -456,7 +478,6 @@ const GetAllVendors = () => {
             </Link> */}
             <Link
               className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 disabled:pointer-events-none"
-              to="#"
               onClick={()=>handledelete(vendorData._id)}
             >
               <DeleteIcon/> Delete

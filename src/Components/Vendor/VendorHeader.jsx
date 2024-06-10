@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState,useEffect } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
   ArrowPathIcon,
@@ -29,7 +29,14 @@ function classNames(...classes) {
 
 export default function VendorHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+  const [token1,setToken1] = useState(null);
+  useEffect(()=>{
+    setToken1(localStorage.getItem('token'))
+  },[])
+  const handleLogout = () =>{
+    localStorage.removeItem('token');
+    navigate('/');
+  }
   return (
     <header className="bg-white border-2 color-black" >
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -121,9 +128,19 @@ export default function VendorHeader() {
           </a> */}
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+        {token1===null?(<Link to='/'
+                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                 >
+                   Log in <span aria-hidden="true">&rarr;</span>
+                 </Link>):(
+                 <div 
+                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                   onClick={handleLogout}
+                   style={{cursor:"pointer"}}
+                 >
+                   Log out <span aria-hidden="true">&rarr;</span>
+                 </div>
+                 )}
         </div>
       </nav>
       <Dialog className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -211,12 +228,19 @@ export default function VendorHeader() {
                 </Link>
               </div>
               <div className="py-6">
-                <Link
-                  to="/"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </Link>
+              {token1===null?(<Link to='/'
+                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                 >
+                   Log in <span aria-hidden="true">&rarr;</span>
+                 </Link>):(
+                 <div 
+                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                   onClick={handleLogout}
+                   style={{cursor:"pointer"}}
+                 >
+                   Log out <span aria-hidden="true">&rarr;</span>
+                 </div>
+                 )}
               </div>
             </div>
           </div>

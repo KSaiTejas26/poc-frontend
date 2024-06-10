@@ -5,6 +5,8 @@ import LandingRegister from './Components/Authentication/LandingRegister'
 import CustomerRegister from './Components/Authentication/CustomerRegister'
 import VendorRegister from './Components/Authentication/VendorRegister';
 // import Temp from './Components/Authentication/Temp';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //Vendor 
 import SoloProductMain from "./Components/Vendor/Products/SoloProductMain"; // solo product page
@@ -28,7 +30,11 @@ import Vendorspecific from './Components/VendorSpecific/VendorStore'
 
 function App() {
   return (
+    <>
+         
+
     <Router>
+    <ToastContainer />
       <Routes>
         <Route path="/" Component={Login} />
         <Route path="/Register" Component={LandingRegister } />
@@ -53,7 +59,11 @@ function App() {
         <Route path="/vendorspecific" Component={Vendorspecific} />
         <Route path="/category" Component={Category} />
       </Routes>
+      
     </Router>
+   
+    </>
+
   );
 }
 

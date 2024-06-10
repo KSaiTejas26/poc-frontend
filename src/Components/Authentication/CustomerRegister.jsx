@@ -137,8 +137,10 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import {toast} from 'react-toastify';
+import {useNavigate} from 'react-router-dom';
 export default function Example() {
+  const navigate = useNavigate();
   const [customer, setCustomer] = useState({
     customer_first_name: '',
     customer_last_name: '',
@@ -158,7 +160,7 @@ export default function Example() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (customer.password !== customer.repeatPassword) {
-      alert('Password and Repeat Password must match.');
+      toast.warn('Both password and repeat password should be the same')      
       return;
     }
     // Send customer data to the backend
@@ -166,10 +168,13 @@ export default function Example() {
       .then(response => {
         // Handle success
         console.log('Success:', response.data);
+        toast.success('registered successfully')
+        navigate('/')
       })
       .catch(error => {
         // Handle error
         console.error('Error:', error);
+        toast.error('Gmail already exists')
       });
     console.log(customer);
   };

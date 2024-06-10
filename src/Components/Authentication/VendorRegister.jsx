@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Header from './Header';
+import {toast} from 'react-toastify';
 
 export default function AddProduct() {
 
@@ -58,6 +59,13 @@ export default function AddProduct() {
     average_shipping_time:'',
   });
 
+
+  const notify = () =>{
+     toast("Vendor Registered succesfully wait for the approval of admin");
+     console.log('in toast')
+    }
+
+
   const handleCategoriesChange = (event) => {
     const { value } = event.target;
     // Split the input value by newline character to create an array of categories
@@ -87,10 +95,13 @@ export default function AddProduct() {
     axios.post('http://localhost:3000/api/auth/vendor/signup', vendor)
       .then((response) => {
         console.log(response);
+        toast.success("Registered succesfully wait for admin acceptance")
+        console.log('after otast')
         // Handle success, maybe show a success message
       })
       .catch((error) => {
         console.error('Error:', error);
+        toast.error('error while submitting the form');
         // Handle error, maybe show an error message
       });
     console.log(vendor);

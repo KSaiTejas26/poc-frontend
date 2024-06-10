@@ -22,13 +22,11 @@ export default function AddProduct() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [mainimage,setMainImage]=useState("");
  
-  const vendorId = localStorage.getItem('vid') || "6661c997cb82db3fe569b410";
-  const vendorName = localStorage.getItem('vname') || "Jon Doe";
+  const vendorId = localStorage.getItem('vid') ;
+  const vendorName = localStorage.getItem('vname') ;
   const [product, setProduct] = useState({
     pname: '',
     brand: '',
-    vid: vendorId,
-    vname: vendorName,
     category: '',
     subcategory: '',
     main_image:'',
@@ -73,7 +71,7 @@ export default function AddProduct() {
   async function fetchData() {
     axios.get('http://localhost:3000/api/category/getCategory')
      .then(response => {
- 
+        console.log('resp[nse  ',response);
         setData(response.data); // Set the fetched data into state
         console.log(response.data);
       })
@@ -101,10 +99,11 @@ export default function AddProduct() {
  
   // Function to handle file upload to Cloudinary
   async function handleFile(event) {
-    loader();
-    console.log(loading);
-    console.log('in file handle')
+    // loader();
+    // console.log(loading);
+    // console.log('in file handle')
     setLoading(true);
+    console.log('handle file')
     const files = event.target.files;
     const filesArray = Array.from(files);
  
@@ -124,7 +123,6 @@ export default function AddProduct() {
           ...prevProduct,
           images: [...prevProduct.images, imageUrl], // Update product state with new image URL
         }));
-        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -194,7 +192,8 @@ function handleRemoveImage(e,index) {
   const handleCloudinaryUpload = async (file) => {
     console.log(image);
     if (file) {
-      setLoading(true);
+      // setLoading(true);
+      console.log('in clodinatyy')
       const formData = new FormData();
       formData.append('file', file);
       formData.append('upload_preset', 'newpreset'); // Replace 'your_upload_preset' with your actual upload preset
@@ -204,13 +203,13 @@ function handleRemoveImage(e,index) {
        
         // Replace 'your_cloud_name' with your Cloudinary cloud name
        
-        setLoading(false);
+        // setLoading(false);
         // console.log("this is response.secure_url",response.data.secure_url);
        
         return response.data.secure_url;
       } catch (error) {
         console.error('Error uploading image to Cloudinary:', error);
-        setLoading(false);
+        // setLoading(false);
         return null;
       }
     }
@@ -221,7 +220,7 @@ function handleRemoveImage(e,index) {
  
 const handleCoverPhotoChange = async (event) => {
   const file = event.target.files[0];
- 
+  setLoading(true)
   const imageUrl = await handleCloudinaryUpload(file);
  
   if (imageUrl) {
@@ -230,7 +229,7 @@ const handleCoverPhotoChange = async (event) => {
       ...prevProduct,
       main_image: imageUrl
     }));
- 
+    setLoading(false)
     console.log(imageUrl);
   } else {
     // Handle the case when main image upload fails
@@ -241,7 +240,8 @@ const handleCoverPhotoChange = async (event) => {
  
   const handleSubmit =  async (e) => {
     e.preventDefault();
-    if(validateForm())
+    setLoading(true)
+    if(true)
     {
       console.log('in handle submit ',product)
       axios.post(`http://localhost:3000/api/vendor/addproduct`, product ,{
@@ -251,7 +251,7 @@ const handleCoverPhotoChange = async (event) => {
       })
        .then((response) => {
           console.log(response);
-         
+         setLoading(false)
         })
        .catch((error) => {
           console.log(error);
@@ -306,7 +306,7 @@ const handleCoverPhotoChange = async (event) => {
         </div>
       )}
       <form className="flex item-center justify-center mt-10 mb-5">
-        <div className="space-y-12 ">
+        <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">Add Product</h2>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -415,7 +415,9 @@ const handleCoverPhotoChange = async (event) => {
                         {/* Mapping through the data to populate the subcategory options */}
                         {data.map(category => (
                           category.name === product.category && category.sub_categories_list.map(subcategory => (
-                            <option key={subcategory} value={subcategory}>{subcategory}</option>
+                            <option key={subcategory.name} value={subcategory.name}>
+                              {subcategory.name} 
+                            </option>
                           ))
                         ))}
                       </select>
@@ -443,7 +445,7 @@ const handleCoverPhotoChange = async (event) => {
                     min={4}
                     max={7}
                     className="hidden"
-                    onChange={(e)=>{loader(),handleFile(e)}}
+                    onChange={(e)=>{handleFile(e)}}
                     disabled={images.length >= 7}
                   />
                   <label

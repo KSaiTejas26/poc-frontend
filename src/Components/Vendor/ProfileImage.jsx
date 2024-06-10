@@ -9,7 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 const preset_key = "newpreset";
 const cloud_name = "dxjgbjvx3";
 
-const ProfileImage = ({ profile }) => {
+const ProfileImage = ({ profile,onImageUpload  }) => {
   const [newProfile, setNewProfile] = useState({}); // Initialize with an empty object
   const [uploading, setUploading] = useState(false); // Add a state variable to track upload status
 
@@ -23,7 +23,7 @@ const ProfileImage = ({ profile }) => {
   };
 
   const handleFile = (event) => {
-    setUploading(true); // Set uploading to true when the file is selected
+    setUploading(true);
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
@@ -31,24 +31,26 @@ const ProfileImage = ({ profile }) => {
     axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
      .then((res) => {
         const secureUrl = res.data.secure_url;
-        setNewProfile({...newProfile, vendor_image: secureUrl }); // Update only the vendor_image field
+        onImageUpload(secureUrl); // Call the callback function with the uploaded image URL
+        setNewProfile({...newProfile, vendor_image: secureUrl });
         console.log('nen batike unna ', res.data.secure_url);
-        console.log(newProfile)
+        console.log(newProfile);
         axios.put('http://localhost:3000/api/vendor/profile/665ed2dbf4e120a00e034486', {...newProfile, vendor_image: res.data.secure_url })
          .then(response => {
             console.log(response);
-            setUploading(false); // Set uploading to false when the upload is complete
+            setUploading(false);
           })
          .catch(error => {
             console.log(error);
-            setUploading(false); // Set uploading to false when there's an error
+            setUploading(false);
           });
       })
      .catch((err) => {
         console.error(err);
-        setUploading(false); // Set uploading to false when there's an error
+        setUploading(false);
       });
   };
+
 
   return (
     <div style={{ position: "relative" }}>

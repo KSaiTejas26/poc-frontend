@@ -30,6 +30,53 @@ function VendorProfile() {
     // products: []
   });
 
+
+
+  const handleCoverPhotoChange = async (event) => {
+    const file = event.target.files[0];
+    setLoading(true)
+    const imageUrl = await handleCloudinaryUpload(file);
+   
+    if (imageUrl) {
+      // Update the product state with the main image URL
+      setProfile(...profile,{vendor_image:imageUrl})
+      setLoading(false)
+      console.log(imageUrl);
+    } else {
+      // Handle the case when main image upload fails
+      console.error("Cover photo upload failed");
+    }
+  };
+ 
+  
+  const handleCloudinaryUpload = async (file) => {
+    console.log(image);
+    if (file) {
+      // setLoading(true);
+      console.log('in clodinatyy')
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'newpreset'); // Replace 'your_upload_preset' with your actual upload preset
+ 
+      try {
+        const response = await axios.post('https://api.cloudinary.com/v1_1/dxjgbjvx3/image/upload', formData);
+       
+        // Replace 'your_cloud_name' with your Cloudinary cloud name
+       
+        // setLoading(false);
+        // console.log("this is response.secure_url",response.data.secure_url);
+       
+        return response.data.secure_url;
+      } catch (error) {
+        console.error('Error uploading image to Cloudinary:', error);
+        // setLoading(false);
+        return null;
+      }
+    }
+    return null;
+  };
+ 
+ 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
   };
@@ -43,6 +90,8 @@ function VendorProfile() {
   };
 
   const handleSave = () => {
+
+    console.log('prooooooooo ',profile)
     axios.put('http://localhost:3000/api/vendor/editprofile', profile,{
       headers:{
         'auth_token':localStorage.getItem('token')
@@ -76,10 +125,14 @@ function VendorProfile() {
     fetchDetails();
   }, []);
 
+  const handleImageUpload = (imageUrl) => {
+    setProfile({...profile, vendor_image: imageUrl });
+  };
+
   return (
     <>
       <AdminHeader />
-      <ProfileImage profile={profile}/>
+      <ProfileImage profile={profile} onImageUpload={handleImageUpload}/>
       <div className='max-w-2xl mx-auto' style={{ marginTop: '5%' }}>
         <div className="px-4 sm:px-0 text-center">
           <h1 className="text-base font-bold leading-7 text-gray-900" style={{ fontSize: '40px' }}>Profile</h1>

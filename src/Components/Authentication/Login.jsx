@@ -119,7 +119,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
-
+import {toast} from 'react-toastify'
 export default function Example() {
   const navigate = useNavigate();
   const [userdetails, setUserdetails] = useState({
@@ -165,9 +165,18 @@ export default function Example() {
         console.log(response.data);
         console.log(response.data.auth_token);
         localStorage.setItem("token",  response.data.auth_token );
-        if(response.data.role==='admin') navigate('/request')
-        else if(response.data.role==='customer') navigate('/customer')
-        else if(response.data.role==='vendor') navigate('/vendorsproduct')
+        if(response.data.role==='admin') {
+          toast.success('logged In succesfully')
+          navigate('/request')
+        }
+        else if(response.data.role==='customer'){
+          toast.success('logged In succesfully')
+          navigate('/customer')
+        }
+        else if(response.data.role==='vendor') {
+          toast.success('logged In succesfully')
+          navigate('/vendorsproduct')
+        }
       })
       .catch((error) => {
         alert("User Details Invalid");

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import AdminHeader from "../AdminHeader";
+import {toast} from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Fragment } from 'react'
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
@@ -27,8 +28,10 @@ const GetAllProducts = () => {
         setProducts(products.filter((product) => product._id!== data.productId));
         setOpen(false);
       }
+      toast.success('Deleted product succesfully');
     } catch (error) {
       console.error(error);
+      toast.error('error while deleting product');
     }
   };
 
