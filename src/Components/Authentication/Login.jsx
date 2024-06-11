@@ -157,7 +157,7 @@ export default function Example() {
         // Handle error or default action
         break;
     }
-
+    console.log(email,password)
     // Make the API call
     axios.post(apiUrl, { email, password })
       .then((response) => {
@@ -179,7 +179,7 @@ export default function Example() {
         }
       })
       .catch((error) => {
-        alert("User Details Invalid");
+        toast.error('Please check your credentials')
         // Handle error
         console.error(error);
       });

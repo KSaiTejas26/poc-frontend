@@ -6,7 +6,7 @@ import DropDown from './Dropdown';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CircularProgress from '@mui/material/CircularProgress'; // Import CircularProgress from Material-UI
 import axios from 'axios';
-
+import {toast} from 'react-toastify'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -223,11 +223,11 @@ const handleCoverPhotoChange = async (event) => {
     axios.post(`http://localhost:3000/api/admin/addproduct/${product.vid}`, product)
      .then((response) => {
         console.log(response);
-        
+        toast.success('product added succesfully');
       })
      .catch((error) => {
         console.log(error);
-        
+        toast.error('error while adding a product');
       });
     console.log(product);
    };
@@ -386,7 +386,9 @@ const handleCoverPhotoChange = async (event) => {
                         {/* Mapping through the data to populate the subcategory options */}
                         {data.map(category => (
                           category.name === product.category && category.sub_categories_list.map(subcategory => (
-                            <option key={subcategory} value={subcategory}>{subcategory}</option>
+                            <option key={subcategory.name} value={subcategory.name}>
+                              {subcategory.name} 
+                            </option>
                           ))
                         ))}
                       </select>

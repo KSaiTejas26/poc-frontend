@@ -4,7 +4,7 @@ import AdminHeader from '../VendorHeader';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CircularProgress from '@mui/material/CircularProgress'; // Import CircularProgress from Material-UI
 import axios from 'axios';
- 
+import {toast} from 'react-toastify'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -252,10 +252,11 @@ const handleCoverPhotoChange = async (event) => {
        .then((response) => {
           console.log(response);
          setLoading(false)
+         toast.success('product added succesfully');
         })
        .catch((error) => {
           console.log(error);
-         
+          toast.error('error while adding a product');
         });
       console.log(product);
     }

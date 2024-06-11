@@ -7,6 +7,12 @@ import Header from '../../Customers/Navbar'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import AdminHeader from '../VendorHeader'
+import {toast} from 'react-toastify'
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -66,10 +72,12 @@ const [productRating, setProductRating] = useState(0);
       };
       const response = await axios.put(`http://localhost:3000/api/vendor/soloproduct/update/${product._id}`, updatedProduct);
       console.log("kaushi",response.data);
+      toast.success('Updated product details succesfully')
       // setProduct(response.data);
       setEditing(false);  
     } catch (err) {
       console.error('Failed to update product:', err);
+      toast.error('Error occured while updating the product details')
     }
   };
  
@@ -201,16 +209,13 @@ const [productRating, setProductRating] = useState(0);
       />
     ) : (
       <div className="flex items-center">
-        {[0, 1, 2, 3, 4].map((rating) => (
-          <StarIcon
-            key={rating}
-            className={classNames(
-              productRating > rating ? 'text-amber-200' : 'text-slate-200',
-              'h-5 w-5 flex-shrink-0'
-            )}
-            aria-hidden="true"
-          />
-        ))}
+             <Box
+      sx={{
+        '& > legend': { mt: 2 },
+      }}
+    >
+      <Rating name="read-only" value={product.rating} readOnly />
+    </Box>
       </div>
     )}
     <p className="sr-only">{productRating} out of 5 stars</p>

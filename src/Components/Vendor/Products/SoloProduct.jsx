@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
- 
+import {toast} from 'react-toastify'
 const SoloProduct = ({ product }) => {
  
   if (!product) {
@@ -51,9 +51,11 @@ const SoloProduct = ({ product }) => {
         setDesignerName(updatedFeatures.designerName);
         setCountryOfOrigin(updatedFeatures.countryOfOrigin);
         setIsEditing(false); // Exit edit mode
+        toast.success('Product details updated succesfully')
       })
       .catch((error) => {
         console.error('Error:', error);
+        toast.error('Error while updating product details ')
         // Handle error
       });
   };
