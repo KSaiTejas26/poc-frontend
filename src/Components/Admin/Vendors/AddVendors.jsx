@@ -12,7 +12,6 @@ export default function AddVendor() {
     gst_number: '',
     business_registration_number: '',
     company_website_url: '',
-    password: '',
     country: '',
     street_address: '',
     city: '',

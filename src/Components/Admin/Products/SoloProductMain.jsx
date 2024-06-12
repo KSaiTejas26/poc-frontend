@@ -12,6 +12,8 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 
 function classNames(...classes) {
@@ -54,6 +56,9 @@ const [productRating, setProductRating] = useState(0);
     setProductRating(product.rating)
   };
  
+  const handleCancel = ()=>{
+    setEditing(false);
+  }
  
   const handleSaveClick = async () => {
     try {
@@ -125,36 +130,50 @@ const [productRating, setProductRating] = useState(0);
  
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+        <Zoom>
         <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
             <img
               src={product.main_image}
               alt={`Image 3`}
               className="h-full w-full object-cover object-center"
             />
+
           </div>
+        </Zoom>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8" hidden={!product ||!product.images}>
+        <Zoom>
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+
               <img
                 src={product?.images?.[1]}
                 alt={`Image 1`}
                 className="h-full w-full object-cover object-center"
               />
+
             </div>
+        </Zoom>
+        <Zoom>
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+
               <img
                 src={product?.images?.[2]}
                 alt={`Image 2`}
                 className="h-full w-full object-cover object-center"
               />
+
             </div>
+        </Zoom>
           </div>
+        <Zoom>
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+
             <img
               src={product?.images?.[0]}
               alt={`Image 0`}
               className="h-full w-full object-cover object-center"
             />
           </div>
+          </Zoom>
          
         </div>
  
@@ -166,7 +185,7 @@ const [productRating, setProductRating] = useState(0);
                 type="text"
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
-                className="w-full p-2 pl-10 text-sm text-gray-700"
+                className="w-full mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 border border-gray-300 rounded"
               />
             ) : (
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product?.pname}</h1>
@@ -176,10 +195,28 @@ const [productRating, setProductRating] = useState(0);
               <textarea
                 value={productDescription}
                 onChange={(e) => setProductDescription(e.target.value)}
-                className="w-full p-2 pl-10 text-sm text-gray-700"
+                className="mt-1  w-full text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 border border-gray-300 rounded"
               />
             ) : (
-              <p>{product.productDetails.description}</p>
+              <ul
+  style={{
+    listStyle: 'none',
+    padding: 0,
+    margin: 0,
+    fontSize: '24px',
+    lineHeight: '1.5',
+    color: '#333',
+    fontWeight: '600',
+    textAlign: 'center'
+  }}
+>
+  {product.productDetails.description.split('\n').map((line, index) => (
+    <li key={index} style={{ marginBottom: '10px' }}>
+      <span style={{ fontSize: '24px', fontWeight: '600' }}>{line}</span>
+      <span style={{ fontSize: '18px', color: '#666', marginLeft: '10px' }}>&#10003;</span>
+    </li>
+  ))}
+</ul>
             )}
           </div>
  
@@ -191,7 +228,7 @@ const [productRating, setProductRating] = useState(0);
                 type="number"
                 value={productPrice}
                 onChange={(e) => setProductPrice(e.target.value)}
-                className="w-full p-2 pl-10 text-sm text-gray-700"
+                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 border border-gray-300 rounded"
               />
             ) : (
               <p className="text-3xl tracking-tight text-gray-900">${product.price}</p>
@@ -206,7 +243,7 @@ const [productRating, setProductRating] = useState(0);
         type="number"
         value={productRating}
         onChange={(e) => setProductRating(e.target.value)}
-        className="w-full p-2 pl-10 text-sm text-gray-700"
+        className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 border border-gray-300 rounded"
       />
     ) : (
       <div className="flex items-center">
@@ -306,6 +343,15 @@ const [productRating, setProductRating] = useState(0);
                   className="mt-5 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Save
+                </button>
+              )}
+              {editing && (
+                <button
+                  type="button"
+                  onClick={handleCancel}
+                  className="mt-5 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Cancel
                 </button>
               )}
             </form>

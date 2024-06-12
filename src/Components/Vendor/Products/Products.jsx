@@ -10,6 +10,11 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import DeleteIcon from '@mui/icons-material/Delete';
 import ProductsRating from "./ProductsRating";
 import CircularProgress from '@mui/material/CircularProgress';
+import './card.css'
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+
 
 const GetAllVendorProducts = () => {
   const navigate = useNavigate();
@@ -173,19 +178,26 @@ type="button"
                               className="h-full w-full object-cover object-center lg:h-full lg:w-full group-hover:opacity-75"
                             />
                           </div>
-                          <div className="mt-4 flex justify-between">
-                            <div>
-                              <h1 className="text-sm text-gray-700">
-                                <span aria-hidden="true" className="absolute inset-0" />
-                                {product.pname}
-                              </h1>
-                              <h3 className="text-sm text-gray-700">
-                                <span aria-hidden="true" className="absolute inset-0" />
-                                {product.price}
-                              </h3>
+                          <div className="mt-4 flex flex-column justify-between">
+                            <div className='product-name-container'>
+                            <h1 className="text-sm text-gray-700 truncate">
+                              <span aria-hidden="true" className="absolute inset-0" />
+                             <h5> {product.pname.length > 20? `${product.pname.substring(0, 50)}...` : product.pname} </h5>
+                            </h1>
+                            
                             </div>
-                            <ProductsRating rating={product.rating} />
-                          </div>
+                            <Box
+      sx={{
+        '& > legend': { mt: 2 },
+      }}
+    >
+      <Rating name="read-only" value={product.rating} readOnly />
+    </Box>
+    <h2 className="text-sm text-gray-700">
+                              <span aria-hidden="true" className="absolute inset-0" />
+                              $ {product.price}
+                            </h2>
+                              </div>
                         </div>
                       </div>
                     </Link>

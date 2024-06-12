@@ -27,7 +27,6 @@ import Category from './Components/Customers/CategoryWiseProductPage/category'
 import Vendorspecific from './Components/VendorSpecific/VendorStore'
 
 
-
 function App() {
   return (
     <>

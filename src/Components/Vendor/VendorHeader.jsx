@@ -1,4 +1,4 @@
-import { Fragment, useState,useEffect } from 'react'
+import { Fragment, useState,useEffect,useNavigate } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
   ArrowPathIcon,
@@ -28,6 +28,7 @@ function classNames(...classes) {
 }
 
 export default function VendorHeader() {
+  const navigate = useNavigate;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [token1,setToken1] = useState(null);
   useEffect(()=>{
@@ -41,10 +42,10 @@ export default function VendorHeader() {
     <header className="bg-white border-2 color-black" >
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img className="h-8 w-auto" src="https://cdn.realpage.com/images/rp-logo.svg" alt="" />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button

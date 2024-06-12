@@ -43,6 +43,7 @@
     "react-dom": "^18.2.0",
     "react-fade": "^1.1.1",
     "react-fade-in": "^2.0.1",
+    "react-medium-image-zoom": "^5.2.4",
     "react-responsive": "^10.0.0",
     "react-rounded-image": "^2.0.15",
     "react-router-dom": "^6.23.0",
