@@ -231,9 +231,7 @@ const SoloProduct = ({ product }) => {
     </Zoom>
   </div>
 )}
- 
- 
- 
+
       </div>
     </div>
   );

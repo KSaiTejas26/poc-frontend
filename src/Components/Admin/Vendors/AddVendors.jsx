@@ -248,6 +248,7 @@ export default function AddVendor() {
                     onChange={handleInputChange}
                     value={vendor.country}
                   >
+                    <option>India</option>
                     <option>United States</option>
                     <option>Canada</option>
                     <option>Mexico</option>
