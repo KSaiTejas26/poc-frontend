@@ -44,27 +44,42 @@ const SoloProduct = ({ product }) => {
     setIsEditing(!isEditing);
   };
  
+  const verify = ()=>{
+    if(updatedFeatures.material==='' || updatedFeatures.dimensions==='' || updatedFeatures.designerName==='' || updatedFeatures.countryOfOrigin==='' || updatedFeatures.description==='')
+    {
+      return false;
+    }
+    return true;
+  }
+
   const handleSave = () => {
     // Send updatedFeatures data to the backend
  
-    axios.put(`http://localhost:3000/api/vendor/soloproduct/update/${product._id}`, {
-      productDetails: updatedFeatures
-    })
-      .then(data => {
-        console.log('Success:', data);
-        // Optionally, update the original features state with the updatedFeatures
-        setMaterial(updatedFeatures.material);
-        setDimensions(updatedFeatures.dimensions);
-        setDesignerName(updatedFeatures.designerName);
-        setCountryOfOrigin(updatedFeatures.countryOfOrigin);
-        setIsEditing(false); // Exit edit mode
-        toast.success('Details of the product updated succesfully')
+    if(verify()==true)
+    {
+      axios.put(`http://localhost:3000/api/vendor/soloproduct/update/${product._id}`, {
+        productDetails: updatedFeatures
       })
-      .catch((error) => {
-        console.error('Error:', error);
-        // Handle error
-        toast.success('error while updating the product details')
-      });
+        .then(data => {
+          console.log('Success:', data);
+          // Optionally, update the original features state with the updatedFeatures
+          setMaterial(updatedFeatures.material);
+          setDimensions(updatedFeatures.dimensions);
+          setDesignerName(updatedFeatures.designerName);
+          setCountryOfOrigin(updatedFeatures.countryOfOrigin);
+          setIsEditing(false); // Exit edit mode
+          toast.success('Details of the product updated succesfully')
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          // Handle error
+          toast.success('error while updating the product details')
+        });
+    }
+    else
+    {
+      toast.warn('Please fill all the details')
+    }
   };
  
   return (

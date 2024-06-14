@@ -7,10 +7,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from 'axios';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import Spinner from '../../spinner';
 import {toast} from 'react-toastify'
+
+
 const GetAllVendors = () => {
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [vendorData, setVendorData] = useState({});
@@ -20,6 +23,9 @@ const GetAllVendors = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedVendors, setSelectedVendors] = useState([]);
 
+  const handleClickB = (id1)=>{
+    navigate(`/vendorspecific/${id1}/admin`)
+  }
 
   useEffect(() => {
     const filtered = data.filter(vendor =>
@@ -228,8 +234,8 @@ const GetAllVendors = () => {
                             </div>
                           </td>
 
-                          <td className="size-px whitespace-nowrap">
-                            <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal">
+                          <td className="size-px whitespace-nowrap" onClick={()=>handleClickB(vendor._id)}>
+                            <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal" >
                               <span className="block px-6 py-2">
                                 <span className="font-mono text-sm text-blue-600 dark:text-blue-500">{vendor.business_name}</span>
                               </span>

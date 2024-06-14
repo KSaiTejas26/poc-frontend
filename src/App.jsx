@@ -21,6 +21,8 @@ import GetAllProducts from "./Components/Admin/Products/GetAllProducts"; // get 
 import AdminProfile from './Components/Admin/AdminProfile'; // admin profile
 import AddVendors from './Components/Admin/Vendors/AddVendors'; // add vendor
 import SoloProductMainAdmin from './Components/Admin/Products/SoloProductMain';
+import VendorSpecific from './Components/Admin/VendorSepcificProducts/VendorSpecific';
+
 
 import Land from './Components/Customers/Land';
 import Category from './Components/Customers/CategoryWiseProductPage/category'
@@ -53,6 +55,8 @@ function App() {
         <Route path='/adminprofile' Component={AdminProfile}></Route>
         <Route path='/addvendor' Component={AddVendors}></Route>
         <Route path="/soloproduct/:id/admin" Component={SoloProductMainAdmin}></Route>
+        <Route path="/vendorspecific/:id/admin" Component={VendorSpecific}></Route>
+        
         {/* customer routes */}
         <Route path='/customer' Component={Land}></Route>
         <Route path="/vendorspecific" Component={Vendorspecific} />

@@ -1,4 +1,4 @@
-import { Fragment, useState,useEffect,useNavigate } from 'react'
+import { Fragment, useState,useEffect } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
   ArrowPathIcon,
@@ -10,7 +10,8 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
+import {toast} from 'react-toastify'
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
   { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
@@ -28,7 +29,7 @@ function classNames(...classes) {
 }
 
 export default function VendorHeader() {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [token1,setToken1] = useState(null);
   useEffect(()=>{
@@ -36,7 +37,11 @@ export default function VendorHeader() {
   },[])
   const handleLogout = () =>{
     localStorage.removeItem('token');
+    console.log('bfore')
+    toast.success('Logged Out Successfully')
     navigate('/');
+    console.log('after')
+
   }
   return (
     <header className="bg-white border-2 color-black" >

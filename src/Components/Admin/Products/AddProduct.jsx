@@ -48,6 +48,24 @@ export default function AddProduct() {
 
   const [productImages, setProductImages] = useState([]);
 
+  const ver = ()=>{
+    if(product.pname==='' || product.brand==='' || product.category==='Select Category' || product.category==='' || product.subcategory==='Select Subcategory' || product.subcategory==='' ||
+    product.main_image==='' || product.images.length==0 || product.productDetails.description==='' || product.productDetails.designerName==='' || product.productDetails.countryOfOrigin===''
+    || product.productDetails.material==='' || product.productDetails.dimensions==='' || product.price==0)
+    {
+      return 2;
+    }
+    return 1;
+  } 
+  const verify = ()=>{
+  
+    if(ver()==2 && images.length<4)
+    {
+      return 2;
+    }
+    else if(ver==1 && images.length<4) return 1;
+    return 0;
+  }
   async function fetchData() {
     axios.get('http://localhost:3000/api/category/getCategory')
      .then(response => {
@@ -218,18 +236,28 @@ const handleCoverPhotoChange = async (event) => {
 
   const handleSubmit =  async (e) => {
     e.preventDefault();
-
-   
-    axios.post(`http://localhost:3000/api/admin/addproduct/${product.vid}`, product)
-     .then((response) => {
-        console.log(response);
-        toast.success('product added succesfully');
-      })
-     .catch((error) => {
-        console.log(error);
-        toast.error('error while adding a product');
-      });
-    console.log(product);
+    console.log(product)
+    if(verify==0)
+    {
+      axios.post(`http://localhost:3000/api/admin/addproduct/${product.vid}`, product)
+       .then((response) => {
+          console.log(response);
+          toast.success('product added succesfully');
+        })
+       .catch((error) => {
+          console.log(error);
+          toast.error('error while adding a product');
+        });
+      console.log(product);
+    }
+    else if(verify==1)
+    {
+      toast.warn('Please enter atleast 4 images of the product')
+    }
+    else
+    {
+      toast.warn('Please enter all the details of the product')
+    }
    };
  
   const [images, setImages] = useState([]);

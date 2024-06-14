@@ -425,10 +425,13 @@ import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from 'axios';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import Spinner from '../../spinner';
 import {toast} from 'react-toastify';
+
+
 const RequestTable = () => {
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [vendorData, setVendorData] = useState({});
@@ -437,7 +440,7 @@ const RequestTable = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedVendors, setSelectedVendors] = useState([]);
-
+  const [loading,setLoading] = useState(false);
 
   useEffect(() => {
     const filtered = data.filter(vendor =>
@@ -448,8 +451,13 @@ const RequestTable = () => {
   }, [searchTerm, data]);
   
 
+  const handleClickB = (id1)=>{
+    navigate(`/vendorspecific/${id1}/admin`)
+  }
 
   async function fetchData() {
+    loader();
+    console.log('hi')
     axios.get('http://localhost:3000/api/admin/requests')
      .then(response => {
 
@@ -459,8 +467,10 @@ const RequestTable = () => {
      .catch(error => {
         console.log('Error while fetching data from backend:', error);
       });
+      setLoading(false)
   }
 
+  const loader = ()=>{setLoading(true)}
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -577,7 +587,7 @@ const RequestTable = () => {
   const isAnyCheckboxChecked = selectedVendors.length > 0;
 
   
-  if(data.length==0) return <><Spinner/></>
+  // if(data.length==0) return <><Spinner/></>
 
   return (
     <>
@@ -588,7 +598,7 @@ const RequestTable = () => {
 
         {/* Table Section */}
         {/* <AdminHeader/> */}
-
+        {loading && <Spinner/>}
         <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto -mt-8"> 
           {/* Card */}
           <div className="flex flex-col">
@@ -667,69 +677,79 @@ const RequestTable = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                      {currentItems.map((vendor, index) => (
-                        <tr key={index} className="bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800">
-                          <td className="size-px whitespace-nowrap items-center">
-                            <div className="flex justify-center">
-                              <input
-                                type="checkbox"
-                                checked={selectedVendors.includes(vendor._id)}
-                                onChange={(e) => handleSelect(e, vendor._id)}
-                              />
-                            </div>
-                          </td>
+                    {
+  currentItems.length > 0? (
+    currentItems.map((vendor, index) => (
+      <tr key={index} className="bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800">
+        <td className="size-px whitespace-nowrap items-center">
+          <div className="flex justify-center">
+            <input
+              type="checkbox"
+              checked={selectedVendors.includes(vendor._id)}
+              onChange={(e) => handleSelect(e, vendor._id)}
+            />
+          </div>
+        </td>
 
-                          <td className="size-px whitespace-nowrap">
-                            <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal">
-                              <span className="block px-6 py-2">
-                                <span className="font-mono text-sm text-blue-600 dark:text-blue-500">{vendor.business_name}</span>
-                              </span>
-                            </button>
-                          </td>
-                          <td className="size-px whitespace-nowrap">
-                            <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal">
-                              <span className="block px-6 py-2">
-                                <span className="text-sm text-gray-600 dark:text-neutral-400">{vendor.gst_number}</span>
-                              </span>
-                            </button>
-                          </td>
-                          <td className="size-px whitespace-nowrap">
-                            <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal">
-                              <span className="block px-6 py-2">
-                                <span className="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
-                                  {vendor.business_registration_number}
-                                </span>
-                              </span>
-                            </button>
-                          </td>
-                          <td className="size-px whitespace-nowrap">
-                            <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal">
-                              <span className="block px-6 py-2">
-                                <span className="text-sm text-gray-600 dark:text-neutral-400">{vendor.email}</span>
-                              </span>
-                            </button>
-                          </td>
-                          <td className="size-px whitespace-nowrap">
-                            <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal">
-                              <span className="block px-6 py-2">
-                                <span className="text-sm text-gray-600 dark:text-neutral-400">{vendor.phone_number}</span>
-                              </span>
-                            </button>
-                          </td>
-                          <td className="size-px whitespace-nowrap">
-                            <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal" onClick={()=>handleOpen(vendor)}>
-                              <span className="px-6 py-1.5">
-                                <span className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-lg border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
-                                  <svg className="size-4" xmlns="http:www.w3.org/2000/svg" width={16} height={16} fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M10.506 1.64001L4.85953 7.28646C4.66427 7.48172 4.66427 7.79831 4.85953 7.99357L10.506 13.64" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
-                                  </svg>
-                                  View
-                                </span>
-                              </span>
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+        <td className="size-px whitespace-nowrap" >
+          <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal" >
+            <span className="block px-6 py-2">
+              <span className="font-mono text-sm text-blue-600 dark:text-blue-500">{vendor.business_name}</span>
+            </span>
+          </button>
+        </td>
+        <td className="size-px whitespace-nowrap">
+          <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal">
+            <span className="block px-6 py-2">
+              <span className="text-sm text-gray-600 dark:text-neutral-400">{vendor.gst_number}</span>
+            </span>
+          </button>
+        </td>
+        <td className="size-px whitespace-nowrap">
+          <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal">
+            <span className="block px-6 py-2">
+              <span className="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
+                {vendor.business_registration_number}
+              </span>
+            </span>
+          </button>
+        </td>
+        <td className="size-px whitespace-nowrap">
+          <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal">
+            <span className="block px-6 py-2">
+              <span className="text-sm text-gray-600 dark:text-neutral-400">{vendor.email}</span>
+            </span>
+          </button>
+        </td>
+        <td className="size-px whitespace-nowrap">
+          <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal">
+            <span className="block px-6 py-2">
+              <span className="text-sm text-gray-600 dark:text-neutral-400">{vendor.phone_number}</span>
+            </span>
+          </button>
+        </td>
+        <td className="size-px whitespace-nowrap">
+          <button type="button" className="block" data-hs-overlay="#hs-ai-invoice-modal" onClick={()=>handleOpen(vendor)}>
+            <span className="px-6 py-1.5">
+              <span className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-lg border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
+                <svg className="size-4" xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M10.506 1.64001L4.85953 7.28646C4.66427 7.48172 4.66427 7.79831 4.85953 7.99357L10.506 13.64" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
+                </svg>
+                View
+              </span>
+            </span>
+          </button>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan={6} className="text-center text-gray-500">
+        No data
+      </td>
+    </tr>
+  )
+}
                     </tbody>
                   </table>
                   {/* End Table */}

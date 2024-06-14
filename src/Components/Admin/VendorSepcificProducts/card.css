@@ -1,0 +1,7 @@
+.product-name-container {
+    height: 40px; /* adjust the height to your liking */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to display */
+    -webkit-box-orient: vertical;
+  }

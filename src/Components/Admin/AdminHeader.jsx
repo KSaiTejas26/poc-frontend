@@ -323,6 +323,7 @@
 
 import { Fragment, useState,useEffect } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
+import  {toast} from 'react-toastify'
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -362,6 +363,7 @@ export default function VendorHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const handleLogout = () =>{
     localStorage.removeItem('token');
+    toast.success('Logged Out Successfully')
     navigate('/');
   }
 
@@ -441,19 +443,19 @@ export default function VendorHeader() {
 
 {/* <div style={{borderLeft:'5px dotted black',height:'100px'}}> */}
 
-           <Link to="/request" className="color-black text-sm font-semibold leading-6 text-gray-900">
+           <Link to="/request" className="color-black text-md font-semibold leading-6 text-gray-900">
              Requests
            </Link>
-           <Link to="/getallproducts" className="color-black text-sm font-semibold leading-6 text-gray-900">
+           <Link to="/getallproducts" className="color-black text-md font-semibold leading-6 text-gray-900">
              Products
            </Link>
-           <Link to="/allvendors" className="color-black text-sm font-semibold leading-6 text-gray-900">
+           <Link to="/allvendors" className="color-black text-md font-semibold leading-6 text-gray-900">
              Vendors
            </Link>
-           <Link to="/getadminaddproducts" className="color-black text-sm font-semibold leading-6 text-gray-900">
+           <Link to="/getadminaddproducts" className="color-black text-md font-semibold leading-6 text-gray-900">
              Add Product
            </Link>
-           <Link to="/addvendor" className="color-black text-sm font-semibold leading-6 text-gray-900">
+           <Link to="/addvendor" className="color-black text-md font-semibold leading-6 text-gray-900">
              Add Vendor
            </Link>
            {/* <Link to="/adminprofile" className="color-black text-sm font-semibold leading-6 text-gray-900">

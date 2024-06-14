@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
-import AdminHeader from "../VendorHeader";
+import AdminHeader from "../AdminHeader";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Fragment } from 'react'
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
@@ -18,6 +18,8 @@ import Typography from '@mui/material/Typography';
 
 const GetAllVendorProducts = () => {
   const navigate = useNavigate();
+  const {id} = useParams();
+
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,7 +32,7 @@ const GetAllVendorProducts = () => {
   const deleteFunction = async () => {
     try {
       console.log(data);
-      const response = await axios.delete(`http://localhost:3000/api/vendor/products/${data.productId}`,{
+      const response = await axios.delete(`http://localhost:3000/api/vendor/products/${data.productId}/${id}`,{
         headers:{
           'auth_token':localStorage.getItem('token')
         }
@@ -48,11 +50,9 @@ const GetAllVendorProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/vendor/getvendorproducts',{
-          headers: {
-            'auth_token': localStorage.getItem('token')
-          }
-        }); // remove the id while testing chekc the backend url
+        console.log('in fetching')
+        console.log('hi')
+        const response = await axios.get(`http://localhost:3000/api/admin/getvendorproducts/${id}`); // remove the id while testing chekc the backend url
         setProducts(response.data.products);
         console.log('heyy',response.data.products);  
         setLoading(false);
@@ -64,16 +64,13 @@ const GetAllVendorProducts = () => {
     fetchProducts();
   }, []);
 
-  const handleProductClick = () => {
-    navigate("/SoloProduct");
-  };
-
   const filteredProducts = products.filter((product) => {
     return product.pname.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
   return (
     <>
+    <AdminHeader/>
       <Transition show={open}>
         <Dialog className="relative z-6" onClose={setOpen}>
           <TransitionChild
@@ -168,7 +165,7 @@ type="button"
               {filteredProducts.length > 0? (
                 filteredProducts.map((product) => (
                   <div className="flex flex-col">
-                    <Link to={`/SoloProduct/${product._id}`}>
+                    <Link to={`/SoloProduct/${product._id}/admin`}>
                       <div key={product._id} className="relative ">
                         <div className="group">
                           <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
