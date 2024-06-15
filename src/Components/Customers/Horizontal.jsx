@@ -4,111 +4,14 @@ import Prod from "./Prod";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import sofa1 from './Images/sofa1.jpg';
-import sofa2 from './Images/sofa2.jpg';
-import sofa3 from './Images/sofa3.jpg';
-import sofa4 from './Images/sofa4.jpg';
-import sofa5 from './Images/sofa5.jpg';
-import fridge1 from './Images/fridge.jpg';
-import fridge2 from './Images/fridge2.jpg';
-import fridge3 from './Images/fridge3.jpg';
-import fridge4 from './Images/fridge4.jpg';
-import fridge5 from './Images/fridge5.jpg';
 
+import prodcontext from "./Context/ProductContext";
+import { useContext } from "react";
 
 function Horizontal(props) {
-  const data = [
-    {
-      img: sofa1,
-      name: "Product1",
-      category: "sofa",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    {
-      img: sofa2,
-      name: "Product1",
-      category: "sofa",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    {
-      img: sofa3,
-      name: "Product1",
-      category: "sofa",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    {
-      img: sofa4,
-      name: "Product1",
-      category: "sofa",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    {
-      img: sofa5,
-      name: "Product1",
-      category: "sofa",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    {
-      img: sofa1,
-      name: "Product1",
-      category: "sofa",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    {
-      img: fridge1,
-      name: "Product1",
-      category: "fridge",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    {
-      img: fridge2,
-      name: "Product1",
-      category: "fridge",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    {
-      img: fridge3,
-      name: "Product1",
-      category: "fridge",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    {
-      img: fridge4,
-      name: "Product1",
-      category: "fridge",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    {
-      img: fridge5,
-      name: "Product1",
-      category: "fridge",
-      desc: "Generating random paragraphs...",
-      brand: "Realpage",
-      price: "18000",
-    },
-    // Add more product objects as needed
-  ];
-  console.log(props.category);
+  const context=useContext(prodcontext);
+  const {data}=context;
+  
 const info=data.filter((e)=>e.category==props.category);
 
   
@@ -158,15 +61,3 @@ const info=data.filter((e)=>e.category==props.category);
 }
 
 export default Horizontal;
-
-// import React from 'react'
-
-// const Horizontal = () => {
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
-
-// export default Horizontal

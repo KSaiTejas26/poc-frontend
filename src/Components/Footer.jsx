@@ -1,6 +1,6 @@
 import React from 'react'
 import "./style.css";
-
+ 
 export default function Footer() {
     return (
         <footer className="footer">
@@ -47,11 +47,11 @@ export default function Footer() {
                     <div className="col-md-3 d-flex justify-content-center">
                     <div className="footer-col">
                         <h4>follow us</h4>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <div className="social-links">
+                            <a href="#"><i className="fab fa-facebook-f"></i></a>
+                            <a href="#"><i className="fab fa-twitter"></i></a>
+                            <a href="#"><i className="fab fa-instagram"></i></a>
+                            <a href="#"><i className="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     </div>

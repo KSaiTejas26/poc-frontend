@@ -1,69 +1,131 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Rating from '../CategoryWiseProductPage/Rating'
-export default function MediaCard({ price, title, description, rating, brand }) {
-
+import Button from '@mui/material/Button';
+import Rating from '../CategoryWiseProductPage/Rating';
+import prodcontext from '../Context/ProductContext';
+import { useContext } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
+export default function MediaCard({ id,price, title, description, rating, brand,image }) {
+  const navigate=useNavigate();
+  const context=useContext(prodcontext);
+  const {cart}=context;
   const cardStyle = {
-    margin: '5% 1% 5% 1%',
+    margin: '3%',
     transition: 'transform 0.3s ease',
+    width: '300px', // Increased card width
+    display: 'flex',
+    flexDirection: 'column',
   };
-
-  // const cardHoverStyle = {
-  //   transform: 'scale(1.05)',
-  // };
-
+  
+  const contentStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%', // Make the content take full height
+  };
+  const handleClickimg=()=>{
+    navigate(`/SoloProduct/${id}`);
+    console.log("CLicked");
+  }
+  const handleClick = async () => {
+    const newobj={
+        product_name: title,
+        
+        product_brand:brand,
+        price:price,
+        image: image,
+        
+    }
+    
+    const token=localStorage.getItem('token');
+    console.log(token);
+    cart.push(newobj);
+    try{
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/customer/addToCart/",
+        newobj,{
+          headers: {
+            "Content-Type": "application/json",
+            "auth_token":token
+          }
+        }
+      );
+    }
+    catch(error){
+      console.log(error);
+    }
+    console.log("Pushed");
+    toast.success("Added "+title+" to Cart");
+    
+  };
+ 
   return (
-    <Card sx={{ marginBottom: '25px'}}
-    style={cardStyle}
+    <Card
+      sx={{ marginBottom: '15px' }}
+      style={cardStyle}
       onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
       onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+      onClick={handleClickimg}
     >
-      <CardMedia
-        sx={{
-          height: '300px',
-          width: '300px',
-          margin: 'auto',
-          paddingLeft: '5%',
-
-        }}
-        image={description}
-        title="green iguana"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography component="div" style={{color:"#848484"}}>
-          by The Plant Company
-        </Typography>
-        <Rating />
-        <Typography component="div" style={{color:"#67AD5B"}}>
-          Todays Deal
-        </Typography>
-        <div className="price" style={{display:'flex'}}>
-          
-            <Typography gutterBottom variant="h4" component="div">
+      <div style={{ flex: 1 }}>
+        <CardMedia
+          component="img"
+          sx={{
+            height: '200px', // Set a fixed height for the image
+            width: '100%',
+            objectFit: 'cover',
+          }}
+          image={image}
+          title="Product Image"
+        />
+      </div>
+      <CardContent style={contentStyle}>
+        <div>
+          <Typography gutterBottom variant="h6" component="div" style={{ fontSize: '18px', fontWeight: 'bold', color: '#333' }}>
+          {title.length > 20? `${title.substring(0, 20)}...` : title}
+          </Typography>
+          <Typography variant="body2" component="div" style={{ color: "#848484", fontSize: '0.9rem' }}>
+            by {brand}
+          </Typography>
+          <Rating rating={rating} />
+        </div>
+        <div>
+          <Typography variant="body2" component="div" style={{ color: "#67AD5B", fontSize: '0.9rem' }}>
+            Todays Deal
+          </Typography>
+          <div className="price" style={{ display: 'flex', alignItems: 'center' }}>
+            <Typography variant="h6" component="div" style={{ fontSize: '1.1rem' }}>
               ${price}
             </Typography>
-
-            <Typography gutterBottom variant="h4" component="div" style={{color:"#848484"}}>
-            &nbsp;<s>${price+50}</s>
+            <Typography variant="body2" component="div" style={{ color: "#848484", fontSize: '0.9rem', marginLeft: '5px' }}>
+              <s>${(price + 50).toFixed(2)}</s>
             </Typography>
-
-
+          </div>
+          <Typography variant="body2" component="div" style={{ color: "#67AD5B", fontSize: '0.9rem' }}>
+            you save {(100 - (price / (price + 50)) * 100).toFixed(2)}%
+          </Typography>
         </div>
-            
-            <Typography gutterBottom variant="h5" component="div" style={{color:"#67AD5B"}}>
-           you save {(100-(price/(price+50))*100).toFixed(2)}%
-            </Typography>
-        
+        <Button
+        onClick={handleClick}
+          variant="contained"
+          style={{
+            backgroundColor: '#FFD814',
+            color: '#111',
+            marginTop: '10px',
+            fontWeight: 'bold',
+            borderRadius: "100px",
+          }}
+        >
+          Add to Cart
+        </Button>
       </CardContent>
-
     </Card>
   );
 }
+ 

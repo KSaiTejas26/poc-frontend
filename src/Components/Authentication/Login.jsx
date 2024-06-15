@@ -268,7 +268,7 @@ export default function Example() {
           </div>
 
           <div className="mt-4">
-            <a href="/register" className="text-white no-underline hover:no-underline">
+            <a href="/register" onClick={(e) => { e.preventDefault(); navigate('/register'); }} className="text-white no-underline hover:no-underline">
               <button
                 className="flex w-full justify-center rounded-md bg-orange-500 hover:bg-orange-400 font-semibold px-3 py-1.5 text-sm leading-6"
               >

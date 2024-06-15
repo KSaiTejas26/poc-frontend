@@ -1,31 +1,50 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import DarkVariantExample from "./corousel";
-// import IndividualIntervalsExample from "./corousel";
 import PrimarySearchAppBar from "./Navbar";
-import img3 from "./Images/img3.webp";
-import img1 from "./Images/img1.jpg";
-import img7 from "./Images/img7.jpg";
-import img4 from "./Images/img4.jpg";
-import fridge from "./Images/fridge.jpg";
-import sofa from "./Images/sofa.jpg";
-import washingmachine from "./Images/washingmachine.jpg";
-import table from "./Images/table.jpg";
-import clock from "./Images/clock.jpg";
-import chair from "./Images/chair.jpg";
 import BasicExample from "./Category";
 import Horizontal from "./Horizontal";
+import Footer from "../Footer";
+import prodcontext from "./Context/ProductContext";
+import Spinner from "./Spinner"; // Assuming you have a spinner component for loading
+
+import img3 from "./Images/img3.webp";
+import img1 from "./Images/img1.jpg";
+import img4 from "./Images/img4.jpg";
 import banner from "./Images/banner.avif";
 import banner1 from "./Images/banner1.avif";
 import banner2 from "./Images/banner2.avif";
-import { Link } from "react-router-dom";
-function Land() {
+import { useNavigate } from "react-router";
+import { styled } from '@mui/material/styles';
+
+const HoverImage = styled('img')(({ theme }) => ({
+  width: '100%',
+  cursor: 'pointer',
+  transition: 'transform 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'scale(1.05)',
+  },
+}));
+
+const Land = () => {
+  const navigate = useNavigate();
+  const context = useContext(prodcontext);
+  const { data, category } = context;
+
+  // Check if context values are loading
+  if (!data || !category || category.length === 0) {
+    return <Spinner />; // Show loading spinner while data is being fetched
+  }
+
+  const handleimageClick = () => {
+    navigate(`/category/Appliances`);
+  }
+
   return (
     <>
       <PrimarySearchAppBar />
       <DarkVariantExample />
-
       <div className="row h-100">
-        <div className="col-md-6 my-3" >
+        <div className="col-md-6 my-3">
           <div className="d-flex justify-content-center h-100 mx-5">
             <div className="ui netboard test ad flex-grow-1">
               <div
@@ -37,9 +56,6 @@ function Land() {
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                   transition: "transform 0.3s ease",
-                  ":hover": {
-                    transform: "scale(1.1)",
-                  },
                 }}
               ></div>
             </div>
@@ -57,9 +73,6 @@ function Land() {
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                   transition: "transform 0.3s ease",
-                  ":hover": {
-                    transform: "scale(1.1)",
-                  },
                 }}
               ></div>
             </div>
@@ -75,9 +88,6 @@ function Land() {
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                   transition: "transform 0.3s ease",
-                  ":hover": {
-                    transform: "scale(1.1)",
-                  },
                 }}
               ></div>
             </div>
@@ -85,52 +95,50 @@ function Land() {
         </div>
       </div>
 
-
       <div className="container my-5 d-flex justify-content-center">
         <h1><strong>Explore Different Categories</strong></h1>
       </div>
+      
       <div className="row my-5 mx-3 d-flex justify-content-center">
-        <div className="col-md-4 d-flex justify-content-center mb-5">
-          <BasicExample img={fridge} title="Fridges" />
-        </div>
-
-          {/* <div className="col-md-4  d-flex justify-content-center  mb-5"> */}
-        <Link to="/category" className="col-md-4  d-flex justify-content-center  mb-5">
-            <BasicExample Link to="/category" img={sofa} title="Sofas" />
-        </Link>
-          {/* </div> */}
-
-        <div className="col-md-4  d-flex justify-content-center  mb-5">
-          <BasicExample img={table} title="Tables" />
-        </div>
+        {category.slice(0, 3).map((cat, index) => (
+          <div key={index} className="col-md-4 d-flex justify-content-center mb-5">
+            {cat && <BasicExample img={cat.image} title={cat.name} />}
+          </div>
+        ))}
       </div>
-      <div className="row my-5 mx-3 disp">
-        <div className="col-md-4  d-flex justify-content-center  mb-5">
-          <BasicExample img={chair} title="Chairs" />
-        </div>
-        <div className="col-md-4  d-flex justify-content-center  mb-5">
-          <BasicExample img={washingmachine} title="Washing Machines" />
-        </div>
-        <div className="col-md-4  d-flex justify-content-center  mb-5">
-          <BasicExample img={clock} title="Clocks" />
-        </div>
+      
+      <div className="row my-5 mx-3 d-flex justify-content-center">
+        {category.slice(3, 6).map((cat, index) => (
+          <div key={index} className="col-md-4 d-flex justify-content-center mb-5">
+            {cat && <BasicExample img={cat.image} title={cat.name} />}
+          </div>
+        ))}
       </div>
-      <img src={banner} className='w-100' alt="advertisement" />
+
+      <img src={banner} className="w-100" alt="advertisement" />
+      
       <div className="row d-flex my-5">
-        <div className="col-md-6 d-flex justify-content-center ">
-          <img className="w-100" src={banner1} alt="advertisement" />
+        <div className="col-md-6 d-flex justify-content-center">
+          <HoverImage onClick={handleimageClick} src={banner1} alt="advertisement" />
         </div>
         <div className="col-md-6 d-flex justify-content-center">
           <img className="w-100" src={banner2} alt="advertisement" />
         </div>
       </div>
-      <h1 style={{ fontSize: "30px" }} className="d-flex justify-content-center my-3">New launches in sofas</h1>
-      <div className="my-3" ><Horizontal category="sofa" /></div>
-      <div className="my-10"><h1 style={{ fontSize: "30px" }} className="d-flex justify-content-center">New launches in Fridges</h1>
-        <div className="my-3" ><Horizontal category="fridge" /></div>
+
+      <h1 style={{ fontSize: "30px" }} className="d-flex justify-content-center my-3">New launches in Appliances</h1>
+      <div className="my-3">
+        <Horizontal category="Appliances" />
       </div>
-
-
+      
+      <div className="my-10">
+        <h1 style={{ fontSize: "30px" }} className="d-flex justify-content-center">New launches in Doors</h1>
+        <div className="my-3">
+          <Horizontal category="Doors & Windows" />
+        </div>
+      </div>
+      
+      <Footer />
     </>
   );
 }

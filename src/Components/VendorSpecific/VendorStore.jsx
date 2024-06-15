@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../Header'
+import Navbar from '../Customers/Navbar'
 import Footer from '../Footer'
 import VendorInfo from './VendorInfo'
 import SubCategories from './SubCategories'
@@ -10,7 +10,7 @@ import Products from "../Customers/CategoryWiseProductPage/Products"
 export default function VendorStore() {
   return (
     <div>
-      <Header/>
+      <Navbar/>
       <VendorInfo/>
       <SubCategories/>
       <div className='row d-flex mx-2'  >

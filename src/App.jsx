@@ -27,17 +27,22 @@ import VendorSpecific from './Components/Admin/VendorSepcificProducts/VendorSpec
 import Land from './Components/Customers/Land';
 import Category from './Components/Customers/CategoryWiseProductPage/category'
 import Vendorspecific from './Components/VendorSpecific/VendorStore'
+import ProductState from './Components/Customers/Context/ProductState';
+import SoloProductPage from'./Components/Customers/SoloproductPage';
+
 
 
 function App() {
   return (
     <>
          
-
+         
     <Router>
+    <ProductState>
     <ToastContainer />
       <Routes>
-        <Route path="/" Component={Login} />
+        {/* <Route path="/" Component={Login} /> */}
+        <Route path="/" element={<Login />} />
         <Route path="/Register" Component={LandingRegister } />
         <Route path="/Register/CustomerRegister" Component={CustomerRegister } />
         <Route path="/Register/VendorRegister" Component={VendorRegister} />
@@ -58,12 +63,18 @@ function App() {
         <Route path="/vendorspecific/:id/admin" Component={VendorSpecific}></Route>
         
         {/* customer routes */}
+        
         <Route path='/customer' Component={Land}></Route>
-        <Route path="/vendorspecific" Component={Vendorspecific} />
-        <Route path="/category" Component={Category} />
+        <Route path="/vendorspecific" element={<Vendorspecific/>} />
+        <Route path="/category/:value" element={<Category/>} />
+        <Route path="/SoloProduct/:id" element={<SoloProductPage/>} />
+        
       </Routes>
+      </ProductState>
       
     </Router>
+    
+   
    
     </>
 
