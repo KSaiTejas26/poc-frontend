@@ -120,6 +120,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify'
+import Header from './Header';
 export default function Example() {
   const navigate = useNavigate();
   const [userdetails, setUserdetails] = useState({
@@ -186,6 +187,8 @@ export default function Example() {
   };
 
   return (
+    <>
+    <Header/>
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-20">
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -279,5 +282,6 @@ export default function Example() {
         </div>
       </div>
     </div>
+    </>
   );
 }

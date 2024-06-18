@@ -67,7 +67,7 @@ function App() {
         <Route path='/customer' Component={Land}></Route>
         <Route path="/vendorspecific" element={<Vendorspecific/>} />
         <Route path="/category/:value" element={<Category/>} />
-        <Route path="/SoloProduct/:id" element={<SoloProductPage/>} />
+        <Route path="/SoloProduct/:id/customer" element={<SoloProductPage/>} />
         
       </Routes>
       </ProductState>

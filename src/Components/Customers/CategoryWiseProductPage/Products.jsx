@@ -30,7 +30,7 @@ export default function MediaCard({ id,price, title, description, rating, brand,
     height: '100%', // Make the content take full height
   };
   const handleClickimg=()=>{
-    navigate(`/SoloProduct/${id}`);
+    navigate(`/SoloProduct/${id}/customer`);
     console.log("CLicked");
   }
   const handleClick = async () => {

@@ -11,7 +11,7 @@ function Prod(props) {
   const navigate=useNavigate();
   const id=props._id;
   const handleClickimg=()=>{
-    navigate(`/SoloProduct/${id}`);
+    navigate(`/SoloProduct/${id}/customer`);
     console.log("CLicked");
   }
   const context=useContext(prodcontext);

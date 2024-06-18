@@ -23,6 +23,7 @@ import { useState,useContext } from 'react';
 import prodcontext from "./Context/ProductContext";
 import SearchBar from '../SearchBar'
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 const LogoImage = styled('img')(({ theme }) => ({
   height: 'auto',
@@ -75,6 +76,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const navigate=useNavigate();
   const context=useContext(prodcontext);
   let {cart,deleteCart}=context;
   const [open, setOpen] = useState(false);
@@ -114,6 +116,12 @@ export default function PrimarySearchAppBar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+    const token = localStorage.getItem('token');
+    if(token)
+    {
+      localStorage.removeItem('token');
+      navigate('/');
+    }
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -139,7 +147,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
