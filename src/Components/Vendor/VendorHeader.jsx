@@ -125,6 +125,9 @@ export default function VendorHeader() {
           <Link to="/vendorprofile" className="text-sm font-semibold leading-6 text-gray-900">
             Profile
           </Link>
+          <Link to="/ordertable" className="text-sm font-semibold leading-6 text-gray-900">
+            Orders
+          </Link>
 {/* </div> */}
           {/* <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
             Marketplace
@@ -231,6 +234,12 @@ export default function VendorHeader() {
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Profile
+                </Link>
+                <Link
+                  to="/ordertable"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Orders
                 </Link>
               </div>
               <div className="py-6">

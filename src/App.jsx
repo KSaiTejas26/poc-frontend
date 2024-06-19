@@ -13,6 +13,8 @@ import SoloProductMain from "./Components/Vendor/Products/SoloProductMain"; // s
 import VendorsProduct from "./Components/Vendor/VendorsProduct"; // all vendor related products
 import AddProduct from "./Components/Vendor/Products/AddProduct"; // add product
 import VendorProfile from "./Components/Vendor/VendorProfile"; // vendor profile
+import OrderPage from './Components/Vendor/ProductTracking/OrderPage';
+import OrderReciept from './Components/Vendor/ProductTracking/ProductReciept';
 // Admin
 import AllVendors from './Components/Admin/Vendors/GetAllVendors'; // get all vendors
 import ReqTable from './Components/Admin/Requests/Req'; // vendor requests
@@ -29,6 +31,7 @@ import Category from './Components/Customers/CategoryWiseProductPage/category'
 import Vendorspecific from './Components/VendorSpecific/VendorStore'
 import ProductState from './Components/Customers/Context/ProductState';
 import SoloProductPage from'./Components/Customers/SoloproductPage';
+import { OrderTable } from './Components/Vendor/ProductTracking/OrderTable';
 
 
 
@@ -52,6 +55,8 @@ function App() {
         <Route path="/soloproduct/:id" Component={SoloProductMain}></Route>
         <Route path="/addproduct" Component={AddProduct}></Route>
         <Route path="/vendorprofile" Component={VendorProfile}></Route>
+        <Route path="/orderreciept" element={<OrderReciept/>}></Route>
+        <Route path="/ordertable" element={<OrderTable/>}></Route>
         {/*Admin Routes*/}
         <Route path="/allvendors" Component={AllVendors}></Route>
         <Route path="/request" Component={ReqTable}></Route>
@@ -61,6 +66,7 @@ function App() {
         <Route path='/addvendor' Component={AddVendors}></Route>
         <Route path="/soloproduct/:id/admin" Component={SoloProductMainAdmin}></Route>
         <Route path="/vendorspecific/:id/admin" Component={VendorSpecific}></Route>
+        <Route path="/orderpage/admin" element={<OrderPage/>}></Route>
         
         {/* customer routes */}
         

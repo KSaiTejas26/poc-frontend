@@ -20,6 +20,7 @@ const GetAllProducts = () => {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchVendor, setSearchVendor] = useState('');
   const [data,setData] = useState({
     productId:'',
     vendorId:''
@@ -58,8 +59,15 @@ const GetAllProducts = () => {
   };
 
   const filteredProducts = products.filter((product) => {
-    return product.pname.toLowerCase().includes(searchTerm.toLowerCase());
+    const productName = product.pname || ''; // Guarding against undefined pname
+    const vendorName = product.vname || ''; // Guarding against undefined vendor (assuming vendor name is stored in product.vendor)
+    
+    const productNameMatches = productName.toLowerCase().includes(searchTerm.toLowerCase());
+    const vendorNameMatches = vendorName.toLowerCase().includes(searchVendor.toLowerCase());
+    
+    return productNameMatches && vendorNameMatches;
   });
+  
 
   if(products.length==0) return <><Spinner/></>
   return (
@@ -135,19 +143,31 @@ const GetAllProducts = () => {
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 justify-center flex">
             Products
           </h1>
-          <div className="flex items-center justify-center mt-3">
-            Search Product
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              name="first-name"
-              id="first-name"
-              autoComplete="given-name"
-              placeholder="Search"
-              className="block w-80 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ml-4"
-            />
+          <div className="flex flex-col md:sm:flex-row items-center justify-center mt-3 gap-4">
+            <div className='flex flex-col sm:flex-row items-center justify-center mt-3'>
+              <label htmlFor="product-search" className="mr-2">Search Product</label>
+              <input
+                type="text"
+                id="product-search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search"
+                className="block w-full sm:w-80 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+            <div className='flex flex-col sm:flex-row items-center justify-center mt-3'>
+              <label htmlFor="vendor-search" className="mr-2">Search Vendor Name</label>
+              <input
+                type="text"
+                id="vendor-search"
+                value={searchVendor}
+                onChange={(e) => setSearchVendor(e.target.value)}
+                placeholder="Search"
+                className="block w-full sm:w-80 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
           </div>
+
 
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {filteredProducts.length > 0? (
