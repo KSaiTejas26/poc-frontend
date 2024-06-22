@@ -24,7 +24,9 @@ import AdminProfile from './Components/Admin/AdminProfile'; // admin profile
 import AddVendors from './Components/Admin/Vendors/AddVendors'; // add vendor
 import SoloProductMainAdmin from './Components/Admin/Products/SoloProductMain';
 import VendorSpecific from './Components/Admin/VendorSepcificProducts/VendorSpecific';
-
+import AllOrders from './Components/Admin/Orders/AdminOrders';
+import AdminOrderPage from './Components/Admin/Orders/OrderPage';
+import ProductReciept from './Components/Admin/Orders/OrderReceipt';
 
 import Land from './Components/Customers/Land';
 import Category from './Components/Customers/CategoryWiseProductPage/category'
@@ -41,7 +43,7 @@ function App() {
          
          
     <Router>
-    <ProductState>
+    {/* <ProductState> */}
     <ToastContainer />
       <Routes>
         {/* <Route path="/" Component={Login} /> */}
@@ -57,6 +59,7 @@ function App() {
         <Route path="/vendorprofile" Component={VendorProfile}></Route>
         <Route path="/orderreciept" element={<OrderReciept/>}></Route>
         <Route path="/ordertable" element={<OrderTable/>}></Route>
+        
         {/*Admin Routes*/}
         <Route path="/allvendors" Component={AllVendors}></Route>
         <Route path="/request" Component={ReqTable}></Route>
@@ -66,7 +69,9 @@ function App() {
         <Route path='/addvendor' Component={AddVendors}></Route>
         <Route path="/soloproduct/:id/admin" Component={SoloProductMainAdmin}></Route>
         <Route path="/vendorspecific/:id/admin" Component={VendorSpecific}></Route>
-        <Route path="/orderpage/admin" element={<OrderPage/>}></Route>
+        <Route path="/orderpage/admin" element={<AdminOrderPage/>}></Route>
+        <Route path="/ordertable/admin" element={<AllOrders/>}></Route>
+        <Route path="/admin/orderreciept" element={<ProductReciept/>}></Route>
         
         {/* customer routes */}
         
@@ -76,7 +81,7 @@ function App() {
         <Route path="/SoloProduct/:id/customer" element={<SoloProductPage/>} />
         
       </Routes>
-      </ProductState>
+      {/* </ProductState> */}
       
     </Router>
     
