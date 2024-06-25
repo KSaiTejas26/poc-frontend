@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import OrderPage from "./OrderPage";
+
 const AdminOrders = () => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
@@ -12,8 +12,8 @@ const AdminOrders = () => {
         const response = await axios.get(
           "http://localhost:3000/api/admin/allorders"
         );
-        setOrders(response.data.orders);
-        console.log(response.data.orders);
+        console.log(response);
+        setOrders(response.data.response);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
@@ -373,11 +373,11 @@ const AdminOrders = () => {
                           </td>
                           <td className="size-px whitespace-nowrap">
                             <div className="pe-6 py-2">
-                              <Link to="/orderpage/admin"
+                              <Link to="/orderpage"
                                 className="text-sm text-blue-600 decoration-2 hover:underline dark:text-blue-500"
                                 state={{'order':order}}
                               >
-                                {order.orderId}
+                                {order.order_id.orderId}
                               </Link>
                             </div>
                           </td>
@@ -462,22 +462,22 @@ const AdminOrders = () => {
                             <td className="size-px whitespace-nowrap">
                               <div className="px-6 py-2">
                                 <span className="text-sm text-gray-600 dark:text-neutral-400">
-                                  {order.order_date}
+                                  {order.order_id.order_date}
                                 </span>
                               </div>
                             </td>
                             <td className="size-px whitespace-nowrap">
                               <div className="px-6 py-2">
                                 <span className="text-sm text-gray-600 dark:text-neutral-400">
-                                  {order.cid.customer_first_name}{" "}
-                                  {order.cid.customer_last_name}
+                                  {order.order_id.customer.customer_first_name}{" "}
+                                  {order.order_id.customer.customer_last_name}
                                 </span>
                               </div>
                             </td>
                             <td className="size-px whitespace-nowrap">
                               <div className="px-6 py-2">
                                 <span className="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium dark:bg-teal-500/10 dark:text-teal-500">
-                                  {order.global_status}
+                                  {order.status}
                                 </span>
                               </div>
                             </td>
@@ -485,7 +485,7 @@ const AdminOrders = () => {
                               <div className="px-6 py-2">
                                 <div className="flex items-center gap-x-2">
                                   <span className="text-sm text-gray-600 dark:text-neutral-400">
-                                    {order.final_date}
+                                    {order.order_id.final_date}
                                   </span>
                                 </div>
                               </div>

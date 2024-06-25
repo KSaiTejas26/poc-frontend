@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import InnerOrder from "./InnerOrder";
-export const OrderTable = () => {
+import { Link, useNavigate } from "react-router-dom";
+
+const VendorOrders = () => {
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/vendor/orders",
-          {
-            headers: {
-              auth_token: localStorage.getItem("token"),
-            },
+          "http://localhost:3000/api/vendor/orders",{
+            "headers":{
+              'auth_token':localStorage.getItem('token')
+            }
           }
-        ); // Replace '/api/orders' with your actual API endpoint
-        setOrders(response.data.response);
+        );
         console.log(response.data.response);
+        setOrders(response.data.response);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
@@ -25,6 +26,10 @@ export const OrderTable = () => {
     fetchOrders();
   }, []);
 
+//   const handleClick = () => {
+//     <OrderPage data={orders} />;
+//     navigate("/orderpage/admin");
+//   };
   return (
     <div>
       {/* <!-- Table Section --> */}
@@ -53,17 +58,17 @@ export const OrderTable = () => {
                         placeholder="Search"
                       />
                       {/* <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
-                        <svg
-                          className="size-4 text-gray-400 dark:text-neutral-500"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                        </svg>
-                      </div> */}
+                            <svg
+                              className="size-4 text-gray-400 dark:text-neutral-500"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                          </div> */}
                     </div>
                   </div>
                   {/* <!-- End Input --> */}
@@ -372,168 +377,125 @@ export const OrderTable = () => {
                           </td>
                           <td className="size-px whitespace-nowrap">
                             <div className="pe-6 py-2">
-                              <a
+                              <Link to="/orderpage"
                                 className="text-sm text-blue-600 decoration-2 hover:underline dark:text-blue-500"
-                                href="#"
+                                state={{'order':order}}
                               >
-                                {order.orderId}
-                              </a>
+                                {order.order_id.orderId}
+                              </Link>
                             </div>
                           </td>
                           {/* {order.productDescription.map((data) => {
-                            <>
-                              <td className="size-px whitespace-nowrap">
-                                <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-neutral-400">
-                                    {data.date}
-                                  </span>
-                                </div>
-                              </td>
-                              <td className="size-px whitespace-nowrap">
-                                <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-neutral-400">
-                                  </span>
-                                </div>
-                              </td>
-                              <td className="size-px whitespace-nowrap">
-                                <div className="px-6 py-2">
-                                  <span className="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
-                                    <svg
-                                      className="size-2.5"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="16"
-                                      height="16"
-                                      fill="currentColor"
-                                      viewBox="0 0 16 16"
-                                    >
-                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                                    </svg>
-                                    {data.status}
-                                  </span>
-                                </div>
-                              </td>
-                              <td className="size-px whitespace-nowrap">
-                                <div className="px-6 py-2">
-                                  <div className="flex items-center gap-x-2">
-                                    <svg
-                                      className="size-5"
-                                      width="400"
-                                      height="248"
-                                      viewBox="0 0 400 248"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <g clip-path="url(#clip05asd)">
-                                        <path
-                                          d="M254 220.8H146V26.4H254V220.8Z"
-                                          fill="#FF5F00"
-                                        />
-                                        <path
-                                          d="M152.8 123.6C152.8 84.2 171.2 49 200 26.4C178.2 9.2 151.4 0 123.6 0C55.4 0 0 55.4 0 123.6C0 191.8 55.4 247.2 123.6 247.2C151.4 247.2 178.2 238 200 220.8C171.2 198.2 152.8 163 152.8 123.6Z"
-                                          fill="#EB001B"
-                                        />
-                                        <path
-                                          d="M400 123.6C400 191.8 344.6 247.2 276.4 247.2C248.6 247.2 221.8 238 200 220.8C228.8 198.2 247.2 163 247.2 123.6C247.2 84.2 228.8 49 200 26.4C221.8 9.2 248.6 0 276.4 0C344.6 0 400 55.4 400 123.6Z"
-                                          fill="#F79E1B"
-                                        />
-                                      </g>
-                                      <defs>
-                                        <clipPath id="clip05asd">
-                                          <rect
-                                            width="400"
-                                            height="247.2"
-                                            fill="white"
-                                          />
-                                        </clipPath>
-                                      </defs>
-                                    </svg>
-                                    <span className="text-sm text-gray-600 dark:text-neutral-400">
-                                      {data.deliverDate}
-                                    </span>
-                                  </div>
-                                </div>
-                              </td>
-                            </>
-                          })} */}
+                                <>
+                                  <td className="size-px whitespace-nowrap">
+                                    <div className="px-6 py-2">
+                                      <span className="text-sm text-gray-600 dark:text-neutral-400">
+                                        {data.date}
+                                      </span>
+                                    </div>
+                                  </td>
+                                  <td className="size-px whitespace-nowrap">
+                                    <div className="px-6 py-2">
+                                      <span className="text-sm text-gray-600 dark:text-neutral-400">
+                                      </span>
+                                    </div>
+                                  </td>
+                                  <td className="size-px whitespace-nowrap">
+                                    <div className="px-6 py-2">
+                                      <span className="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
+                                        <svg
+                                          className="size-2.5"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="16"
+                                          height="16"
+                                          fill="currentColor"
+                                          viewBox="0 0 16 16"
+                                        >
+                                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                        </svg>
+                                        {data.status}
+                                      </span>
+                                    </div>
+                                  </td>
+                                  <td className="size-px whitespace-nowrap">
+                                    <div className="px-6 py-2">
+                                      <div className="flex items-center gap-x-2">
+                                        <svg
+                                          className="size-5"
+                                          width="400"
+                                          height="248"
+                                          viewBox="0 0 400 248"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <g clip-path="url(#clip05asd)">
+                                            <path
+                                              d="M254 220.8H146V26.4H254V220.8Z"
+                                              fill="#FF5F00"
+                                            />
+                                            <path
+                                              d="M152.8 123.6C152.8 84.2 171.2 49 200 26.4C178.2 9.2 151.4 0 123.6 0C55.4 0 0 55.4 0 123.6C0 191.8 55.4 247.2 123.6 247.2C151.4 247.2 178.2 238 200 220.8C171.2 198.2 152.8 163 152.8 123.6Z"
+                                              fill="#EB001B"
+                                            />
+                                            <path
+                                              d="M400 123.6C400 191.8 344.6 247.2 276.4 247.2C248.6 247.2 221.8 238 200 220.8C228.8 198.2 247.2 163 247.2 123.6C247.2 84.2 228.8 49 200 26.4C221.8 9.2 248.6 0 276.4 0C344.6 0 400 55.4 400 123.6Z"
+                                              fill="#F79E1B"
+                                            />
+                                          </g>
+                                          <defs>
+                                            <clipPath id="clip05asd">
+                                              <rect
+                                                width="400"
+                                                height="247.2"
+                                                fill="white"
+                                              />
+                                            </clipPath>
+                                          </defs>
+                                        </svg>
+                                        <span className="text-sm text-gray-600 dark:text-neutral-400">
+                                          {data.deliverDate}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </>
+                              })} */}
                           {/* <InnerOrder data={order.productDescription} /> */}
-                          {order.productDescription.map((data1) => (
-                            <>
-                              <td className="size-px whitespace-nowrap">
-                                <div className="px-6 py-2">
+
+                          <React.Fragment>
+                            <td className="size-px whitespace-nowrap">
+                              <div className="px-6 py-2">
+                                <span className="text-sm text-gray-600 dark:text-neutral-400">
+                                  {order.order_id.order_date}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="size-px whitespace-nowrap">
+                              <div className="px-6 py-2">
+                                <span className="text-sm text-gray-600 dark:text-neutral-400">
+                                  {order.order_id.customer.customer_first_name}{" "}
+                                  {order.order_id.customer.customer_last_name}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="size-px whitespace-nowrap">
+                              <div className="px-6 py-2">
+                                <span className="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium dark:bg-teal-500/10 dark:text-teal-500">
+                                  {order.status}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="size-px whitespace-nowrap">
+                              <div className="px-6 py-2">
+                                <div className="flex items-center gap-x-2">
                                   <span className="text-sm text-gray-600 dark:text-neutral-400">
-                                    {data1.date}
-                                    {console.log(data1.date)}
+                                    {order.order_id.final_date}
                                   </span>
                                 </div>
-                              </td>
-                              <td className="size-px whitespace-nowrap">
-                                <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-neutral-400">
-                                    {data1.cid.customer_first_name} {data1.cid.customer_last_name}
-                                  </span>
-                                </div>
-                              </td>
-                              <td className="size-px whitespace-nowrap">
-                                <div className="px-6 py-2">
-                                  <span className="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
-                                    <svg
-                                      className="size-2.5"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="16"
-                                      height="16"
-                                      fill="currentColor"
-                                      viewBox="0 0 16 16"
-                                    >
-                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                                    </svg>
-                                    {data1.status}
-                                  </span>
-                                </div>
-                              </td>
-                              <td className="size-px whitespace-nowrap">
-                                <div className="px-6 py-2">
-                                  <div className="flex items-center gap-x-2">
-                                    {/* <svg
-                                      className="size-5"
-                                      width="400"
-                                      height="248"
-                                      viewBox="0 0 400 248"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <g clip-path="url(#clip05asd)">
-                                        <path
-                                          d="M254 220.8H146V26.4H254V220.8Z"
-                                          fill="#FF5F00"
-                                        />
-                                        <path
-                                          d="M152.8 123.6C152.8 84.2 171.2 49 200 26.4C178.2 9.2 151.4 0 123.6 0C55.4 0 0 55.4 0 123.6C0 191.8 55.4 247.2 123.6 247.2C151.4 247.2 178.2 238 200 220.8C171.2 198.2 152.8 163 152.8 123.6Z"
-                                          fill="#EB001B"
-                                        />
-                                        <path
-                                          d="M400 123.6C400 191.8 344.6 247.2 276.4 247.2C248.6 247.2 221.8 238 200 220.8C228.8 198.2 247.2 163 247.2 123.6C247.2 84.2 228.8 49 200 26.4C221.8 9.2 248.6 0 276.4 0C344.6 0 400 55.4 400 123.6Z"
-                                          fill="#F79E1B"
-                                        />
-                                      </g>
-                                      <defs>
-                                        <clipPath id="clip05asd">
-                                          <rect
-                                            width="400"
-                                            height="247.2"
-                                            fill="white"
-                                          />
-                                        </clipPath>
-                                      </defs>
-                                    </svg> */}
-                                    <span className="text-sm text-gray-600 dark:text-neutral-400">
-                                      {data1.deliverDate}
-                                      {console.log(data1.deliverDate)}
-                                    </span>
-                                  </div>
-                                </div>
-                              </td>
-                            </>
-                          ))}
+                              </div>
+                            </td>
+                          </React.Fragment>
+
                           <td className="size-px whitespace-nowrap">
                             <div className="px-6 py-1.5 flex justify-end">
                               <div className="group inline-flex items-center divide-x divide-gray-300 border border-gray-300 bg-white shadow-sm rounded-lg transition-all dark:divide-neutral-700 dark:bg-neutral-700 dark:border-neutral-700">
@@ -769,3 +731,5 @@ export const OrderTable = () => {
     </div>
   );
 };
+
+export default VendorOrders;
