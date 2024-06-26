@@ -4,19 +4,79 @@ import { Link, useLocation } from "react-router-dom";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import SaveIcon from "@mui/icons-material/Save";
+import axios from "axios";
 const OrderPage = () => {
   const location = useLocation();
   let [price, setTotalPrice] = useState(0);
   const [data, setData] = useState(location.state.order);
-  const [timeline, setTimeLine] = useState({ status: data.products[0].status, id: data.products[0].id._id });
+  const [timeline, setTimeLine] = useState({
+    status: data.products[0].status,
+    id: data.products[0].id._id,
+  });
+  const [list, setList] = useState([]);
   useEffect(() => console.log("dataaaaa", data, "  "), []);
-  
+  const statuses = [
+    "Pending",
+    "Payment Done",
+    "In Warehouse",
+    "Shipping Done",
+    "Out for Delivery",
+    "Delivered",
+  ];
+
+  const onStatusSave = async (orderId, productId, id, newStatus) => {
+    try {
+      console.log(orderId, productId, id, newStatus);
+      const response = await axios.put(
+        "http://localhost:3000/api/vendor/updateStatus",
+        { orderId, productId, id, newStatus },
+        {
+          headers: {
+            auth_token: localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    // if (name.startsWith("productDetails")) {
+    //   const field = name.split(".")[1]; // Get the field name (e.g., description)
+    //   setProduct((prevProduct) => ({
+    //     ...prevProduct,
+    //     productDetails: {
+    //       ...prevProduct.productDetails,
+    //       [field]: value,
+    //     },
+    //   }));
+    // } else {
+    //   // Otherwise, update the top-level state
+    //   setProduct((prevProduct) => ({
+    //     ...prevProduct,
+    //     [name]: value,
+    //   }));
+    // }
+  };
+
+  const [selectedStatus, setSelectedStatus] = useState("Pending");
+
+  const handleStatusChange = (newStatus) => {
+    setSelectedStatus(newStatus);
+    onUpdate(newStatus, orderId);
+  };
+
   const func = (o, c) => {
     price += o * c;
   };
-  const updateStatus = (currstatus,id) => {
+  const updateStatus = (currstatus, id) => {
     setTimeLine({ status: currstatus, id: id });
-    console.log(currstatus+"  "+id);
+    console.log(currstatus + "  " + id);
     // console.log(currstatus);
   };
   return (
@@ -24,7 +84,7 @@ const OrderPage = () => {
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
-            Track the delivery of order #{data.order_id.orderId}
+            Track the delivery of order #{data.id}
           </h2>
 
           <div className="mt-6 sm:mt-8 lg:flex lg:gap-8">
@@ -74,10 +134,47 @@ const OrderPage = () => {
                   <button
                     type="button"
                     className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                    onClick={()=>updateStatus(o.status,o.id._id)}
+                    onClick={() => updateStatus(o.status, o.id._id)}
                   >
                     Product Status
                   </button>
+
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor="category"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Update Status
+                    </label>
+                    <select
+                      id="category"
+                      name="category"
+                      autoComplete="category-name"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      onChange={(e) => setSelectedStatus(e.target.value)}
+                    >
+                      <option value="">Select Status</option>
+                      {statuses.map((stat) => (
+                        <option value={stat}>{stat}</option>
+                      ))}
+                    </select>
+
+                    <button
+                      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+                      onClick={() => {
+                        onStatusSave(
+                          data.order_id.orderId,
+                          data.id,
+                          o.id._id,
+                          selectedStatus
+                        );
+                      }}
+                    >
+                      <span>
+                        <SaveIcon /> Save
+                      </span>
+                    </button>
+                  </div>
 
                   <div className="flex items-center justify-between gap-4">
                     <p className="text-sm font-normal text-gray-500 dark:text-gray-400">

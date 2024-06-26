@@ -12,6 +12,7 @@ const ProductReciept = () => {
   const func = (o, c) => {
     price += o * c;
   };
+
   return (
     <div>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
@@ -50,44 +51,46 @@ const ProductReciept = () => {
               <div className="relative overflow-x-auto border-b border-gray-200 dark:border-gray-800">
                 <table className="w-full text-left font-medium text-gray-900 dark:text-white md:table-fixed">
                   <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
-                    {data.productDescription.map((order) => (
-                      <tr>
-                        <td className="whitespace-nowrap py-4 md:w-[384px]">
-                          <div className="flex items-center gap-4">
-                            <Link
-                              to={`/soloproduct/${order.pid._id}/admin`}
-                              className="flex items-center aspect-square w-10 h-10 shrink-0"
-                            >
-                              <img
-                                className="h-auto w-full max-h-full dark:hidden"
-                                src={order.pid.main_image}
-                                alt="watch image"
-                              />
-                              <img
-                                className="hidden h-auto w-full max-h-full dark:block"
-                                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/Linkpple-watch-dark.svg"
-                                alt="watch image"
-                              />
-                            </Link>
-                            <Link
-                              to={`/soloproduct/${order.pid._id}/admin`}
-                              className="hover:underline"
-                            >
-                              {truncateName(order.pid.pname, 40)}
-                            </Link>
-                          </div>
-                        </td>
+                    {data.map((order) =>
+                      order.products.map((a) => (
+                        <tr>
+                          <td className="whitespace-nowrap py-4 md:w-[384px]">
+                            <div className="flex items-center gap-4">
+                              <Link
+                                to={`/soloproduct/${a.id._id}/admin`}
+                                className="flex items-center aspect-square w-10 h-10 shrink-0"
+                              >
+                                <img
+                                  className="h-auto w-full max-h-full dark:hidden"
+                                  src={a.id.main_image}
+                                  alt="watch image"
+                                />
+                                <img
+                                  className="hidden h-auto w-full max-h-full dark:block"
+                                  src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/Linkpple-watch-dark.svg"
+                                  alt="watch image"
+                                />
+                              </Link>
+                              <Link
+                                to={`/soloproduct/${a.id._id}/admin`}
+                                className="no-underline hover:no-underline"
+                              >
+                                {truncateName(a.id.pname, 40)}
+                              </Link>
+                            </div>
+                          </td>
 
-                        <td className="p-4 text-base font-normal text-gray-900 dark:text-white">
-                          x{order.capacity}
-                        </td>
+                          <td className="p-4 text-base font-normal text-gray-900 dark:text-white">
+                            x{a.capacity}
+                          </td>
 
-                        <td className="p-4 text-right text-base font-bold text-gray-900 dark:text-white">
-                          ${order.pid.price}
-                          {func(order.pid.price, order.capacity)}
-                        </td>
-                      </tr>
-                    ))}
+                          <td className="p-4 text-right text-base font-bold text-gray-900 dark:text-white">
+                            ${a.id.price}
+                            {func(a.id.price, a.capacity)}
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>

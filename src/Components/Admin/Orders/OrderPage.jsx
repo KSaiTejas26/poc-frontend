@@ -1,99 +1,113 @@
 import { PersonAddAlt1 } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
+
 const OrderPage = () => {
   const location = useLocation();
   let [price, setTotalPrice] = useState(0);
   const [data, setData] = useState(location.state.order);
-  const [status, setStatus] = useState(data.status);
-  useEffect(
-    () => console.log("dataaaaa", location.state.order, "  ", data),
-    []
-  );
+  const [timeline, setTimeLine] = useState({
+    status: data[0].products[0].status,
+    id: data[0].products[0].id._id,
+  });
+  useEffect(() => console.log("dataaaaa", data, "  "), []);
+
   const func = (o, c) => {
     price += o * c;
+  };
+  const updateStatus = (currstatus, id) => {
+    setTimeLine({ status: currstatus, id: id });
+    console.log(currstatus + "  " + id);
+    // console.log(currstatus);
   };
   return (
     <div>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
-            Track the delivery of order #{data.orderId}
+            Track the delivery of order #{location.state.id}
           </h2>
 
           <div className="mt-6 sm:mt-8 lg:flex lg:gap-8">
             <div className="w-full divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 dark:divide-gray-700 dark:border-gray-700 lg:max-w-xl xl:max-w-2xl">
-              {data.productDescription.map((o) => (
-                <div className="space-y-4 p-6">
-                  {console.log("oooooooo ", o.pid.main_image)}
-                  <div className="relative flex justify-end ">
-                    {/* <button
-                        type="button"
-                        class="text-white relative flex gap-0.5 bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-2 py-2.5 text-center me-2 mb-2 w-auto"
-                        disabled
-                      > */}
-                    {o.status === "Delivered" && (
-                      <svg
-                        class="w-6 h-6 text-gray-800 dark:text-white"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 21 21"
+              {data.map((pro) =>
+                pro.products.map((o) => (
+                  <div className="space-y-4 p-6">
+                    <div className="relative flex justify-end ">
+                      {o.status === "Delivered" && (
+                        <svg
+                          className="w-6 h-6 text-gray-800 dark:text-white"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 21 21"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="m6.072 10.072 2 2 6-4m3.586 4.314.9-.9a2 2 0 0 0 0-2.828l-.9-.9a2 2 0 0 1-.586-1.414V5.072a2 2 0 0 0-2-2H13.8a2 2 0 0 1-1.414-.586l-.9-.9a2 2 0 0 0-2.828 0l-.9.9a2 2 0 0 1-1.414.586H5.072a2 2 0 0 0-2 2v1.272a2 2 0 0 1-.586 1.414l-.9.9a2 2 0 0 0 0 2.828l.9.9a2 2 0 0 1 .586 1.414v1.272a2 2 0 0 0 2 2h1.272a2 2 0 0 1 1.414.586l.9.9a2 2 0 0 0 2.828 0l.9-.9a2 2 0 0 1 1.414-.586h1.272a2 2 0 0 0 2-2V13.8a2 2 0 0 1 .586-1.414Z"
+                          />
+                        </svg>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-6">
+                      <Link
+                        to={`/soloproduct/${o.id._id}/admin`}
+                        className="h-14 w-14 shrink-0"
                       >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="m6.072 10.072 2 2 6-4m3.586 4.314.9-.9a2 2 0 0 0 0-2.828l-.9-.9a2 2 0 0 1-.586-1.414V5.072a2 2 0 0 0-2-2H13.8a2 2 0 0 1-1.414-.586l-.9-.9a2 2 0 0 0-2.828 0l-.9.9a2 2 0 0 1-1.414.586H5.072a2 2 0 0 0-2 2v1.272a2 2 0 0 1-.586 1.414l-.9.9a2 2 0 0 0 0 2.828l.9.9a2 2 0 0 1 .586 1.414v1.272a2 2 0 0 0 2 2h1.272a2 2 0 0 1 1.414.586l.9.9a2 2 0 0 0 2.828 0l.9-.9a2 2 0 0 1 1.414-.586h1.272a2 2 0 0 0 2-2V13.8a2 2 0 0 1 .586-1.414Z"
+                        <img
+                          className="h-full w-full dark:hidden"
+                          src={o.id.main_image}
+                          alt="phone image"
                         />
-                      </svg>
-                    )}
-                    {/* </button> */}
-                  </div>
-                  <div className="flex items-center gap-6">
-                    <Link
-                      to={`/soloproduct/${o.pid._id}/admin`}
-                      className="h-14 w-14 shrink-0"
+                      </Link>
+
+                      <Link
+                        to={`/soloproduct/${o.id._id}/admin`}
+                        className="min-w-0 flex-1 font-medium text-gray-900 no-underline hover:no-underline dark:text-white"
+                      >
+                        {" "}
+                        {o.id.pname}
+                        {/* {console.log('idd ',data[0].products[0].id)} */}
+                      </Link>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                      onClick={() => updateStatus(o.status, o.id._id)}
                     >
-                      <img
-                        className="h-full w-full dark:hidden"
-                        src={o.pid.main_image}
-                        alt="phone image"
-                      />
-                    </Link>
+                      Product Status
+                    </button>
 
-                    <Link
-                      to={`/soloproduct/${o.pid._id}/admin`}
-                      className="min-w-0 flex-1 font-medium text-gray-900 hover:underline dark:text-white"
-                    >
-                      {" "}
-                      {o.pid.pname}
-                    </Link>
-                  </div>
-
-                  <div className="flex items-center justify-between gap-4">
-                    <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Product Order ID:
-                      </span>{" "}
-                      {o.subOrderId}
-                    </p>
-
-                    <div className="flex items-center justify-end gap-4">
-                      <p className="text-base font-normal text-gray-900 dark:text-white">
-                        x{o.capacity}
+                    <div className="flex items-center justify-between gap-4">
+                      <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                        <span className="font-medium text-gray-900 dark:text-white">
+                          Product Order ID:
+                        </span>{" "}
+                        {o._id}
                       </p>
 
-                      <p className="text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                        ${o.pid.price}
-                        {func(o.pid.price, o.capacity)}
-                      </p>
+                      <div className="flex items-center justify-end gap-4">
+                        <p className="text-base font-normal text-gray-900 dark:text-white">
+                          x{o.capacity}
+                        </p>
+
+                        <p className="text-xl font-bold leading-tight text-gray-900 dark:text-white">
+                          ${o.id.price}
+                          {func(o.id.price, o.capacity)}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-
+                ))
+              )}
+              {console.log("heyyyy", data[0].products[0])}
               <div className="space-y-4 bg-gray-50 p-6 dark:bg-gray-800">
                 <div className="space-y-2">
                   <dl className="flex items-center justify-between gap-4">
@@ -146,113 +160,205 @@ const OrderPage = () => {
 
             <div className="mt-6 grow sm:mt-8 lg:mt-0">
               <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Order history
-                </h3>
-
+                <div className="flex justify-between">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Order history
+                  </h3>
+                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Product ID:{timeline.id}
+                  </h4>
+                </div>
                 <ol className="relative ms-3 border-s border-gray-200 dark:border-gray-700">
-                  <li className="mb-10 ms-6">
-                    <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-gray-700 dark:ring-gray-800">
-                      <svg
-                        className="h-4 w-4 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
-                        />
-                      </svg>
-                    </span>
-                    <h4 className="mb-0.5 text-base font-semibold text-gray-900 dark:text-white">
+                  <li
+                    className={`mb-10 ms-6 ${
+                      timeline.status === "Delivered"
+                        ? "text-primary-700 dark:text-primary-500"
+                        : "text-black-700"
+                    }`}
+                  >
+                    {timeline.status === "Delivered" ? (
+                      <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800">
+                        <svg
+                          className="h-4 w-4"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M5 11.917 9.724 16.5 19 7.5"
+                          />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-gray-700 dark:ring-gray-800">
+                        <svg
+                          className="h-4 w-4 text-gray-500 dark:text-gray-400"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
+                          />
+                        </svg>
+                      </span>
+                    )}
+                    <h4 className="mb-0.5 text-base font-semibold">
                       Estimated delivery in 24 Nov 2023
                     </h4>
-                    <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                      Products delivered
-                    </p>
+                    <p className="text-sm font-normal ">Products delivered</p>
                   </li>
 
-                  <li className="mb-10 ms-6">
-                    <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-gray-700 dark:ring-gray-800">
-                      <svg
-                        className="h-4 w-4 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
-                        />
-                      </svg>
-                    </span>
-                    <h4 className="mb-0.5 text-base font-semibold text-gray-900 dark:text-white">
-                      Today
-                    </h4>
-                    <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                  <li
+                    className={`mb-10 ms-6 ${
+                      timeline.status === "Delivered" ||
+                      timeline.status === "Out for Delivery"
+                        ? "text-primary-700 dark:text-primary-500"
+                        : "text-black-700"
+                    }`}
+                  >
+                    {timeline.status === "Delivered" ||
+                    timeline.status === "Out for Delivery" ? (
+                      <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800">
+                        <svg
+                          className="h-4 w-4"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M5 11.917 9.724 16.5 19 7.5"
+                          />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-gray-700 dark:ring-gray-800">
+                        <svg
+                          className="h-4 w-4 text-gray-500 dark:text-gray-400"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+                          />
+                        </svg>
+                      </span>
+                    )}
+                    <h4 className="mb-0.5 text-base font-semibold">Today</h4>
+                    <p className="text-sm font-normal">
                       Products being delivered
                     </p>
                   </li>
 
-                  <li className="mb-10 ms-6 text-primary-700 dark:text-primary-500">
-                    <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800">
-                      <svg
-                        className="h-4 w-4"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M5 11.917 9.724 16.5 19 7.5"
-                        />
-                      </svg>
-                    </span>
+                  <li
+                    className={`mb-10 ms-6 ${
+                      timeline.status === "Delivered" ||
+                      timeline.status === "Out for Delivery" ||
+                      timeline.status === "Shipping Done"
+                        ? "text-primary-700 dark:text-primary-500"
+                        : "text-black-700"
+                    }`}
+                  >
+                    {timeline.status === "Delivered" ||
+                    timeline.status === "Out for Delivery" ||
+                    timeline.status === "Shipping Done" ? (
+                      <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800">
+                        <svg
+                          className="h-4 w-4"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M5 11.917 9.724 16.5 19 7.5"
+                          />
+                        </svg>
+                      </span>
+                    ) : (
+                      <div className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800 text-gray-500 dark:text-gray-400">
+                        <WarehouseOutlinedIcon fontSize="small" />
+                      </div>
+                    )}
                     <h4 className="mb-0.5 font-semibold">23 Nov 2023, 15:15</h4>
                     <p className="text-sm">
                       Products in the courier's warehouse
                     </p>
                   </li>
 
-                  <li className="mb-10 ms-6 text-primary-700 dark:text-primary-500">
-                    <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800">
-                      <svg
-                        className="h-4 w-4"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M5 11.917 9.724 16.5 19 7.5"
-                        />
-                      </svg>
-                    </span>
+                  <li
+                    className={`mb-10 ms-6 ${
+                      timeline.status === "Delivered" ||
+                      timeline.status === "Out for Delivery" ||
+                      timeline.status === "Shipping Done" ||
+                      timeline.status === "In Warehouse"
+                        ? "text-primary-700 dark:text-primary-500"
+                        : "text-black-700"
+                    }`}
+                  >
+                    {timeline.status === "Delivered" ||
+                    timeline.status === "Out for Delivery" ||
+                    timeline.status === "Shipping Done" ||
+                    timeline.status === "In Warehouse" ? (
+                      <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800">
+                        <svg
+                          className="h-4 w-4"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M5 11.917 9.724 16.5 19 7.5"
+                          />
+                        </svg>
+                      </span>
+                    ) : (
+                      <div className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800 text-gray-500 dark:text-gray-400">
+                        <LocalShippingOutlinedIcon fontSize="small" />
+                      </div>
+                    )}
                     <h4 className="mb-0.5 text-base font-semibold">
                       22 Nov 2023, 12:27
                     </h4>
@@ -262,34 +368,63 @@ const OrderPage = () => {
                   </li>
 
                   <li
-                    className={`mb-10 ms-6 text-primary-700 dark:text-primary-500`}
+                    className={`mb-10 ms-6 ${
+                      timeline.status === "Payment Done" ||
+                      timeline.status === "Delivered" ||
+                      timeline.status === "Shipping Done" ||
+                      timeline.status === "In Warehouse" ||
+                      timeline.status === "Out for Delivery"
+                        ? "text-primary-700 dark:text-primary-500"
+                        : "text-black-700"
+                    }`}
                   >
-                    <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800">
-                      <svg
-                        className="h-4 w-4"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M5 11.917 9.724 16.5 19 7.5"
-                        />
-                      </svg>
-                    </span>
+                    {timeline.status === "Payment Done" ||
+                    timeline.status === "Delivered" ||
+                    timeline.status === "Shipping Done" ||
+                    timeline.status === "In Warehouse" ||
+                    timeline.status === "Out for Delivery" ? (
+                      <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800">
+                        <svg
+                          className="h-4 w-4"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M5 11.917 9.724 16.5 19 7.5"
+                          />
+                        </svg>
+                      </span>
+                    ) : (
+                      <div className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800 text-gray-500 dark:text-gray-400">
+                        <CreditCardOutlinedIcon fontSize="small" />
+                      </div>
+                    )}
                     <h4 className="mb-0.5 font-semibold">19 Nov 2023, 10:47</h4>
                     <p className="text-sm">
                       Payment accepted - VISA Credit Card
                     </p>
                   </li>
 
-                  <li className="ms-6 text-primary-700 dark:text-primary-500">
+                  <li
+                    className={`ms-6 ${
+                      timeline.status === "Pending" ||
+                      timeline.status === "Payment Done" ||
+                      timeline.status === "Delivered" ||
+                      timeline.status === "Shipping Done" ||
+                      timeline.status === "In Warehouse" ||
+                      timeline.status === "Out for Delivery"
+                        ? "text-primary-700 dark:text-primary-500"
+                        : "text-black-700"
+                    }`}
+                  >
                     <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-100 ring-8 ring-white dark:bg-primary-900 dark:ring-gray-800">
                       <svg
                         className="h-4 w-4"
@@ -318,7 +453,7 @@ const OrderPage = () => {
                         className="text-sm font-medium hover:underline"
                         state={data}
                       >
-                        Order placed - Receipt #{data.orderId}
+                        Order placed - Receipt #{location.state.id}
                       </Link>
                     </div>
                   </li>
@@ -359,6 +494,7 @@ const OrderPage = () => {
       </section>
     </div>
   );
+  return <></>;
 };
 
 export default OrderPage;
