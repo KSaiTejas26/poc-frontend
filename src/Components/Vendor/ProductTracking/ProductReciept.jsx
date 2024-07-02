@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import Header from '../VendorHeader'
+
 const ProductReciept = () => {
   const location = useLocation();
   let [price, setTotalPrice] = useState(0);
@@ -99,6 +101,7 @@ const ProductReciept = () => {
 
   return (
     <div>
+      <Header/>
       <div ref={pdfRef}>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16" >
         <form action="#" className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -116,9 +119,11 @@ const ProductReciept = () => {
                 <dt className="text-base font-medium text-gray-900 dark:text-white">
                   Individual
                 </dt>
-                <dd className="mt-1 text-base font-normal text-gray-500 dark:text-gray-400">
-                  Bonnie Green - +1 234 567 890, San Francisco, California,
-                  United States, 3454, Scott Street
+                <dd className="mt-2 text-base font-normal text-gray-500 dark:text-gray-400">
+                  {data.order_id.order_details.address},{data.order_id.order_details.city},{data.order_id.order_details.pinCode}
+                  <hr />
+
+                  Phone Number:{data.order_id.order_details.mobileNumber}
                 </dd>
               </dl>
 

@@ -1,37 +1,40 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useLocation } from 'react-router';
-import { Menu, Transition } from '@headlessui/react';
-import ProductReciept from './ProductReciept';
-import { Fragment } from 'react';
-
+import { useLocation } from "react-router";
+import { Menu, Transition } from "@headlessui/react";
+import ProductReciept from "./ProductReciept";
+import { Fragment } from "react";
+import Header from '../VendorHeader'
 // import { useNavigate } from "react-router-dom";
-
 
 const VendorOrders = () => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [open, setOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const componentRef = useRef();
-
+  useEffect(() => {
+    const filtered = orders.filter((vendor) =>
+      vendor.id.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    console.log("filtered", filtered); // Log the filtered data
+    setFilteredData(filtered);
+  }, [searchTerm, orders]);
 
   const handleOpen = () => {
     setOpen(!open);
   };
 
   function classNames(...classes) {
-    return classes.filter(Boolean).join(' ');
+    return classes.filter(Boolean).join(" ");
   }
 
-  
-
   const [currentOrder, setCurrentOrder] = useState(null);
-
-
-
-
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -55,8 +58,23 @@ const VendorOrders = () => {
     console.log(orders);
   }, []);
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentOrders = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => {
+    if (pageNumber === 0) {
+      setCurrentPage(1);
+    } else if (pageNumber === -1) {
+      setCurrentPage((prevPage) => (prevPage === 1 ? 1 : prevPage - 1));
+    } else {
+      setCurrentPage(pageNumber);
+    }
+  };
+
   return (
     <div>
+      <Header/>
       {/* <!-- Table Section --> */}
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         {/* <!-- Card --> */}
@@ -81,8 +99,9 @@ const VendorOrders = () => {
                         name="hs-as-table-product-review-search"
                         className="py-2 px-3 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                         placeholder="Search"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                       />
-                      
                     </div>
                   </div>
                   {/* <!-- End Input --> */}
@@ -90,7 +109,7 @@ const VendorOrders = () => {
                   <div className="sm:col-span-2 md:grow">
                     <div className="flex justify-end gap-x-2">
                       <div className="hs-dropdown [--placement:bottom-right] relative inline-block">
-                        <button
+                        {/* <button
                           id="hs-as-table-table-export-dropdown"
                           type="button"
                           className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
@@ -104,10 +123,9 @@ const VendorOrders = () => {
                             viewBox="0 0 16 16"
                           >
                             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                            {/* <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" /> */}
                           </svg>
                           Export
-                        </button>
+                        </button> */}
                         <div
                           className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-48 z-10 bg-white shadow-md rounded-lg p-2 mt-2 dark:divide-neutral-700 dark:bg-neutral-800 dark:border dark:border-neutral-700"
                           aria-labelledby="hs-as-table-table-export-dropdown"
@@ -216,7 +234,7 @@ const VendorOrders = () => {
                         className="hs-dropdown relative inline-block [--placement:bottom-right]"
                         data-hs-dropdown-auto-close="inside"
                       >
-                        <button
+                        {/* <button
                           id="hs-as-table-table-filter-dropdown"
                           type="button"
                           className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
@@ -241,7 +259,7 @@ const VendorOrders = () => {
                           <span className="ps-2 text-xs font-semibold text-blue-600 border-s border-gray-200 dark:border-neutral-700 dark:text-blue-500">
                             1
                           </span>
-                        </button>
+                        </button> */}
                         <div
                           className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-48 z-10 bg-white shadow-md rounded-lg mt-2 dark:divide-neutral-700 dark:bg-neutral-800 dark:border dark:border-neutral-700"
                           aria-labelledby="hs-as-table-table-filter-dropdown"
@@ -255,7 +273,7 @@ const VendorOrders = () => {
                                 type="checkbox"
                                 className="shrink-0 mt-0.5 border-gray-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-600 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                                 id="hs-as-filters-dropdown-all"
-                              // checked
+                                // checked
                               />
                               <span className="ms-3 text-sm text-gray-800 dark:text-neutral-200">
                                 All
@@ -313,7 +331,7 @@ const VendorOrders = () => {
                   <thead className="bg-gray-50 dark:bg-neutral-800">
                     <tr>
                       <th scope="col" className="ps-6 py-3 text-start">
-                        <label
+                        {/* <label
                           htmlFor="hs-at-with-checkboxes-main"
                           className="flex"
                         >
@@ -323,7 +341,7 @@ const VendorOrders = () => {
                             id="hs-at-with-checkboxes-main"
                           />
                           <span className="sr-only">Checkbox</span>
-                        </label>
+                        </label> */}
                       </th>
 
                       <th scope="col" className="pe-6 py-3 text-start">
@@ -371,10 +389,10 @@ const VendorOrders = () => {
                   </thead>
 
                   <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                    {orders?.map((order) => (
+                    {currentOrders?.map((order) => (
                       <tr>
                         <td className="size-px whitespace-nowrap">
-                          <div className="ps-6 py-2">
+                          {/* <div className="ps-6 py-2">
                             <label
                               htmlFor="hs-at-with-checkboxes-1"
                               className="flex"
@@ -386,7 +404,7 @@ const VendorOrders = () => {
                               />
                               <span className="sr-only">Checkbox</span>
                             </label>
-                          </div>
+                          </div> */}
                         </td>
                         <td className="size-px whitespace-nowrap">
                           <div className="pe-6 py-2">
@@ -400,7 +418,6 @@ const VendorOrders = () => {
                             </Link>
                           </div>
                         </td>
-                        
 
                         <React.Fragment>
                           <td className="size-px whitespace-nowrap">
@@ -436,67 +453,60 @@ const VendorOrders = () => {
                           </td>
                         </React.Fragment>
 
-                        
+                        <td className="size-px whitespace-nowrap">
+                          <div className="px-6 py-1.5 flex justify-end">
+                            <div className="group inline-flex items-center divide-x divide-gray-300 border border-gray-300 bg-white shadow-sm rounded-lg transition-all dark:divide-neutral-700 dark:bg-neutral-700 dark:border-neutral-700">
+                              <div className="relative inline-flex">
+                                <Menu as="div" className="relative">
+                                  <Menu.Button
+                                    id="hs-table-dropdown-1"
+                                    type="button"
+                                    className="hs-dropdown-toggle py-1.5 px-2 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-md bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
+                                  >
+                                    <svg
+                                      className="size-4"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="16"
+                                      height="16"
+                                      fill="currentColor"
+                                      viewBox="0 0 16 16"
+                                    >
+                                      <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                    </svg>
+                                  </Menu.Button>
 
-
-                          <td className="size-px whitespace-nowrap">
-                                <div className="px-6 py-1.5 flex justify-end">
-                                  <div className="group inline-flex items-center divide-x divide-gray-300 border border-gray-300 bg-white shadow-sm rounded-lg transition-all dark:divide-neutral-700 dark:bg-neutral-700 dark:border-neutral-700">
-                                    <div className="relative inline-flex">
-                                      <Menu as="div" className="relative">
-                                        <Menu.Button
-                                          id="hs-table-dropdown-1"
-                                          type="button"
-                                          className="hs-dropdown-toggle py-1.5 px-2 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-md bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
-                                        >
-                                          <svg
-                                            className="size-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            fill="currentColor"
-                                            viewBox="0 0 16 16"
-                                          >
-                                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                          </svg>
-                                        </Menu.Button>
-
-                                        <Transition
-                                          as={Fragment}
-                                          enter="transition ease-out duration-100"
-                                          enterFrom="transform opacity-0 scale-95"
-                                          enterTo="transform opacity-100 scale-100"
-                                          leave="transition ease-in duration-75"
-                                          leaveFrom="transform opacity-100 scale-100"
-                                          leaveTo="transform opacity-0 scale-95"
-                                        >
-                                          <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-700">
-                                            <div className="py-1">
-                                              <Menu.Item>
-                                                
-                                                {({ active }) => (
-
-                                                    <Link
-                                                    to="/orderreciept"
-                                                    
-                                                    className="text-sm no-underline font-medium hover:no-underline"
-                                                    state={order}
-                                                    >
-                                                  
-                                                  <button
-                                                    className={classNames(
-                                                      active ? 'bg-gray-100 dark:bg-neutral-600' : '',
-                                                      'group flex rounded-md items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-white'
-                                                    )}
-                                                    
-                                                  >
-                                                    View Reciept
-                                                  </button>
-                                                  </Link>
+                                  <Transition
+                                    as={Fragment}
+                                    enter="transition ease-out duration-100"
+                                    enterFrom="transform opacity-0 scale-95"
+                                    enterTo="transform opacity-100 scale-100"
+                                    leave="transition ease-in duration-75"
+                                    leaveFrom="transform opacity-100 scale-100"
+                                    leaveTo="transform opacity-0 scale-95"
+                                  >
+                                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-700">
+                                      <div className="py-1">
+                                        <Menu.Item>
+                                          {({ active }) => (
+                                            <Link
+                                              to="/orderreciept"
+                                              className="text-sm no-underline font-medium hover:no-underline"
+                                              state={order}
+                                            >
+                                              <button
+                                                className={classNames(
+                                                  active
+                                                    ? "bg-gray-100 dark:bg-neutral-600"
+                                                    : "",
+                                                  "group flex rounded-md items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-white"
                                                 )}
-                                                
-                                              </Menu.Item>
-                                              {/* <Menu.Item>
+                                              >
+                                                View Reciept
+                                              </button>
+                                            </Link>
+                                          )}
+                                        </Menu.Item>
+                                        {/* <Menu.Item>
                                                 {({ active }) => (
                                                   <button
                                                     className={classNames(
@@ -509,7 +519,7 @@ const VendorOrders = () => {
                                                   </button>
                                                 )}
                                               </Menu.Item> */}
-                                              {/* <Menu.Item>
+                                        {/* <Menu.Item>
                                                 {({ active }) => (
                                                   <button
                                                     className={classNames(
@@ -522,21 +532,14 @@ const VendorOrders = () => {
                                                   </button>
                                                 )}
                                               </Menu.Item> */}
-                                            </div>
-                                          </Menu.Items>
-                                        </Transition>
-                                      </Menu>
-                                    </div>
-                                  </div>
-                                </div>
-                              </td>
-
-
-                         
-
-
-
-
+                                      </div>
+                                    </Menu.Items>
+                                  </Transition>
+                                </Menu>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -544,7 +547,7 @@ const VendorOrders = () => {
                 {/* <!-- End Table --> */}
 
                 {currentOrder && (
-                  <div style={{ display: 'none' }}>
+                  <div style={{ display: "none" }}>
                     <ProductReciept state={currentOrder} />
                   </div>
                 )}
@@ -555,7 +558,7 @@ const VendorOrders = () => {
 
                 {/* <!-- pagination --> */}
                 <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
-                  <div className="max-w-sm space-y-3">
+                  {/* <div className="max-w-sm space-y-3">
                     <select className="py-2 px-3 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                       <option>1</option>
                       <option>2</option>
@@ -564,13 +567,15 @@ const VendorOrders = () => {
                       <option>9</option>
                       <option>20</option>
                     </select>
-                  </div>
+                  </div> */}
 
-                  <div>
-                    <div className="inline-flex gap-x-2">
+                  <div className="flex justify-end w-full">
+                    <div className=" inline-flex gap-x-2">
                       <button
                         type="button"
                         className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
+                        onClick={() => paginate(-1)}
+                        disabled={currentPage === 1}
                       >
                         <svg
                           className="flex-shrink-0 size-4"
@@ -592,6 +597,10 @@ const VendorOrders = () => {
                       <button
                         type="button"
                         className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
+                        onClick={() => paginate(currentPage + 1)}
+                        disabled={
+                          currentPage === Math.ceil(orders.length / itemsPerPage)
+                        }
                       >
                         Next
                         <svg

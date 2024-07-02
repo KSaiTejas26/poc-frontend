@@ -8,6 +8,9 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import SaveIcon from "@mui/icons-material/Save";
 import axios from "axios";
+import Header from '../VendorHeader'
+import { toast } from "react-toastify";
+
 const OrderPage = () => {
   const location = useLocation();
   let [price, setTotalPrice] = useState(0);
@@ -40,6 +43,7 @@ const OrderPage = () => {
         }
       );
       console.log(response);
+      toast.success('Status updated succesfully')
     } catch (e) {
       console.log(e);
     }
@@ -81,6 +85,7 @@ const OrderPage = () => {
   };
   return (
     <div>
+      <Header/>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
@@ -160,7 +165,7 @@ const OrderPage = () => {
                     </select>
 
                     <button
-                      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+                      class="mt-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
                       onClick={() => {
                         onStatusSave(
                           data.order_id.orderId,
