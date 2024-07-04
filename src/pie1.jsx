@@ -45,7 +45,7 @@ const LineChart = ({ data1 }) => {
       console.log("data1 ", data1);
       const rootCauseCounts = {};
       data1.info.forEach((infoItem) => {
-        const rootCause = infoItem.root_cause_code;
+        const rootCause = infoItem.resolution_code;
         console.log("rc ", rootCause);
         if (rootCause) {
           if (rootCauseCounts[rootCause]) {
