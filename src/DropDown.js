@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Multiselect from "multiselect-react-dropdown";
 import LineBar from './linebar'; // Assuming LineBar.js is in the same directory
-import Mttr from './mttrchart'
+import Mttr from './MttrLine';
+
 function BasicExample() {
-  const [products, setProducts] = useState(null); // Initialize with null or []
-  const [options] = useState([
+  const [products, setProducts] = useState([]); // Initialize with an empty array
+  const [selectedValue, setSelectedValue] = useState([]);
+
+  const options = [
     { name: "RealPage Exchange", id: 1 },
     { name: "On-Site", id: 2 },
     { name: "YieldStar", id: 3 },
@@ -13,8 +16,7 @@ function BasicExample() {
     { name: "RealpagePayments", id: 5 },
     { name: "UPP", id: 6 },
     { name: "ClickPay", id: 7 },
-  ]);
-  const [selectedValue, setSelectedValue] = useState([]);
+  ];
 
   const fetchProductDetails = async (selectedList) => {
     try {
@@ -28,20 +30,30 @@ function BasicExample() {
   };
 
   const onSelect = (selectedList, selectedItem) => {
-    const updatedSelectedValue = [...selectedValue, selectedItem.name];
-    setSelectedValue(updatedSelectedValue);
-    fetchProductDetails(updatedSelectedValue);
+    // Check if the item is already selected
+    if (!selectedValue.includes(selectedItem.name)) {
+      const updatedSelectedValue = [...selectedValue, selectedItem.name];
+      setSelectedValue(updatedSelectedValue);
+      fetchProductDetails(updatedSelectedValue);
+    }
   };
 
   const onRemove = (selectedList, removedItem) => {
-    const updatedSelectedValue = selectedList.filter(item => item.name !== removedItem.name);
+    const updatedSelectedValue = selectedList.map(item => item.name);
     setSelectedValue(updatedSelectedValue);
+
+    // Remove the product details corresponding to the removed item
+    const updatedProducts = products.filter(
+      product => product.product_name !== removedItem.name
+    );
+    setProducts(updatedProducts);
+
+    // Fetch updated details for the remaining selected items
     fetchProductDetails(updatedSelectedValue);
   };
 
-  // Use useEffect to trigger updates whenever products state changes
   useEffect(() => {
-    // This function will execute whenever products state changes
+    // This will log whenever products state changes
     console.log("Products updated:", products);
   }, [products]);
 
@@ -50,14 +62,14 @@ function BasicExample() {
       <h2>MultiSelect Dropdown Example</h2>
       <Multiselect
         options={options}
-        selectedValues={selectedValue}
+        selectedValues={options.filter(option => selectedValue.includes(option.name))}
         onSelect={onSelect}
         onRemove={onRemove}
         displayValue="name"
       />
-      {/* Render product details or other components as needed */}
-      {products && <LineBar data1={products}/>}
-      {/* {products && <Mttr data1={products}/>} */}
+      {/* Render the components for LineBar and Mttr */}
+      {products.length > 0 && <LineBar data1={products} />}
+      {products.length > 0 && <Mttr data1={products} />}
     </div>
   );
 }
