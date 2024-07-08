@@ -13,9 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export default function DropdownMenuRadioGroupDemo() {
-  const [selectedProduct, setSelectedProduct] =
-    React.useState("Select Product");
+export default function DropdownMenuRadioGroupDemo({ product, setProduct }) {
   const products = [
     "RealPage Exchange",
     "On-Site",
@@ -29,19 +27,21 @@ export default function DropdownMenuRadioGroupDemo() {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild  className="mr-2">
-          <Button variant="outline" style={{width:'170px'}}>{selectedProduct}</Button>
+        <DropdownMenuTrigger asChild className="mr-2">
+          <Button variant="outline" style={{ width: "170px" }}>
+            {product}
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-100">
           <DropdownMenuLabel>Select a Product</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup
-            value={selectedProduct}
-            onValueChange={setSelectedProduct}
+            value={product}
+            onValueChange={setProduct} // Here is the correction
           >
-            {products.map((product) => (
-              <DropdownMenuRadioItem key={product} value={product}>
-                {product}
+            {products.map((prod) => (
+              <DropdownMenuRadioItem key={prod} value={prod}>
+                {prod}
               </DropdownMenuRadioItem>
             ))}
           </DropdownMenuRadioGroup>
