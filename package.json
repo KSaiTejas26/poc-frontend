@@ -16,6 +16,7 @@
     "flowbite": "^2.4.1",
     "flowbite-react": "^0.10.1",
     "heroicons": "^2.1.4",
+    "multiselect-react-dropdown": "^2.0.25",
     "react": "^17.0.2",
     "react-bootstrap": "^2.10.4",
     "react-chartjs-2": "^4.0.0",
