@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./RealPage_Light.png";
+import logo from "../RealPage_Light.png";
 const Navbar = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>

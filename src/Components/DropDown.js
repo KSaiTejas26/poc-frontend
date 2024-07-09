@@ -164,7 +164,7 @@ function BasicExample() {
  
   return (
     <div>
-      <h2>MultiSelect Dropdown Example</h2>
+      {/* <h2>MultiSelect Dropdown Example</h2> */}
       <Multiselect
         options={options}
         selectedValues={options.filter(option => selectedValue.includes(option.name))}

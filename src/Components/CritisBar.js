@@ -98,13 +98,35 @@ const calculateAverageMTTR = (data) => {
  
   return averageMTTRbyMonth;
 };
+
  
 const BarChart = ({ data1 }) => {
+  console.log("DAAAATA",data1);
   const [data, setData] = useState({
     labels: [],
     datasets: [],
   });
- 
+ const critsbysre=()=>{
+    const crits=new Array(12).fill(0)
+    data1.map((prod)=>{
+      prod.info.map((ele)=>{
+        const month = new Date(ele.Date).getMonth();
+        crits[month]+=ele.crits.crits_by_sre
+      })
+    })
+    return crits;
+ }
+ const critsbynonsre=()=>{
+  const crits=new Array(12).fill(0);
+  data1.map((prod)=>{
+    prod.info.map((ele)=>{
+      const month = new Date(ele.Date).getMonth();
+      crits[month]+=ele.crits.crits_by_nonsre
+    })
+  })
+  return crits;
+}
+
   useEffect(() => {
     const getData = () => {
       if (data1 && data1.length > 0) {
@@ -140,13 +162,13 @@ const BarChart = ({ data1 }) => {
           return [
             {
               label: `${prod.product_name} - CRITS handled by SRE`,
-              data: averageMTTR.map((month) => month.crits_by_sre),
+              data: critsbysre(),
               backgroundColor: color,
               borderColor: color,
             },
             {
               label: `${prod.product_name} - CRITS handled by non-SRE`,
-              data: averageMTTR.map((month) => month.crits_by_nonsre),
+              data: critsbynonsre(),
               backgroundColor: `rgba(${color.match(/\d+/g).join(",")}, 0.5)`, // Semi-transparent color for non-SRE
               borderColor: color,
             },
