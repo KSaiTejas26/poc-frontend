@@ -90,7 +90,8 @@ import Mttr from './MttrLine';
 import Infra from './mttrchart';
 import WarningsTable from './WarningsTable';
 import SreNonSreTable from './SreNonSreTable';
-import CritsBar from './CritisBar'
+import CritsBar from './CritsBar'
+import Avgmttr from './Avgmttr';
  
 function BasicExample() {
   const [products, setProducts] = useState([]); // Initialize with an empty array
@@ -193,7 +194,7 @@ function BasicExample() {
       </div>
       <div className="row">
         <div className="col-md-6">
-        {products.length > 0 && <Mttr data1={products} />}
+        {products.length > 0 && <Avgmttr data1={products} />}
        
         </div>
         <div className="col-md-6">

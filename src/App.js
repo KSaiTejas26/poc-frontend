@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Pie from './Components/Excel Data/piechart23';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DropDown1 from './Components/Excel Data/DropDown';
+import Bar from './Components/CritsBar';
+import MTTR from './Components/Avgmttr';
 function App() {
   return (
     <div className="App" style={{ background: "#0b1826" }}>
@@ -23,6 +25,7 @@ function App() {
         <Routes>
           <Route path='/excel' Component={DropDown1 } />
           <Route path='/normal' Component={DropDown} />
+          <Route path='/bar' Component={MTTR} />
         </Routes>
       </BrowserRouter>
     </div>
