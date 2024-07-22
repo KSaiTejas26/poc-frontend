@@ -458,6 +458,9 @@ export default function VendorHeader() {
            <Link to="/addvendor" className="color-black text-md font-semibold leading-6 text-gray-900">
              Add Vendor
            </Link>
+           <Link to="/ordertable/admin" className="color-black text-md font-semibold leading-6 text-gray-900">
+             All Orders
+           </Link>
            {/* <Link to="/adminprofile" className="color-black text-sm font-semibold leading-6 text-gray-900">
              Profile
            </Link> */}
@@ -581,6 +584,14 @@ export default function VendorHeader() {
                     >
                     Add Vendor
                     </Link>
+
+                    <Link
+                    to="/ordertable/admin"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                    All Orders
+                    </Link>
+                    
 
                 {/* <Link to="#"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

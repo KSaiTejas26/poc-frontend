@@ -1,0 +1,249 @@
+/* General Styles */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* Checkout Page Styles */
+.checkoutPageContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%; /* Ensure the full width of the page */
+  margin-top: 20px;
+}
+
+.checkoutWrapper {
+  width: 80%; /* Set the wrapper to 80% of the page width */
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto; /* Center the wrapper within the container */
+}
+
+.checkoutContainer,
+.priceContainer {
+  width: 45%; /* Each container takes up 45% of the wrapper */
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.priceContainer {
+  background-color: #fff; /* Different background for price container */
+}
+
+/* Checkout Step Styles */
+.checkoutStep {
+  box-sizing: border-box;
+  background: #fff;
+  box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.checkoutHeader {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkoutHeader.active {
+  background: #2874f0;
+}
+
+.checkoutHeader .stepNumber {
+  display: inline-block;
+  text-align: center;
+  background: #eee;
+  color: #2874f0;
+  border-radius: 3px;
+  font-size: 12px;
+  box-sizing: border-box;
+  padding: 3px 7px;
+}
+
+.checkoutHeader.active .stepNumber {
+  background: #fff;
+}
+
+.stepTitle {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #878787;
+  margin-left: 15px;
+}
+
+.checkoutHeader.active .stepTitle {
+  color: #fff;
+}
+
+.loggedInId {
+  font-size: 12px;
+  margin: 0px 0 10px 60px;
+}
+
+.stepCompleted {
+  padding: 0 0 20px 60px;
+  font-size: 12px;
+}
+
+/* Address Styles */
+.addressContainer {
+  display: flex;
+  align-items: flex-start;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.radioContainer {
+  margin-right: 15px;
+}
+
+.addressRadio {
+  cursor: pointer;
+}
+
+.addressInfo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.addressDetailsContainer {
+  width: 100%;
+}
+
+.addressDetail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.addressHeader {
+  display: flex;
+  flex-direction: column;
+}
+
+.addressName {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.addressType {
+  font-size: 14px;
+  color: #555;
+  margin-left: 10px;
+}
+
+.addressMobileNumber {
+  font-size: 14px;
+  color: #555;
+  margin-left: 10px;
+}
+
+.editAddress {
+  font-weight: 500;
+  color: #2874f0;
+  cursor: pointer;
+}
+
+.fullAddress {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.deliveryButton,.nextStepButton {
+  width: 200px;
+  padding: 10px;
+  background-color: #2874f0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deliveryButton:hover {
+  background-color: #0056b3;
+}
+
+/* Price Details Styles */
+.priceDetails {
+  font-size: 14px;
+}
+
+.priceDetails p {
+  margin: 5px 0;
+}
+
+.priceDetails h2 {
+  margin-bottom: 20px;
+}
+
+/* Address Form Styles */
+.addressFormContainer {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.addressFormContainer h2 {
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.formActions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.formActions button[type="button"] {
+  background-color: #2874f0;
+  color: #fff;
+}
+
+.formActions button[type="button"]:last-child {
+  background-color: #f44336;
+  color: #fff;
+}

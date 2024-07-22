@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef} from "react";
 import { Link, useLocation } from "react-router-dom";
+import Header from "../AdminHeader";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
 const ProductReciept = () => {
   const location = useLocation();
   let [price, setTotalPrice] = useState(0);
+  const pdfRef=useRef();
 
   const [data, setData] = useState(location.state);
   useEffect(() => console.log(data), []);
@@ -13,8 +18,75 @@ const ProductReciept = () => {
     price += o * c;
   };
 
+  const handlePrint = () => {
+    // Add your print functionality here
+    window.print();
+    console.log("Print button clicked");
+  };
+
+  const handleDownload = () => {
+    // Add your download functionality here
+    const input=pdfRef.current;
+    html2canvas(input).then((canvas)=>{
+      const imgData=canvas.toDataURL('image/png');
+      const pdf=new jsPDF('p','mm','a4',true);
+      const pdfWidth=pdf.internal.pageSize.getWidth();
+      const pdfHeight=pdf.internal.pageSize.getHeight();
+      const imgWidth=canvas.width;
+      const imgHeight=canvas.height;
+      const ratio=Math.min(pdfWidth/imgWidth,pdfHeight/imgHeight);
+      const imgX=(pdfWidth-imgWidth*ratio)/2;
+      const imgY=30;
+      pdf.addImage(imgData,'PNG',imgX,imgY,imgWidth*ratio,imgHeight*ratio);
+      pdf.save('invoice.pdf');
+    })
+    
+    console.log("Download button clicked");
+  };
+
+  // const handleEmail = () => {
+  //   // Add your email functionality here
+  //   console.log("Email button clicked");
+  // };
+
+  const handleEmail = () => {
+    const input = pdfRef.current;
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4', true);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
+      const imgY = 30;
+      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+
+      // Convert the PDF to a data URL
+      const pdfData = pdf.output('datauristring');
+
+      // Send the email using EmailJS
+      const emailParams = {
+        to_email: 'recipient@example.com', // replace with recipient's email
+        subject: 'Your Subject Here',
+        message: 'Please find the attached PDF.',
+        attachment: pdfData
+      };
+
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams, 'YOUR_USER_ID')
+        .then((response) => {
+          console.log('Email sent successfully:', response.status, response.text);
+        }, (error) => {
+          console.error('Failed to send email:', error);
+        });
+    });
+  };
+
   return (
     <div>
+      <Header/>
+      <div ref={pdfRef}>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
         <form action="#" className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <div className="mx-auto max-w-3xl">
@@ -1173,6 +1245,31 @@ const ProductReciept = () => {
           </div>
         </div>
       </div>
+      </div>
+
+      <div className="flex justify-center gap-4 mt-4 mb-6">
+        <button
+          
+          className="  text-blue-700 font-semibold hover:text-white hover:bg-blue-500 py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          onClick={handlePrint}
+          
+        >
+          Print
+        </button>
+        <button
+          className=" hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          onClick={handleDownload}
+        >
+          Download
+        </button>
+        <button
+          className=" hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          onClick={handleEmail}
+        >
+          Email
+        </button>
+      </div>
+
     </div>
   );
 };

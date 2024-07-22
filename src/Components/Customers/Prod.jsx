@@ -19,12 +19,14 @@ function Prod(props) {
   const [isLargerThanMd] = useMediaQuery('(min-width: 768px)');
   const handleClick = async (obj) => {
     const newobj={
-        product_name: obj.pname,
+      product_name: obj.pname,
         
-        product_brand: obj.brand,
-        price: obj.price,
-        image: obj.main_image,
-        
+      product_brand: obj.brand,
+      price: obj.price,
+      image: obj.main_image,
+      product_id:obj._id,
+      vendor_id:obj.vid
+      
     }
     
     try{

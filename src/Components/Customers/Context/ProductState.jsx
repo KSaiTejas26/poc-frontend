@@ -89,6 +89,7 @@ function ProductState(props) {
 
     }
     const addCart=async(obj)=>{
+     
       const token=localStorage.getItem('token');
       try{
         const response = await axios.post(
@@ -108,6 +109,24 @@ function ProductState(props) {
       getCart();
       
     }
+    const makeOrder=async (prodArray,orderDetails)=>{
+      const obj={products:[...prodArray],details:{...orderDetails}};
+      console.log(obj);
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/auth/customer/order",
+          obj,{
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }
+        );
+        return response;
+        
+      } catch (error) {
+        console.log(error);
+      }
+    }
     useEffect(() => {
       getProds();
       getCategory();
@@ -125,7 +144,7 @@ function ProductState(props) {
     }
 
     return (
-      <prodcontext.Provider value={{ data, getProds, cart, category,deleteCart,setCart,addCart }}>
+      <prodcontext.Provider value={{ data, getProds, cart, category,deleteCart,setCart,addCart,makeOrder }}>
         {props.children}
       </prodcontext.Provider>
     );

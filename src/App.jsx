@@ -29,6 +29,7 @@ import VendorSpecific from './Components/Admin/VendorSepcificProducts/VendorSpec
 import AllOrders from './Components/Admin/Orders/AdminOrders';
 import AdminOrderPage from './Components/Admin/Orders/OrderPage';
 import ProductReciept from './Components/Admin/Orders/OrderReceipt';
+import CheckoutPage from './Components/Customers/Checkout2';
 
 import Land from './Components/Customers/Land';
 import Category from './Components/Customers/CategoryWiseProductPage/category'
@@ -45,7 +46,7 @@ function App() {
          
          
     <Router>
-    {/* <ProductState> */}
+    <ProductState>
     <ToastContainer stacked/>
       <Routes>
         {/* <Route path="/" Component={Login} /> */}
@@ -53,6 +54,7 @@ function App() {
         <Route path="/Register" Component={LandingRegister } />
         <Route path="/Register/CustomerRegister" Component={CustomerRegister } />
         <Route path="/Register/VendorRegister" Component={VendorRegister} />
+        <Route path="/Checkout2" element={<CheckoutPage/>} />
 
         {/*Vendor Routes*/}
         <Route path="/vendorsproduct" Component={VendorsProduct}></Route>
@@ -84,7 +86,7 @@ function App() {
         <Route path="/SoloProduct/:id/customer" element={<SoloProductPage/>} />
         
       </Routes>
-      {/* </ProductState> */}
+      </ProductState>
       
     </Router>
     

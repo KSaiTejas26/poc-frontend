@@ -28,6 +28,7 @@ const HoverImage = styled('img')(({ theme }) => ({
 const Land = () => {
   const navigate = useNavigate();
   const context = useContext(prodcontext);
+  console.log(" aaa ",context)
   const { data, category } = context;
 
   // Check if context values are loading

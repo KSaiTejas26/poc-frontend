@@ -85,11 +85,23 @@ export default function PrimarySearchAppBar() {
   const [showCart, setShowCart] = useState(false);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
- 
+  const [sum, setsum] = useState(0)
+  const calculateTotal=()=>{
+    let total=0;
+    cart.map((prod)=>{
+      total+=Number(prod.price);
+    });
+    setsum(total);
+  }
+  const handleClickCheckout=()=>{
+    navigate('/Checkout2');
+  }
   const handleDeleteClick=(id)=>{
     try{
       deleteCart(id);
+      
       toast.success("Removed Successfully");
+      calculateTotal();
     }
     catch(error)
     {
@@ -100,6 +112,7 @@ export default function PrimarySearchAppBar() {
   
 
   const handleClickCart = () => {
+    calculateTotal();
     setShowCart(!showCart);
     setOpen(!open);
     
@@ -251,7 +264,7 @@ export default function PrimarySearchAppBar() {
                         <div className="mt-8">
                           <div className="flow-root">
                             <ul role="list" className="-my-6 divide-y divide-gray-200">
-                              {cart.length!=0?cart.map((product) => (
+                              {cart.map((product) => (
                                 <li key={product.id} className="flex py-6">
                                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <img
@@ -286,7 +299,7 @@ export default function PrimarySearchAppBar() {
                                     </div>
                                   </div>
                                 </li>
-                              )):{}}
+                              ))}
                             </ul>
                           </div>
                         </div>
@@ -295,15 +308,15 @@ export default function PrimarySearchAppBar() {
                       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                         <div className="flex justify-between text-base font-medium text-gray-900">
                           <p>Subtotal</p>
-                          <p>$262.00</p>
+                          <p>${sum}</p>
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                         <div className="mt-6">
                           <a
-                            href="#"
+                           
                             className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                           >
-                            Checkout
+                            <button onClick={handleClickCheckout}>Checkout</button>
                           </a>
                         </div>
                         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
