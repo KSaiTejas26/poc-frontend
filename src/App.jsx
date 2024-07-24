@@ -37,7 +37,8 @@ import Vendorspecific from './Components/VendorSpecific/VendorStore'
 import ProductState from './Components/Customers/Context/ProductState';
 import SoloProductPage from'./Components/Customers/SoloproductPage';
 import  OrderTable  from './Components/Vendor/ProductTracking/OrderTable';
-
+import Orders from './Components/Customers/orders/CustomerOrders';
+import SingleOrder from './Components/Customers/orders/SingleOrder'
 
 
 function App() {
@@ -81,9 +82,11 @@ function App() {
         {/* customer routes */}
         
         <Route path='/customer' Component={Land}></Route>
+        <Route path='/orders' Component={Orders}></Route>
         <Route path="/vendorspecific" element={<Vendorspecific/>} />
         <Route path="/category/:value" element={<Category/>} />
         <Route path="/SoloProduct/:id/customer" element={<SoloProductPage/>} />
+        <Route path="/Orders/:id" element={<SingleOrder/>} />
         
       </Routes>
       </ProductState>

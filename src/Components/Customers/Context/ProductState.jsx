@@ -12,6 +12,7 @@ function ProductState(props) {
     const [data, setData] = useState(initialproducts);
     const [category, setCat] = useState(initialcategory);
     const [cart, setCart] = useState(initialcategory);
+    const [orders, setOrders] = useState([]);
     // localStorage.setItem('token',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lciI6eyJpZCI6IjY2NWQ2OTA4MWJkNDdiODZiZGMwN2ExNCJ9LCJpYXQiOjE3MTgwODg3Nzl9.cVGl7KFHiOZE2e4E8hokr65nLS_oKa-99tG-dq-rrA8");
     
     const getProds = async () => {
@@ -28,7 +29,22 @@ function ProductState(props) {
         console.log("Error in axios getProds");
       }
     }
-
+    const getOrders =async ()=>{
+      try {
+        const response = await axios.get("http://localhost:3000/api/auth/customer/getorders", {
+          headers: {
+            "Content-Type": "application/json",
+            auth_token:localStorage.getItem("token"),
+          }
+        });
+        const responseData = await response.data;
+        console.log("response",responseData)
+        setOrders(responseData);
+        console.log("orders data is",orders);
+      } catch (error) {
+        console.log("Error in axios getProds");
+      }
+    }
     const getCategory = async () => {
       try {
         const response = await axios.get("http://localhost:3000/api/customer/getCategory", {
@@ -131,6 +147,7 @@ function ProductState(props) {
       getProds();
       getCategory();
       getCart();
+      getOrders();
     }, []);
 
     useEffect(() => {
@@ -144,7 +161,7 @@ function ProductState(props) {
     }
 
     return (
-      <prodcontext.Provider value={{ data, getProds, cart, category,deleteCart,setCart,addCart,makeOrder }}>
+      <prodcontext.Provider value={{ data, getProds, cart, category,deleteCart,setCart,addCart,makeOrder,orders }}>
         {props.children}
       </prodcontext.Provider>
     );
